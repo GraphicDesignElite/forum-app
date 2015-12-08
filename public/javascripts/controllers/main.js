@@ -1,7 +1,13 @@
-var app = angular.module('forum-app', []);
-app.controller('MainCtrl', ['$scope', function($scope){
-    $scope.test = 'Hello world!';
+var app = angular.module('forum-app', ['ngMessages']);
+app.controller('MainCtrl', ['$scope','posts', function($scope, posts){
 
+    $scope.showPosts = true;
+    $scope.showForm = false;
+    $scope.message = "";
+    $scope.showMessage = false;
+    
+    $scope.posts = posts.posts;
+    
     $scope.posts = [
         {title: 'post 1', upvotes: 5},
         {title: 'post 2', upvotes: 2},
@@ -10,14 +16,24 @@ app.controller('MainCtrl', ['$scope', function($scope){
         {title: 'post 5', upvotes: 4}
     ];
     
-    // add posts
-    $scope.addPost = function(){
-        if(!$scope.newPostTitle || $scope.newPostTitle === '') { return; }
-        $scope.posts.push({title: $scope.newPostTitle , upvotes: 0 });
-        $scope.newPostTitle = '';
-    }
     
-    // display ordering functions
+    
+    // add posts
+    $scope.addPost = function(valid){
+        if(!valid || !$scope.newPostTitle || $scope.newPostTitle === '' || !$scope.newPostContent || $scope.newPostContent === ''){ return; }
+        $scope.posts.push({title: $scope.newPostTitle , postcontent: $scope.newPostContent, upvotes: 0, created: Date.now() });
+        $scope.newPostTitle = '';
+        $scope.newPostContent = '';
+        $scope.message = "Your Post Was Successfully Added";
+        $scope.showMessage = true;
+        $scope.switchPostViews();
+        $scope.addpostform.$setUntouched();
+    }
+    // upvote a post
+    $scope.upvotePost = function(post){
+        post.upvotes += 1;
+    }
+    // display and ordering functions
     $scope.orderByTitle = function(){
         if($scope.rowFilter == 'title'){
             $scope.rowFilter = '-title';
@@ -34,4 +50,33 @@ app.controller('MainCtrl', ['$scope', function($scope){
             $scope.rowFilter = '-upvotes';
         }
     };
+    $scope.orderByDate= function(){
+        if($scope.rowFilter == '-created'){
+            $scope.rowFilter = 'created';
+        }
+        else{
+            $scope.rowFilter = '-created';
+        }
+    };
+    $scope.switchPostViews = function(){
+        if($scope.showPosts){
+            $scope.showPosts = false;
+            $scope.showForm = true;
+        }
+        else{
+            $scope.showPosts = true;
+            $scope.showForm = false;
+        }
+    }
+    $scope.hideMessage = function(){
+        $scope.message = "";
+        $scope.showMessage = false;
+    }
+}]);
+
+app.factory('posts', [function(){
+  var o = {
+    posts: []
+  };
+  return o;
 }]);

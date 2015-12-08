@@ -1,19 +1,32 @@
-body{font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;}
+body{font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; padding-top:50px;}
 
+/* Table Styles */
 .table-heading{background:#D8EDF6; border:1px solid #BDDDEB; border-right:0px;}
 .table-heading:last-child{border-right:1px solid #BDDDEB;}
 .table-heading p{ margin:0px; padding-top: 10px; padding-bottom: 10px; cursor: pointer;}
 .table-heading .fa{color:#8DCBE6;}
 .table-heading span{float:right;}
-
+.table-wrap{padding:0px 15px;}
 .post-row{background: #F6F6F6; padding-top:10px; padding-bottom:10px;}
 .post-row:nth-child(even){background:#fff;}
 .post-row:nth-child(odd){}
 .post-row p{ padding:0px; margin:0px; }
 
+.upvote-display{text-align: right;}
 
+/* Button Styles */
+.button-container{margin-top:20px;}
 .upvote-button{ float:right; }
 .upvote-button .fa{ color:#ccc; cursor:pointer;}
+.hide-message-btn{float:right; margin-top:-10px; background:#9FE39F;}
+.hide-message-btn .fa{color:#CBFCCB;}
+
+/* Utilities Styles */
+.user-message{background:#CBFCCB; border:1px solid #9FE39F; padding:15px; margin-bottom:10px;}
+.user-message p{padding:0px; margin:0px;}
+.error-container{margin-top:5px;}
+.error-container p{display:inline-block; padding:4px; background: #F0F0B0;}
+.text-counter{color:#bbb ; padding:10px 0px; float:right;}
 
 .form-container{margin-top:20px;}
 

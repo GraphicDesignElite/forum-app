@@ -7,59 +7,105 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body id="application" ng-app="forum-app" ng-controller="MainCtrl">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Formation Forum</h1>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Posts</h2>
-            </div>
-            <div class="col-md-8 col-sm-8 col-xs-8 table-heading">
-                <p ng-click="orderByTitle()">Title
-                    <span ng-show="rowFilter == 'title'"><i class="fa fa-arrow-circle-down"></i></span>
-                    <span ng-show="rowFilter == '-title'"><i class="fa fa-arrow-circle-up"></i></span>
-                </p>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-4 table-heading">
-                <p ng-click="orderByVotes()">Upvotes
-                    <span ng-show="rowFilter == '-upvotes'"><i class="fa fa-arrow-circle-down"></i></span>
-                    <span ng-show="rowFilter == 'upvotes'"><i class="fa fa-arrow-circle-up"></i></span>
-                </p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="row post-row" ng-repeat="post in posts | orderBy: rowFilter">
-            <div class="col-md-8 col-sm-8 col-xs-8">
-                <p>{{post.title}}</p>
-            </div>
-            <div class="col-md-4 col-sm-4 col-xs-4">
-                <p>{{post.upvotes}} <span class="upvote-button" ng-click="upvote(post)"><i class="fa fa-thumbs-up"></i></span></p>
-            </div>
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="row form-container">
-            <form ng-submit="addPost()">
-                <div class="col-md-12">
-                    <h4>Add a New Post</h4>
-                    <label> Title
-                        <input type="text" ng-model="newPostTitle"/>
-                    </label>
-                    <button type="submit">Add Post</button>
+    <div id="posts-display" ng-show="showPosts == true">
+        <!-- start responsive table header -->
+        <div class="container">
+            <div class="row">
+                <div class="table-wrap">
+                    <div class="user-message" ng-show="showMessage == true">
+                        <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                        <p>{{message}}</p>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7 table-heading">
+                        <p ng-click="orderByTitle()">Title
+                            <span ng-show="rowFilter == 'title'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-title'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 table-heading">
+                        <p ng-click="orderByDate()">Date
+                            <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 table-heading">
+                        <p ng-click="orderByVotes()">&nbsp;
+                            <span ng-show="rowFilter == '-upvotes'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == 'upvotes'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
                 </div>
-            </form>   
+            </div>
+        </div>
+        <!-- end responsive table header -->
+        
+        <!-- start display posts -->
+        <div class="container">
+            <div class="table-wrap">
+                <div class="row post-row" ng-repeat="post in posts | orderBy: rowFilter">
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+                        <p>{{post.title}}</p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <p>{{post.created | date }}</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <p class="upvote-display"><span class="upvote-count">{{post.upvotes}}</span>&nbsp;<span class="upvote-button" ng-click="upvotePost(post)"><i class="fa fa-thumbs-up"></i></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row button-container">
+                <div class="col-md-12">
+                    <button class="btn" ng-click="switchPostViews()" ><i class="fa fa-plus-circle"></i> Create a New Post</button>
+                </div>
+            </div>
+        </div>        
+    </div><!-- end posts-display -->
+    
+    
+    <!-- Add a new Post -->
+    <div id="form-container" ng-show="showForm == true">
+        <div class="container">
+            <div class="row form-container">
+                <form name="addpostform" ng-submit="addPost(addpostform.$valid)" novalidate >
+                    <div class="col-md-12">
+                        <button class="btn" ng-click="switchPostViews()" ><i class="fa fa-chevron-left"></i> Go Back</button>
+                        <h4>Post Topic</h4>
+                        <div class="form-group">
+                            <label for="newPostTitle">Post Title</label>
+                            <input type="text" class="form-control" ng-model="newPostTitle" name="newPostTitle" required ng-minlength="5" ng-maxlength="100" />
+                            <div class="error-container" ng-messages="addpostform.newPostTitle.$error" ng-if="addpostform.newPostTitle.$touched">
+                                <p ng-message="minlength">Your Post Title is too short.</p>
+                                <p ng-message="maxlength">Your Post Title is too long.</p>
+                                <p ng-message="required">Your Post Title is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPostContent">Post Content</label>
+                            <div class="text-counter">{{230 - newPostContent.length}}</div>
+                            <textarea class="form-control" rows="4" cols="50" ng-model="newPostContent" name="newPostContent" ng-trim="false" required ng-maxlength="230"></textarea>
+                            
+                            <div class="error-container" ng-messages="addpostform.newPostContent.$error" ng-if="addpostform.newPostContent.$touched">
+                                <p ng-message="minlength">Your Post Content is too short.</p>
+                                <p ng-message="maxlength">Your Post Content is too long.</p>
+                                <p ng-message="required">Post Content is required.</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" type="submit" ng-disabled="addpostform.$invalid">Add Post</button>
+                    </div>
+                </form>   
+            </div>
         </div>
     </div>
+    
+    
     
     <script src="/components/angular/angular.min.js"></script>
+    <script src="/components/angular-messages/angular-messages.min.js"></script>
+    <script src="/components/angular-route/angular-route.min.js"></script>
     <script src="/javascripts/controllers/main.js"></script>
   </body>
 </html>
