@@ -1,0 +1,19 @@
+body{font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;}
+
+.table-heading{background:#D8EDF6; border:1px solid #BDDDEB; border-right:0px;}
+.table-heading:last-child{border-right:1px solid #BDDDEB;}
+.table-heading p{ margin:0px; padding-top: 10px; padding-bottom: 10px; cursor: pointer;}
+.table-heading .fa{color:#8DCBE6;}
+.table-heading span{float:right;}
+
+.post-row{background: #F6F6F6; padding-top:10px; padding-bottom:10px;}
+.post-row:nth-child(even){background:#fff;}
+.post-row:nth-child(odd){}
+.post-row p{ padding:0px; margin:0px; }
+
+
+.upvote-button{ float:right; }
+.upvote-button .fa{ color:#ccc; cursor:pointer;}
+
+.form-container{margin-top:20px;}
+

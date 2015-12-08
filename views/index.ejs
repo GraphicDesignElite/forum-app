@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/components/font-awesome/css/font-awesome.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body id="application" ng-app="forum-app" ng-controller="MainCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Formation Forum</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Posts</h2>
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-8 table-heading">
+                <p ng-click="orderByTitle()">Title
+                    <span ng-show="rowFilter == 'title'"><i class="fa fa-arrow-circle-down"></i></span>
+                    <span ng-show="rowFilter == '-title'"><i class="fa fa-arrow-circle-up"></i></span>
+                </p>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4 table-heading">
+                <p ng-click="orderByVotes()">Upvotes
+                    <span ng-show="rowFilter == '-upvotes'"><i class="fa fa-arrow-circle-down"></i></span>
+                    <span ng-show="rowFilter == 'upvotes'"><i class="fa fa-arrow-circle-up"></i></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row post-row" ng-repeat="post in posts | orderBy: rowFilter">
+            <div class="col-md-8 col-sm-8 col-xs-8">
+                <p>{{post.title}}</p>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <p>{{post.upvotes}} <span class="upvote-button" ng-click="upvote(post)"><i class="fa fa-thumbs-up"></i></span></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row form-container">
+            <form ng-submit="addPost()">
+                <div class="col-md-12">
+                    <h4>Add a New Post</h4>
+                    <label> Title
+                        <input type="text" ng-model="newPostTitle"/>
+                    </label>
+                    <button type="submit">Add Post</button>
+                </div>
+            </form>   
+        </div>
+    </div>
+    
+    <script src="/components/angular/angular.min.js"></script>
+    <script src="/javascripts/controllers/main.js"></script>
+  </body>
+</html>
