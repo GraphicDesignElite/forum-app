@@ -1,0 +1,35 @@
+<!-- Add a new Post -->
+    <div id="form-container">
+        <div class="container">
+            <div class="row form-container">
+                <form name="addpostform" ng-submit="addPost(addpostform.$valid)" novalidate >
+                    <div class="col-md-12">
+                        <a href="/#/home/"><i class="fa fa-chevron-left"></i> Go Back</a>
+                        <h4>Post Topic</h4>
+                        <div class="form-group">
+                            <label for="newPostTitle">Post Title</label>
+                            <input type="text" class="form-control" ng-model="newPostTitle" name="newPostTitle" required ng-minlength="5" ng-maxlength="100" />
+                            <div class="error-container" ng-messages="addpostform.newPostTitle.$error" ng-if="addpostform.newPostTitle.$touched">
+                                <p ng-message="minlength">Your Post Title is too short.</p>
+                                <p ng-message="maxlength">Your Post Title is too long.</p>
+                                <p ng-message="required">Your Post Title is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPostContent">Post Content</label>
+                            <div class="text-counter">{{230 - newPostContent.length}}</div>
+                            <textarea class="form-control" rows="4" cols="50" ng-model="newPostContent" name="newPostContent" ng-trim="false" required ng-maxlength="230"></textarea>
+                            
+                            <div class="error-container" ng-messages="addpostform.newPostContent.$error" ng-if="addpostform.newPostContent.$touched">
+                                <p ng-message="minlength">Your Post Content is too short.</p>
+                                <p ng-message="maxlength">Your Post Content is too long.</p>
+                                <p ng-message="required">Post Content is required.</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" type="submit" ng-disabled="addpostform.$invalid">Add Post</button>
+                    </div>
+                </form>   
+            </div>
+        </div>
+    </div>

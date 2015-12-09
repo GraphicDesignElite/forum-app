@@ -1,0 +1,57 @@
+<div id="posts-display">
+        <!-- start responsive table header -->
+        <div class="container">
+            <div class="row">
+                <div class="table-wrap">
+                    <div class="user-message" ng-show="showMessage == true">
+                        <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                        <p>{{message}}</p>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-7 table-heading">
+                        <p ng-click="orderByTitle()">Title
+                            <span ng-show="rowFilter == 'title'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-title'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 table-heading">
+                        <p ng-click="orderByDate()">Date
+                            <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 table-heading">
+                        <p ng-click="orderByVotes()">&nbsp;
+                            <span ng-show="rowFilter == '-upvotes'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == 'upvotes'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end responsive table header -->
+        
+        <!-- start display posts -->
+        <div class="container">
+            <div class="table-wrap">
+                <div class="row post-row" ng-repeat="post in posts | orderBy: rowFilter">
+                    <div class="col-md-7 col-sm-7 col-xs-7">
+                        <p><a href="/#/viewpost/{{$index}}">{{post.title}}</a></p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <p>{{post.created | date:'MM-dd-yy @ HH:mm:ss' }}</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <p class="upvote-display"><span class="upvote-count">{{post.upvotes}}</span>&nbsp;<span class="upvote-button" ng-click="upvotePost(post)"><i class="fa fa-thumbs-up"></i></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row button-container">
+                <div class="col-md-12">
+                    <a href="/#/add-post"><i class="fa fa-plus-circle"></i> Create a New Post</a>
+                </div>
+            </div>
+        </div>        
+    </div><!-- end posts-display -->
+   

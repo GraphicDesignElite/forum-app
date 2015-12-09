@@ -1,4 +1,4 @@
-var app = angular.module('forum-app', ['ngMessages']);
+
 app.controller('MainCtrl', ['$scope','posts', function($scope, posts){
 
     $scope.showPosts = true;
@@ -6,29 +6,9 @@ app.controller('MainCtrl', ['$scope','posts', function($scope, posts){
     $scope.message = "";
     $scope.showMessage = false;
     
-    $scope.posts = posts.posts;
+    $scope.posts = posts.posts; // add [posts] from our factory in angularapp
     
-    $scope.posts = [
-        {title: 'post 1', upvotes: 5},
-        {title: 'post 2', upvotes: 2},
-        {title: 'post 3', upvotes: 15},
-        {title: 'post 4', upvotes: 9},
-        {title: 'post 5', upvotes: 4}
-    ];
-    
-    
-    
-    // add posts
-    $scope.addPost = function(valid){
-        if(!valid || !$scope.newPostTitle || $scope.newPostTitle === '' || !$scope.newPostContent || $scope.newPostContent === ''){ return; }
-        $scope.posts.push({title: $scope.newPostTitle , postcontent: $scope.newPostContent, upvotes: 0, created: Date.now() });
-        $scope.newPostTitle = '';
-        $scope.newPostContent = '';
-        $scope.message = "Your Post Was Successfully Added";
-        $scope.showMessage = true;
-        $scope.switchPostViews();
-        $scope.addpostform.$setUntouched();
-    }
+  
     // upvote a post
     $scope.upvotePost = function(post){
         post.upvotes += 1;
@@ -74,9 +54,3 @@ app.controller('MainCtrl', ['$scope','posts', function($scope, posts){
     }
 }]);
 
-app.factory('posts', [function(){
-  var o = {
-    posts: []
-  };
-  return o;
-}]);
