@@ -4,7 +4,6 @@
             <div class="row form-container">
                 <form name="addpostform" ng-submit="addPost(addpostform.$valid)" novalidate >
                     <div class="col-md-12">
-                        <a href="/#/home/"><i class="fa fa-chevron-left"></i> Go Back</a>
                         <h4>Post Topic</h4>
                         <div class="form-group">
                             <label for="newPostTitle">Post Title</label>
@@ -17,8 +16,8 @@
                         </div>
                         <div class="form-group">
                             <label for="newPostContent">Post Content</label>
-                            <div class="text-counter">{{230 - newPostContent.length}}</div>
-                            <textarea class="form-control" rows="4" cols="50" ng-model="newPostContent" name="newPostContent" ng-trim="false" required ng-maxlength="230"></textarea>
+                            <div class="text-counter">{{maxPostContentSize - newPostContent.length}}</div>
+                            <textarea class="form-control" maxlength="{{maxPostContentSize}}" rows="4" cols="50" ng-model="newPostContent" name="newPostContent" ng-trim="false" required ng-maxlength="230"></textarea>
                             
                             <div class="error-container" ng-messages="addpostform.newPostContent.$error" ng-if="addpostform.newPostContent.$touched">
                                 <p ng-message="minlength">Your Post Content is too short.</p>
@@ -26,8 +25,8 @@
                                 <p ng-message="required">Post Content is required.</p>
                             </div>
                         </div>
-                        
-                        <button class="btn" type="submit" ng-disabled="addpostform.$invalid">Add Post</button>
+                        <button class="btn" type="submit" ng-disabled="addpostform.$invalid"><i class="fa fa-plus-circle"></i> Add Post</button>
+                        <a href="/#/home/"><i class="fa fa-chevron-left"></i> Go Back</a>
                     </div>
                 </form>   
             </div>

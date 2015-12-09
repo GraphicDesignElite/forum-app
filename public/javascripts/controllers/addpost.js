@@ -1,11 +1,7 @@
 app.controller('AddPostCtrl', ['$scope', '$location' ,'posts', function($scope, $location, posts){
 
-    $scope.showPosts = true;
-    $scope.showForm = false;
-    $scope.message = "";
-    $scope.showMessage = false;
-    
     $scope.posts = posts.posts; // add [posts] from our factory in angularapp
+    $scope.maxPostContentSize = 230;
     
     // add posts function
     $scope.addPost = function(valid){
@@ -16,8 +12,8 @@ app.controller('AddPostCtrl', ['$scope', '$location' ,'posts', function($scope, 
             upvotes: 0,
             created: Date.now(), 
             comments: [
-                {author: 'Joe', body: 'Cool post!', upvotes: 0},
-                {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
+                {author: 'Joe', body: 'Cool post!', upvotes: 0, created: Date.now()},
+                {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, created: Date.now()}
             ]
         });
         $scope.newPostTitle = '';

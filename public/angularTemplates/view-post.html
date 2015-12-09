@@ -1,2 +1,21 @@
-{{post.title}}
-{{post.postcontent}}
+<div id="view-posts-display">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>{{post.title}}</h1>
+				<p class="post-created-date">Created at {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
+				<div class="view-post-content">{{post.postcontent}}</div>
+				<a class="btn" href="/#/home">Go Back</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 comment-container">
+				<h4>{{post.comments.length}} Comments on &quot;{{post.title}}&quot;</h4>
+				<div class="comment-block" ng-repeat="comment in post.comments">
+					<p class="post-created-date">Commented at {{comment.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
+					<p class="comment-body">{{comment.body}}</p>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
