@@ -25,6 +25,9 @@ body{font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; padding-top:50px;
 .hide-message-btn{float:right; margin-top:-10px; background:#9FE39F;}
 .hide-message-btn .fa{color:#CBFCCB;}
 
+#view-posts-display .btn.back-btn{float:right;}
+#view-posts-display .post-title{ margin-top:0px; }
+
 /* Utilities Styles */
 .user-message{background:#CBFCCB; border:1px solid #9FE39F; padding:15px; margin-bottom:10px;}
 .user-message p{padding:0px; margin:0px;}

@@ -2,10 +2,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>{{post.title}}</h1>
+				<a class="btn btn-default back-btn" href="/#/home">Go Back</a>
+				<h1 class="post-title">{{post.title}}</h1>
 				<p class="post-created-date">Created at {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
 				<div class="view-post-content">{{post.postcontent}}</div>
-				<a class="btn" href="/#/home">Go Back</a>
 			</div>
 		</div>
 		<div class="row">
