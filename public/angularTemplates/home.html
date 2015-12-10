@@ -41,7 +41,7 @@
                         <p>{{post.created | date:'MM-dd-yy @ HH:mm:ss' }}</p>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-2">
-                        <p class="upvote-display"><span class="upvote-count">{{post.upvotes}}</span>&nbsp;<span class="upvote-button" ng-click="upvotePost(post)"><i class="fa fa-thumbs-up"></i></span></p>
+                        <p class="upvote-display"><span class="upvote-count">+{{post.upvotes}}</span>&nbsp;<span class="downvote-count">-{{post.downvotes}}</span></p>
                     </div>
                 </div>
             </div>

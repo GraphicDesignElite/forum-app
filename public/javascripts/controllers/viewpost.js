@@ -6,6 +6,9 @@ app.controller('ViewPostsCtrl', ['$scope','$stateParams', 'posts', 'vote', funct
 	$scope.upvotePost = function(post){
         vote.upvote(post);
     }
+	$scope.downvotePost = function(post){
+        vote.downvote(post);
+    }
 	
 	$scope.addComment = function(){
 		if($scope.newComment =='' || $scope.newComment == null){return;}
@@ -13,6 +16,7 @@ app.controller('ViewPostsCtrl', ['$scope','$stateParams', 'posts', 'vote', funct
 			author: 'Anonymous',
 			body: $scope.newComment,
 			upvotes: 0,
+			downvotes: 0,
 			created: Date.now()
 		});
 		$scope.newComment = '';

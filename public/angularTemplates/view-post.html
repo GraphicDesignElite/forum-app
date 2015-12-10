@@ -9,11 +9,12 @@
 						<p class="post-created-date">Created at {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
 						<div class="view-post-content">{{post.postcontent}}</div>
 						<div class="info-line">
-							{{post.upvotes}}&nbsp;Likes, {{post.comments.length}}&nbsp;Comments
+							{{post.upvotes}}&nbsp;Likes, {{post.downvotes}}&nbsp;Dislikes, {{post.comments.length}}&nbsp;Comments
 						</div>
 						<div class="row">
 							<div class="col-md-3">
 								<span class="upvote-button" ng-click="upvotePost(post)"><i class="fa fa-thumbs-up"></i></span>
+								<span class="downvote-button" ng-click="downvotePost(post)"><i class="fa fa-thumbs-down"></i></span>
 							</div>
 						</div>
 					</div>
@@ -35,15 +36,19 @@
 							<p class="post-created-date">Commented at {{comment.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
 							<p class="comment-body">{{comment.body}}</p>
 							<div class="info-line">
-							{{comment.upvotes}}&nbsp;Likes
+							{{comment.upvotes}}&nbsp;Likes, {{comment.downvotes}}&nbsp;Dislikes
 							</div>
 							<span class="upvote-button" ng-click="upvotePost(comment)"><i class="fa fa-thumbs-up"></i></span>
+							<span class="downvote-button" ng-click="downvotePost(comment)"><i class="fa fa-thumbs-down"></i></span>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-4" id="recent-posts-feed">
-				Recent posts feed here
+				<h4>Recent Posts</h4>
+				<div class="recent-post" ng-repeat="recentpost in posts | orderBy: '-created'" ng-if="recentpost.title != post.title">
+					<a ng-href="/#/viewpost/{{$index}}">{{recentpost.title | cut:true:40: ' ...' }}</a>
+				</div>
 			</div>	
 		</div>	
 	</div>

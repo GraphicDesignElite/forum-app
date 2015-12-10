@@ -10,10 +10,11 @@ app.controller('AddPostCtrl', ['$scope', '$location' ,'posts', 'userMessages', f
             title: $scope.newPostTitle ,
             postcontent: $scope.newPostContent,
             upvotes: 0,
+            downvotes: 0,
             created: Date.now(), 
             comments: [
-                {author: 'Joe', body: 'Cool post!', upvotes: 0, created: Date.now()},
-                {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, created: Date.now()}
+                {author: 'Joe', body: 'Cool post!', upvotes: 0, downvotes: 0, created: Date.now()},
+                {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, downvotes: 0, created: Date.now()}
             ]
         });
         $scope.newPostTitle = '';
