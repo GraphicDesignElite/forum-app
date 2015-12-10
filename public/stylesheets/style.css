@@ -17,10 +17,12 @@ body{font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; padding-top:50px;
 .post-created-date{color:#bbb; font-size:11px;}
 .comment-container{border-top:1px solid #ddd; margin-top:25px; padding-top:25px;}
 .comment-block{margin-left:20px; padding-left:20px; border-left:3px solid #ddd; margin-bottom:20px;}
+.add-comment-form{margin:15px 0px 25px 0px;}
+.info-line{color:#bbb; font-size:11px; padding: 10px 0px;}
 
 /* Button Styles */
 .button-container{margin-top:20px;}
-.upvote-button{ float:right; }
+
 .upvote-button .fa{ color:#bbb; cursor:pointer;}
 .hide-message-btn{float:right; margin-top:-10px; background:#9FE39F;}
 .hide-message-btn .fa{color:#CBFCCB;}
@@ -36,5 +38,3 @@ body{font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; padding-top:50px;
 .text-counter{color:#bbb ; padding:10px 0px; float:right;}
 
 .form-container{margin-top:20px;}
-
-.

@@ -1,5 +1,5 @@
 
-app.controller('MainCtrl', ['$scope','posts', function($scope, posts){
+app.controller('MainCtrl', ['$scope','posts', 'vote', 'userMessages', function($scope, posts, vote, userMessages){
 
     $scope.showPosts = true;
     $scope.showForm = false;
@@ -7,12 +7,13 @@ app.controller('MainCtrl', ['$scope','posts', function($scope, posts){
     $scope.showMessage = false;
     
     $scope.posts = posts.posts; // add [posts] from our factory in angularapp
-    
+    $scope.message = userMessages.getMessage();
   
-    // upvote a post
+    // upvote a post with our vote service
     $scope.upvotePost = function(post){
-        post.upvotes += 1;
+        vote.upvote(post);
     }
+    
     // display and ordering functions
     $scope.orderByTitle = function(){
         if($scope.rowFilter == 'title'){
@@ -49,8 +50,8 @@ app.controller('MainCtrl', ['$scope','posts', function($scope, posts){
         }
     }
     $scope.hideMessage = function(){
-        $scope.message = "";
-        $scope.showMessage = false;
+        userMessages.setMessage('');
+        $scope.message = userMessages.getMessage();
     }
 }]);
 
