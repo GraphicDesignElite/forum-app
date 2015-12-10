@@ -34,6 +34,10 @@
 						<div class="comment-block" ng-repeat="comment in post.comments | orderBy : -comment.created">
 							<p class="post-created-date">Commented at {{comment.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
 							<p class="comment-body">{{comment.body}}</p>
+							<div class="info-line">
+							{{comment.upvotes}}&nbsp;Likes
+							</div>
+							<span class="upvote-button" ng-click="upvotePost(comment)"><i class="fa fa-thumbs-up"></i></span>
 						</div>
 					</div>
 				</div>
