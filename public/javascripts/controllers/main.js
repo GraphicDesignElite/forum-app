@@ -4,7 +4,7 @@ app.controller('MainCtrl', ['$scope','posts', 'vote', 'userMessages', function($
     $scope.showPosts = true;
     $scope.showForm = false;
     $scope.message = "";
-    $scope.showMessage = false;
+    
     
     $scope.posts = posts.posts; // add [posts] from our factory in angularapp
     $scope.message = userMessages.getMessage();

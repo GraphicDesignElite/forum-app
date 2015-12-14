@@ -1,0 +1,26 @@
+<div id="delete-posts-display">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						<h1 class="post-title">{{post.title}}</h1>
+						<p class="post-created-date">Created at {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
+						<div class="view-post-content">{{post.postcontent}}</div>
+						<div class="info-line">
+							{{post.upvotes}}&nbsp;Likes |&nbsp;{{post.downvotes}}&nbsp;Dislikes |&nbsp;{{post.comments.length}}&nbsp;Comments |&nbsp;Category:&nbsp;{{post.category}}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 comment-container">
+						<h5>Are You Sure You Want To Delete This Post? This cannot be undone!</h5>
+						<a class="btn btn-default back-btn" href="/#/home">Go Back</a>
+						<a class="btn btn-danger delete-btn" ng-click="deletePost()"><i class="fa fa-exclamation-triangle"></i> Delete</a>
+					</div>
+				</div>
+			</div>
+
+		</div>	
+	</div>
+</div>

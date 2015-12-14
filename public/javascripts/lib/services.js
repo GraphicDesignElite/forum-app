@@ -46,6 +46,11 @@ app.factory('posts',  ['$http', function($http){
             return res.data;
         });
     };
+    o.deleteOne = function(id) {
+        return $http.delete('/posts/delete/' + id).then(function(res){
+            return res.data;
+        });
+    };
     
   
   

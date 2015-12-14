@@ -62,4 +62,27 @@ router.put('/posts/:post/downvote', function(req, res, next) {
   });
 });
 
+// Delete a post
+router.delete('/posts/delete/:post', function(req, res) {
+    console.log("Deleting Post" + req.post._id);
+    Post.findById(req.post._id)
+        .exec(function(err, doc) {
+            if (err || !doc) {
+                res.statusCode = 404;
+                res.send({});
+            } else {
+                doc.remove(function(err) {
+                    if (err) {
+                        res.statusCode = 403;
+                        res.send(err);
+                    } else {
+                        res.send({});
+                    }
+                });
+            }
+        });
+});
+
+
+
 module.exports = router;

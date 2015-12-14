@@ -37,7 +37,19 @@ function($stateProvider, $urlRouterProvider) {
         return posts.getAll();
        }] 
     }
-   });   
+   });
+    $stateProvider  
+  .state('deletePostConfirm', {
+    url: '/deletepost/{id}',
+    templateUrl: 'angularTemplates/delete-post.html',
+    controller: 'DeletePostsCtrl',
+    resolve: {
+      post: ['$stateParams', 'posts', function($stateParams, posts) {
+        return posts.getOne($stateParams.id);
+       }]
+       
+    }
+   });  
 
   $urlRouterProvider.otherwise('all-posts');
 }]);
