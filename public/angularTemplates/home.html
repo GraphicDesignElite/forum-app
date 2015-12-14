@@ -35,7 +35,7 @@
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="post in posts | orderBy: rowFilter">
                     <div class="col-md-7 col-sm-7 col-xs-7">
-                        <p><a href="/#/viewpost/{{$index}}">{{post.title | cut:true:60: ' ...'}}</a></p>
+                        <p><a href="/#/viewpost/{{post._id}}">{{post.title | cut:true:60: ' ...'}}</a></p>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3">
                         <p>{{post.created | date:'MM-dd-yy @ HH:mm:ss' }}</p>

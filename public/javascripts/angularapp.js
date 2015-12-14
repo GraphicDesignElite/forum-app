@@ -6,8 +6,8 @@ app.config([
 function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-    .state('home', {
-  url: '/home',
+    .state('allPosts', {
+  url: '/all-posts',
   templateUrl: 'angularTemplates/home.html',
   controller: 'MainCtrl',
   resolve: {
@@ -32,9 +32,12 @@ function($stateProvider, $urlRouterProvider) {
     resolve: {
       post: ['$stateParams', 'posts', function($stateParams, posts) {
         return posts.getOne($stateParams.id);
-       }]  
+       }],
+       postPromise: ['posts', function(posts){
+        return posts.getAll();
+       }] 
     }
    });   
 
-  $urlRouterProvider.otherwise('home');
+  $urlRouterProvider.otherwise('all-posts');
 }]);

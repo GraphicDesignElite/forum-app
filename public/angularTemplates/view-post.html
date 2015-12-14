@@ -47,7 +47,10 @@
 			<div class="col-md-4" id="recent-posts-feed">
 				<h4>Recent Posts</h4>
 				<div class="recent-post" ng-repeat="recentpost in posts | orderBy: '-created'" ng-if="recentpost.title != post.title">
-					<a ng-href="/#/viewpost/{{$index}}">{{recentpost.title | cut:true:40: ' ...' }}</a>
+					<a ng-href="/#/viewpost/{{recentpost._id}}">{{recentpost.title | cut:true:40: ' ...' }}</a>
+					<div class="info-line">
+						{{recentpost.upvotes}}&nbsp;Likes, {{recentpost.downvotes}}&nbsp;Dislikes, {{recentpost.comments.length}}&nbsp;Comments
+					</div>
 				</div>
 			</div>	
 		</div>	
