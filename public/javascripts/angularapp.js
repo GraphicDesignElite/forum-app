@@ -7,10 +7,16 @@ function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
     .state('home', {
-      url: '/home',
-      templateUrl: 'angularTemplates/home.html',
-      controller: 'MainCtrl'
-    });
+  url: '/home',
+  templateUrl: 'angularTemplates/home.html',
+  controller: 'MainCtrl',
+  resolve: {
+        postPromise: ['posts', function(posts){
+        return posts.getAll();
+        }]
+    }
+  });
+   
   $stateProvider
     .state('addPost', {
       url: '/add-post',

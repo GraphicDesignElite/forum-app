@@ -1,8 +1,8 @@
 // posts service, make accessible the posts db
 
-app.factory('posts', [function(){
-  // create temporary model
-  var o = {
+app.factory('posts',  ['$http', function($http){
+    var o = {
+      //Debug model
     posts: [ 
         {
             title: 'post 1 title is so long that it actually gets truncated at the end due to the filter',
@@ -15,13 +15,34 @@ app.factory('posts', [function(){
                 {author: 'Joe', body: 'Cool post!', upvotes: 0, downvotes: 0, created: Date.now()},
                 {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, downvotes: 0, created: Date.now()}
             ]
-        },
-        {title: 'post 2', postcontent: 'something', created: Date.now(), upvotes: 2, downvotes: 0, comments: [{author: 'Joe', body: 'Cool post!', upvotes: 0, downvotes: 0, created: Date.now()},{author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, downvotes: 0, created: Date.now()}]},
-        {title: 'post 3', postcontent: 'something', created: Date.now(), upvotes: 15, downvotes: 0, comments: [{author: 'Joe', body: 'Cool post!', upvotes: 0, downvotes: 0, created: Date.now()},{author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, downvotes: 0, created: Date.now()}]},
-        {title: 'post 4', postcontent: 'something', created: Date.now(), upvotes: 9, downvotes: 0, comments: [{author: 'Joe', body: 'Cool post!', upvotes: 0, downvotes: 0, created: Date.now()},{author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, downvotes: 0, created: Date.now()}]},
-        {title: 'post 5', postcontent: 'something', created: Date.now(), upvotes: 4, downvotes: 0, comments: [{author: 'Joe', body: 'Cool post!', upvotes: 0, downvotes: 0, created: Date.now()},{author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, downvotes: 0, created: Date.now()}]}
+        }
         ]
-  };
+    };
+  
+    o.getAll = function() {
+        return $http.get('/posts').success(function(data){
+            angular.copy(data, o.posts);
+        });
+    };
+    o.create = function(post) {
+        return $http.post('/posts', post).success(function(data){
+            o.posts.push(data);
+        });
+    };
+    o.upvote = function(post) {
+        return $http.put('/posts/' + post._id + '/upvote')
+            .success(function(data){
+            post.upvotes += 1;
+        });
+   };
+   o.downvote = function(post) {
+        return $http.put('/posts/' + post._id + '/downvote')
+            .success(function(data){
+            post.downvotes += 1;
+        });
+    };
+  
+  
   return o;
 }]);
 

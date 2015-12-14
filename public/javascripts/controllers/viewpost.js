@@ -4,10 +4,10 @@ app.controller('ViewPostsCtrl', ['$scope','$stateParams', 'posts', 'vote', funct
 	
 	
 	$scope.upvotePost = function(post){
-        vote.upvote(post);
+        posts.upvote(post);
     }
 	$scope.downvotePost = function(post){
-        vote.downvote(post);
+        posts.downvote(post);
     }
 	
 	$scope.addComment = function(){
