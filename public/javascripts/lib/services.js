@@ -46,6 +46,7 @@ app.factory('posts',  ['$http', function($http){
             return res.data;
         });
     };
+    
   
   
   return o;
