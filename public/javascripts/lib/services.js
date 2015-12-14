@@ -41,6 +41,11 @@ app.factory('posts',  ['$http', function($http){
             post.downvotes += 1;
         });
     };
+    o.getOne = function(id) {
+        return $http.get('/posts/' + id).then(function(res){
+            return res.data;
+        });
+    };
   
   
   return o;

@@ -1,6 +1,7 @@
-app.controller('ViewPostsCtrl', ['$scope','$stateParams', 'posts', 'vote', function($scope, $stateParams, posts, vote){
+app.controller('ViewPostsCtrl', ['$scope','$stateParams', 'posts', 'post', function($scope, $stateParams, posts, post){
+	
 	$scope.posts = posts.posts;  // if we want to display recent posts below
-    $scope.post = posts.posts[$stateParams.id];
+    $scope.post = post;
 	
 	
 	$scope.upvotePost = function(post){

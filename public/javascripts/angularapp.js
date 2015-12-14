@@ -23,11 +23,17 @@ function($stateProvider, $urlRouterProvider) {
       templateUrl: 'angularTemplates/add-post.html',
       controller: 'AddPostCtrl'
     }); 
+    
   $stateProvider  
   .state('viewPost', {
     url: '/viewpost/{id}',
     templateUrl: 'angularTemplates/view-post.html',
-    controller: 'ViewPostsCtrl'
+    controller: 'ViewPostsCtrl',
+    resolve: {
+      post: ['$stateParams', 'posts', function($stateParams, posts) {
+        return posts.getOne($stateParams.id);
+       }]  
+    }
    });   
 
   $urlRouterProvider.otherwise('home');
