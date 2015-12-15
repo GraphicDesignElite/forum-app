@@ -18,7 +18,6 @@ app.factory('posts',  ['$http', function($http){
         }
         ]
     };
-  
     o.getAll = function() {
         return $http.get('/posts').success(function(data){
             angular.copy(data, o.posts);
@@ -51,23 +50,32 @@ app.factory('posts',  ['$http', function($http){
             return res.data;
         });
     };
-    
-  
-  
   return o;
 }]);
 
-// voting functionality
-app.factory('vote', function() {
-    return {
-        upvote: function(post) {      
-            post.upvotes += 1;
-        },
-        downvote: function(post) {      
-            post.downvotes += 1;
-        },
+
+app.factory('categories',  ['$http', function($http){
+    var o = {
+      //Debug model
+    categories: [ 
+            {
+            categoryname: 'Test',
+            created: Date.now()
+            }
+        ]
     };
-});
+    o.getAll = function() {
+        return $http.get('/categories').success(function(data){
+            angular.copy(data, o.categories);
+        });
+    };
+     o.create = function(category) {
+        return $http.post('/categories', category).success(function(data){
+            o.categories.push(data);
+        });
+    };
+  return o;
+}]);
 
 
 // create and destroy user messages

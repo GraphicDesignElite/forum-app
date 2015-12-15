@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='/components/font-awesome/css/font-awesome.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body id="application" ng-app="forum-app" ng-controller="MainCtrl">
-    
-    <ui-view></ui-view>
-    
+    <head>
+        <% include ../views/partials/head %>
+    </head>
+    <body id="application" ng-app="forum-app" ng-controller="MainCtrl">
+    <div id="wrap">
+        <div id="main">  
+            <% include ../views/partials/header %>
+            <ui-view></ui-view>
+        </div>
+    </div><!-- end wrap -->
+    <% include ../views/partials/footer %>
     
     <script src="/components/angular/angular.min.js"></script>
     <script src="/components/angular-messages/angular-messages.min.js"></script>
@@ -17,7 +18,11 @@
     <script src="/javascripts/angularapp.js"></script>
     <script src="/javascripts/lib/services.js"></script>
     <script src="/javascripts/lib/filters.js"></script>
-    <script src="/javascripts/controllers/main.js"></script>
+    
+    <script src="/javascripts/controllers/allcategories.js"></script>
+    <script src="/javascripts/controllers/addcategory.js"></script>
+    <script src="/javascripts/controllers/deletecategory.js"></script>  
+    <script src="/javascripts/controllers/allposts.js"></script>
     <script src="/javascripts/controllers/addpost.js"></script>
     <script src="/javascripts/controllers/viewpost.js"></script>
     <script src="/javascripts/controllers/deletepost.js"></script>

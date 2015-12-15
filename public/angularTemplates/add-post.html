@@ -1,10 +1,10 @@
-<!-- Add a new Post -->
+    <!-- Add a new Post -->
     <div id="form-container">
         <div class="container">
             <div class="row form-container">
                 <form name="addpostform" ng-submit="addPost(addpostform.$valid)" novalidate >
                     <div class="col-md-12">
-                        <h4>Post Topic</h4>
+                        <h4>Create a New Post</h4>
                         <div class="form-group">
                             <label for="newPostTitle">Post Title</label>
                             <input type="text" class="form-control" ng-model="newPostTitle" name="newPostTitle" required ng-minlength="5" ng-maxlength="100" />
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <select name="category" id="category" ng-model="newPostCategory" required>
+                            <select name="category" id="category" class="form-control" ng-model="newPostCategory" required>
                                 <option value="">---Please select---</option>
                                 <option value="Default">Default</option>
                                 <option value="Testing">Testing</option>

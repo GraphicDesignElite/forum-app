@@ -1,19 +1,21 @@
 
-app.controller('MainCtrl', ['$scope','posts', 'vote', 'userMessages', function($scope, posts, vote, userMessages){
+app.controller('MainCtrl', ['$scope','posts', 'userMessages', function($scope, posts, userMessages){
 
-    $scope.showPosts = true;
-    $scope.showForm = false;
+    
     $scope.message = "";
-    
-    
+       
     $scope.posts = posts.posts; // add [posts] from our factory in angularapp
     $scope.message = userMessages.getMessage();
   
     // upvote a post with our vote service
     $scope.upvotePost = function(post){
-        vote.upvote(post);
+        posts.upvote(post);
     }
-    
+    // downvote a post with our vote service
+	$scope.downvotePost = function(post){
+        posts.downvote(post);
+    }
+      
     // display and ordering functions
     $scope.orderByTitle = function(){
         if($scope.rowFilter == 'title'){
@@ -39,16 +41,6 @@ app.controller('MainCtrl', ['$scope','posts', 'vote', 'userMessages', function($
             $scope.rowFilter = '-created';
         }
     };
-    $scope.switchPostViews = function(){
-        if($scope.showPosts){
-            $scope.showPosts = false;
-            $scope.showForm = true;
-        }
-        else{
-            $scope.showPosts = true;
-            $scope.showForm = false;
-        }
-    }
     $scope.hideMessage = function(){
         userMessages.setMessage('');
         $scope.message = userMessages.getMessage();

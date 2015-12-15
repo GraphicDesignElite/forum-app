@@ -16,7 +16,6 @@ app.controller('AddPostCtrl', ['$scope', '$location' ,'posts', 'userMessages', f
         $scope.newPostTitle = '';
         $scope.newPostContent = '';
         $scope.showMessage = true;
-        $scope.switchPostViews();
         $scope.addpostform.$setUntouched();
         $location.path('home');
         userMessages.setMessage("Your Post was Added Successfully");

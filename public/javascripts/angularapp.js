@@ -4,11 +4,32 @@ app.config([
 '$stateProvider',
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
-
+  
+  $stateProvider
+    .state('categoryList', {
+  url: '/categories',
+  templateUrl: 'angularTemplates/all-categories.html',
+  controller: 'CategoryCtrl',
+  resolve: {
+        postPromise: ['categories', function(categories){
+        return categories.getAll();
+        }]
+    }
+  });
+  
+  $stateProvider
+    .state('addCategory', {
+      url: '/add-category',
+      templateUrl: 'angularTemplates/add-category.html',
+      controller: 'AddCategoryCtrl'
+   });
+  
+  
+    
   $stateProvider
     .state('allPosts', {
   url: '/all-posts',
-  templateUrl: 'angularTemplates/home.html',
+  templateUrl: 'angularTemplates/all-posts.html',
   controller: 'MainCtrl',
   resolve: {
         postPromise: ['posts', function(posts){

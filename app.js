@@ -5,12 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
+// Set your Mongo Location Here
 var dbURI = 'mongodb://localhost/forum';
 var mongoose = require('mongoose');
 
 require('./models/Posts');
 require('./models/Comments');
+require('./models/Categories');
 
 mongoose.connect(dbURI);
 

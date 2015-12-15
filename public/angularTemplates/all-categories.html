@@ -1,0 +1,48 @@
+    <div id="posts-display">
+        <!-- start responsive table header -->
+        <div class="container">
+            <div class="row">
+                <div class="table-wrap">
+                    <div class="user-message" ng-show="message !=''">
+                        <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                        <p>{{message}}</p>
+                    </div>
+                    <div class="col-md-9 col-sm-7 col-xs-7 table-heading">
+                        <p ng-click="orderByTitle()">Categories
+                            <span ng-show="rowFilter == 'categoryname'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-categoryname'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3 table-heading">
+                        <p ng-click="orderByDate()">Date Added
+                            <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end responsive table header -->
+        
+        <!-- start display posts -->
+        <div class="container">
+            <div class="table-wrap">
+                <div class="row post-row" ng-repeat="category in categories | orderBy: rowFilter">
+                    <div class="col-md-9 col-sm-7 col-xs-7">
+                        <p><a href="/#/viewpost/{{post._id}}">{{category.categoryname | cut:true:60: ' ...'}}</a></p>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <p>{{category.created | date:'MM-dd-yy' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row button-container">
+                <div class="col-md-12">
+                    <a href="/#/add-category" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add a New Category</a>
+                </div>
+            </div>
+        </div>        
+    </div><!-- end posts-display -->
+   

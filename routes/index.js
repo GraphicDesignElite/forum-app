@@ -4,7 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
-
+var Category = mongoose.model('Category');
 
 router.param('post', function(req, res, next, id) {
   var query = Post.findById(id);
@@ -18,7 +18,7 @@ router.param('post', function(req, res, next, id) {
   });
 });
 
-/* GET home page. */
+/* GET Our Home Page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Forum Home' });
 });
@@ -84,5 +84,22 @@ router.delete('/posts/delete/:post', function(req, res) {
 });
 
 
+// Return All Categories
+router.get('/categories', function(req, res, next) {
+   Category.find(function(err, posts){
+       if(err)return next(err)
+       res.json(posts);
+   });
+});
+
+// Create a Category
+router.post('/categories', function(req, res, next){
+    var category = new Category(req.body);
+    category.save(function(err, post){
+       if(err) return next(err);
+       
+       res.json(post);
+    });
+});
 
 module.exports = router;
