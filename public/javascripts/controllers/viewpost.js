@@ -1,4 +1,4 @@
-app.controller('ViewPostsCtrl', ['$scope','$stateParams', 'posts', 'post', function($scope, $stateParams, posts, post){
+app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', function($scope, posts, post){
 	
 	$scope.posts = posts.posts;  // if we want to display recent posts below
     $scope.post = post;
@@ -10,16 +10,21 @@ app.controller('ViewPostsCtrl', ['$scope','$stateParams', 'posts', 'post', funct
 	$scope.downvotePost = function(post){
         posts.downvote(post);
     }
+	$scope.upvoteComment = function(comment){
+        posts.upvoteComment(post, comment);
+    }
+	$scope.downvoteComment = function(comment){
+        posts.downvoteComment(post, comment);
+    }
 	
-	$scope.addComment = function(){
-		if($scope.newComment =='' || $scope.newComment == null){return;}
-		$scope.post.comments.push({
-			author: 'Anonymous',
+	$scope.addComment = function(valid){
+	if(!valid || $scope.newComment === '' || $scope.newComment === 'null' ){ return; }
+		posts.addComment(post._id, {
 			body: $scope.newComment,
-			upvotes: 0,
-			downvotes: 0,
-			created: Date.now()
+			author: 'user',
+		}).success(function(comment) {
+			$scope.post.comments.push(comment);
 		});
 		$scope.newComment = '';
-	}
+	};
 }]);

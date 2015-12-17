@@ -24,13 +24,13 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 comment-container">
-						<form ng-submit="addComment()" class="add-comment-form">
+						<form ng-submit="addComment(addcommentform.$valid)" class="add-comment-form" name="addcommentform" novalidate>
 							<div class="row">
 								<div class="col-md-9">
-									<input type="text" class="form-control" ng-model="newComment" placeholder="Add a Comment">
+									<input type="text" class="form-control" ng-model="newComment" placeholder="Add a Comment" required ng-maxlength="100">
 								</div>
 								<div class="col-md-3">
-									<button type="submit" class="btn btn-primary">Add a Comment</button>
+									<button type="submit" class="btn btn-primary" ng-disabled="addcommentform.$invalid">Add a Comment</button>
 								</div>
 							</div>
 						</form>
@@ -41,8 +41,8 @@
 							<div class="info-line">
 							{{comment.upvotes}}&nbsp;Likes, {{comment.downvotes}}&nbsp;Dislikes
 							</div>
-							<span class="upvote-button" ng-click="upvotePost(comment)"><i class="fa fa-thumbs-up"></i></span>
-							<span class="downvote-button" ng-click="downvotePost(comment)"><i class="fa fa-thumbs-down"></i></span>
+							<span class="upvote-button" ng-click="upvoteComment(comment)"><i class="fa fa-thumbs-up"></i></span>
+							<span class="downvote-button" ng-click="downvoteComment(comment)"><i class="fa fa-thumbs-down"></i></span>
 						</div>
 					</div>
 				</div>
