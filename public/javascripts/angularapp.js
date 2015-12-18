@@ -1,4 +1,4 @@
-var app = angular.module('forum-app', ['ngMessages', 'ui.router']);
+var app = angular.module('forum-app', ['slugifier','ngMessages', 'ui.router', 'ui.bootstrap']);
 
 app.config([
 '$stateProvider',
@@ -22,29 +22,27 @@ function($stateProvider, $urlRouterProvider) {
       url: '/add-category',
       templateUrl: 'angularTemplates/add-category.html',
       controller: 'AddCategoryCtrl'
-   });
-  
-  
-    
+   }); 
+   
   $stateProvider
-    .state('allPosts', {
-  url: '/all-posts',
-  templateUrl: 'angularTemplates/all-posts.html',
-  controller: 'MainCtrl',
+    .state('recentPosts', {
+  url: '/recent-posts',
+  templateUrl: 'angularTemplates/recent-posts.html',
+  controller: 'RecentPostsCtrl',
   resolve: {
         postPromise: ['posts', function(posts){
         return posts.getAll();
         }]
     }
-  });
-   
+  });  
+  
   $stateProvider
     .state('addPost', {
       url: '/add-post',
       templateUrl: 'angularTemplates/add-post.html',
       controller: 'AddPostCtrl'
-    }); 
-    
+    });  
+      
   $stateProvider  
   .state('viewPost', {
     url: '/viewpost/{id}',
@@ -59,6 +57,7 @@ function($stateProvider, $urlRouterProvider) {
        }] 
     }
    });
+   
     $stateProvider  
   .state('deletePostConfirm', {
     url: '/deletepost/{id}',
@@ -72,5 +71,5 @@ function($stateProvider, $urlRouterProvider) {
     }
    });  
 
-  $urlRouterProvider.otherwise('all-posts');
+  $urlRouterProvider.otherwise('recent-posts');
 }]);

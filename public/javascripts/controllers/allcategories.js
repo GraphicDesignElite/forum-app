@@ -1,12 +1,17 @@
 
-app.controller('CategoryCtrl', ['$scope','categories', 'userMessages', function($scope, categories, userMessages){
+app.controller('CategoryCtrl', ['$state','$scope','$location','categories', 'userMessages', function($state, $scope, $location, categories, userMessages){
 
-    
     $scope.message = "";
        
     $scope.categories = categories.categories; // add [categories] from our factory in angularapp
     $scope.message = userMessages.getMessage();
- 
+    
+    $scope.deleteCategory = function(category){
+        categories.deleteOne(category);
+        $scope.showMessage = true;
+        $state.go('categoryList');
+        userMessages.setMessage("The Category was Deleted Successfully");
+    }
     
     // display and ordering functions
     $scope.orderByTitle = function(){

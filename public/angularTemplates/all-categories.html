@@ -14,7 +14,7 @@
                         </p>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3 table-heading">
-                        <p ng-click="orderByDate()">Date Added
+                        <p ng-click="orderByDate()">URL Slug
                             <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
                             <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
@@ -24,15 +24,15 @@
         </div>
         <!-- end responsive table header -->
         
-        <!-- start display posts -->
+        <!-- start display categories -->
         <div class="container">
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="category in categories | orderBy: rowFilter">
                     <div class="col-md-9 col-sm-7 col-xs-7">
-                        <p><a href="/#/viewpost/{{post._id}}">{{category.categoryname | cut:true:60: ' ...'}}</a></p>
+                        <p><a href="/#/category/{{category.categoryslug}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="right small-grey-button delete-button" confirm="Are you sure?"  ng-click="deleteCategory(category)"><i class="fa fa-times-circle-o"></i></a></p>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3">
-                        <p>{{category.created | date:'MM-dd-yy' }}</p>
+                        <p>{{category.categoryslug}}</p>
                     </div>
                 </div>
             </div>

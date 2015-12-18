@@ -1,4 +1,4 @@
-app.controller('AddCategoryCtrl', ['$scope', '$location' ,'categories', 'userMessages', function($scope, $location, categories, userMessages){
+app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories', 'userMessages', function($state, $scope, $location, categories, userMessages){
 
 
     $scope.maxPostContentSize = 230;
@@ -7,12 +7,13 @@ app.controller('AddCategoryCtrl', ['$scope', '$location' ,'categories', 'userMes
     $scope.addCategory = function(valid){
         if(!valid || !$scope.newCategoryTitle || $scope.newCategoryTitle === ''){ return; }
         categories.create({
-            categoryname: $scope.newCategoryTitle ,
+            categoryname: $scope.newCategoryTitle,
+            categoryslug: $scope.newCategorySlug,
         });
         $scope.newCategoryTitle = '';
         $scope.showMessage = true;
-        $scope.addpostform.$setUntouched();
-        $location.path('home');
+        $scope.addcategoryform.$setUntouched();
+        $state.go('categoryList');
         userMessages.setMessage("Your Category was Added Successfully");
     }
     

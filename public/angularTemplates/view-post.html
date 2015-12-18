@@ -5,11 +5,10 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="right-post-btns">
-							<a class="btn btn-danger" ng-href="/#/deletepost/{{post._id}}">x</a>
-							<a class="btn btn-default" href="/#/home">Go Back</a>
+							<a class="right delete-button small-grey-button" ng-href="/#/deletepost/{{post._id}}"><i class="fa fa-times-circle-o"></i></a>
 						</div>
 						<h1 class="post-title">{{post.title}}</h1>
-						<p class="post-created-date">Created at {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
+						<p class="post-created-date">Created by: {{post.author }} on {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
 						<div class="view-post-content">{{post.postcontent}}</div>
 						<div class="info-line">
 							{{post.upvotes}}&nbsp;Likes |&nbsp;{{post.downvotes}}&nbsp;Dislikes |&nbsp;{{post.comments.length}}&nbsp;Comments |&nbsp;Category:&nbsp;{{post.category}}

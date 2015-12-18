@@ -4,6 +4,7 @@ var PostSchema = new mongoose.Schema({
 	title: String,
 	postcontent: String,
 	category: String,
+	author: {type: String, default: 'Developer'},
 	upvotes: {type: Number, default: 0},
 	downvotes: {type: Number, default: 0},
 	created: {type: Date, default: Date.now()},

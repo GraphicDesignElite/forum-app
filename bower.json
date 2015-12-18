@@ -15,9 +15,10 @@
   ],
   "dependencies": {
     "angular": "~1.4.8",
-    "bootstrap": "~3.3.6",
     "font-awesome": "~4.5.0",
     "angular-messages": "~1.4.8",
-    "angular-ui-router": "~0.2.15"
+    "angular-ui-router": "~0.2.15",
+    "angular-confirm-modal": "~1.2.2",
+    "angular-bootstrap": "~0.14.3"
   }
 }

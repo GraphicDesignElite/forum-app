@@ -3,7 +3,7 @@
     <head>
         <% include ../views/partials/head %>
     </head>
-    <body id="application" ng-app="forum-app" ng-controller="MainCtrl">
+    <body id="application" ng-app="forum-app">
     <div id="wrap">
         <div id="main">  
             <% include ../views/partials/header %>
@@ -15,13 +15,15 @@
     <script src="/components/angular/angular.min.js"></script>
     <script src="/components/angular-messages/angular-messages.min.js"></script>
     <script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="/components/slugify/slugify.js"></script>
+    <script src="/components/angular-confirm-modal/angular-confirm.min.js"></script>
     <script src="/javascripts/angularapp.js"></script>
     <script src="/javascripts/lib/services.js"></script>
     <script src="/javascripts/lib/filters.js"></script>
     
     <script src="/javascripts/controllers/allcategories.js"></script>
-    <script src="/javascripts/controllers/addcategory.js"></script>
-    <script src="/javascripts/controllers/deletecategory.js"></script>  
+    <script src="/javascripts/controllers/addcategory.js"></script> 
     <script src="/javascripts/controllers/allposts.js"></script>
     <script src="/javascripts/controllers/addpost.js"></script>
     <script src="/javascripts/controllers/viewpost.js"></script>

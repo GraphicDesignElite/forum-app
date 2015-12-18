@@ -1,5 +1,5 @@
 
-app.controller('MainCtrl', ['$scope','posts', 'userMessages', function($scope, posts, userMessages){
+app.controller('RecentPostsCtrl', ['$scope','posts', 'userMessages', function($scope, posts, userMessages){
 
     
     $scope.message = "";

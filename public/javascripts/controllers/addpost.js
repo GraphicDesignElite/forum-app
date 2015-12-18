@@ -3,6 +3,7 @@ app.controller('AddPostCtrl', ['$scope', '$location' ,'posts', 'userMessages', f
     $scope.posts = posts.posts; // add [posts] from our factory in angularapp
     $scope.maxPostContentSize = 230;
     
+    
     // add posts function
     $scope.addPost = function(valid){
         if(!valid || !$scope.newPostTitle || $scope.newPostTitle === '' || !$scope.newPostContent || $scope.newPostContent === ''){ return; }
@@ -12,6 +13,7 @@ app.controller('AddPostCtrl', ['$scope', '$location' ,'posts', 'userMessages', f
             upvotes: 0,
             downvotes: 0,
             category: $scope.newPostCategory,
+            author: 'Developer',
         });
         $scope.newPostTitle = '';
         $scope.newPostContent = '';

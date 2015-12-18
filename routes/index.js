@@ -30,6 +30,18 @@ router.param('comment', function(req, res, next, id) {
   });
 });
 
+router.param('category', function(req, res, next, id) {
+  var query = Category.findById(id);
+
+  query.exec(function (err, category){
+    if (err) { return next(err); }
+    if (!category) { return next(new Error('can\'t find category')); }
+
+    req.category = category;
+    return next();
+  });
+});
+
 /* GET Our Home Page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Forum Home' });
@@ -108,8 +120,6 @@ router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
     res.json(comment);
   });
 });
-
-
 // Delete a post
 router.delete('/posts/delete/:post', function(req, res) {
     console.log("Deleting Post" + req.post._id);
@@ -151,6 +161,26 @@ router.post('/categories', function(req, res, next){
        
        res.json(post);
     });
+});
+// Delete a category
+router.delete('/categories/delete/:category', function(req, res) {
+    console.log("Deleting Category" + req.category._id);
+    Category.findById(req.category._id)
+        .exec(function(err, doc) {
+            if (err || !doc) {
+                res.statusCode = 404;
+                res.send({});
+            } else {
+                doc.remove(function(err) {
+                    if (err) {
+                        res.statusCode = 403;
+                        res.send(err);
+                    } else {
+                        res.send({});
+                    }
+                });
+            }
+        });
 });
 
 module.exports = router;

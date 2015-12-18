@@ -89,6 +89,11 @@ app.factory('categories',  ['$http', function($http){
             o.categories.push(data);
         });
     };
+    o.deleteOne = function(category) {
+        return $http.delete('/categories/delete/' + category._id).then(function(res){
+            return res.data;
+        });
+    };
   return o;
 }]);
 
