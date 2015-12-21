@@ -40,7 +40,12 @@ function($stateProvider, $urlRouterProvider) {
     .state('addPost', {
       url: '/add-post',
       templateUrl: 'angularTemplates/add-post.html',
-      controller: 'AddPostCtrl'
+      controller: 'AddPostCtrl',
+      resolve: {
+        postPromise: ['categories', function(categories){
+        return categories.getAll();
+        }]
+    }
     });  
       
   $stateProvider  

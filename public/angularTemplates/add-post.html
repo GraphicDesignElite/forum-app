@@ -27,9 +27,8 @@
                         </div>
                         <div class="form-group">
                             <select name="category" id="category" class="form-control" ng-model="newPostCategory" required>
-                                <option value="">---Please select---</option>
-                                <option value="Default">Default</option>
-                                <option value="Testing">Testing</option>
+                                 <option value="">--Please Select a Category--</option>
+                                 <option ng-repeat="category in categories" value="{{category._id}}">{{category.categoryname}}</option>
                             </select> 
                         </div>
                         <button class="btn btn-primary" type="submit" ng-disabled="addpostform.$invalid"><i class="fa fa-plus-circle"></i> Add Post</button>

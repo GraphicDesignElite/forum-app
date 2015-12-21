@@ -141,17 +141,23 @@ router.delete('/posts/delete/:post', function(req, res) {
         });
 });
 
-
-
-
-
 // Return All Categories
 router.get('/categories', function(req, res, next) {
-   Category.find(function(err, posts){
+   Category.find(function(err, categories){
        if(err)return next(err)
-       res.json(posts);
+       res.json(categories);
    });
 });
+
+// Return a single Category in the works
+router.get('/categories/:category', function(req, res, next) {
+  req.post.populate('posts', function(err, post) {
+    if (err) { return next(err); }
+
+    res.json(post);
+  });
+});
+
 
 // Create a Category
 router.post('/categories', function(req, res, next){

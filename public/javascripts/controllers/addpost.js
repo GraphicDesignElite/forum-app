@@ -1,6 +1,7 @@
-app.controller('AddPostCtrl', ['$scope', '$location' ,'posts', 'userMessages', function($scope, $location, posts, userMessages){
+app.controller('AddPostCtrl', ['$scope', '$location','posts', 'userMessages', 'categories', function($scope, $location, posts,  userMessages, categories){
 
-    $scope.posts = posts.posts; // add [posts] from our factory in angularapp
+    
+    $scope.categories = categories.categories;
     $scope.maxPostContentSize = 230;
     
     
