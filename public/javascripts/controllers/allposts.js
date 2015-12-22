@@ -33,6 +33,14 @@ app.controller('RecentPostsCtrl', ['$scope','posts', 'userMessages', function($s
             $scope.rowFilter = '-upvotes';
         }
     };
+    $scope.orderByView = function(){
+        if($scope.rowFilter == '-views'){
+            $scope.rowFilter = 'views';
+        }
+        else{
+            $scope.rowFilter = '-views';
+        }
+    };
     $scope.orderByReplies= function(){
         if($scope.rowFilter == '-comments.length'){
             $scope.rowFilter = 'comments.length';

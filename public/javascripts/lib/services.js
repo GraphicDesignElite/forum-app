@@ -50,6 +50,18 @@ app.factory('posts',  ['$http', function($http){
             return res.data;
         });
     };
+    o.close = function(post) {
+        return $http.put('/posts/' + post._id + '/close')
+            .success(function(data){
+            post.active = false;
+        });
+    };
+    o.open = function(post) {
+        return $http.put('/posts/' + post._id + '/open')
+            .success(function(data){
+            post.active = true;
+        });
+    };
     o.addComment = function(id, comment) {
         return $http.post('/posts/' + id + '/comments', comment);
     };
@@ -75,7 +87,10 @@ app.factory('categories',  ['$http', function($http){
     categories: [ 
             {
             categoryname: 'Test',
-            created: Date.now()
+            categoryslug: 'test',
+            created: Date.now(),
+            categorydescription: 'Debug Model',
+            views: 0
             }
         ]
     };

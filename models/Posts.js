@@ -25,5 +25,13 @@ PostSchema.methods.addview = function(cb) {
   this.views += 1;
   this.save(cb);
 };
+PostSchema.methods.close = function(cb) {
+  this.active = false;
+  this.save(cb);
+};
+PostSchema.methods.open = function(cb) {
+  this.active = true;
+  this.save(cb);
+};
 
 mongoose.model('Post', PostSchema);

@@ -99,7 +99,33 @@ function($stateProvider, $urlRouterProvider) {
        }]
        
     }
-   });  
+   });
+   
+   $stateProvider  
+  .state('closePostConfirm', {
+    url: '/closepost/{id}',
+    templateUrl: 'angularTemplates/close-post.html',
+    controller: 'ClosePostsCtrl',
+    resolve: {
+      post: ['$stateParams', 'posts', function($stateParams, posts) {
+        return posts.getOne($stateParams.id);
+       }]
+       
+    }
+   });
+   
+   $stateProvider  
+  .state('openPostConfirm', {
+    url: '/openpost/{id}',
+    templateUrl: 'angularTemplates/open-post.html',
+    controller: 'OpenPostsCtrl',
+    resolve: {
+      post: ['$stateParams', 'posts', function($stateParams, posts) {
+        return posts.getOne($stateParams.id);
+       }]
+       
+    }
+   });      
 
   $urlRouterProvider.otherwise('categories');
 }]);

@@ -5,6 +5,8 @@ body{font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; padding-top:0px;}
 #main { overflow:auto; padding-bottom:100px; /* this needs to be bigger than footer height*/}
 #footer {padding:20px 0px; background-color: #f5f5f5;}
 .footer {position: relative; margin-top: -60px; /* negative value of footer height */ height: 60px; clear:both; padding-top:20px;} 
+h1.page-title{font-size:25px;}
+h1.page-title a{color:#000;}
 
 /* Page Sections */
 #recent-posts-feed{background:#efefef; padding-top:20px; padding-bottom:20px;}
@@ -41,7 +43,6 @@ p.category-description{font-size:12px; color:#666; padding-top:3px;}
 .hide-message-btn{float:right; margin-top:-10px; background:#9FE39F;}
 .hide-message-btn .fa{color:#CBFCCB;}
 .small-grey-button{padding:2px 4px; background: #ccc; display: inline-block;}
-.delete-button{color:#ccc;}
 
 
 #view-posts-display .btn.back-btn{float:right;}
@@ -55,6 +56,12 @@ p.category-description{font-size:12px; color:#666; padding-top:3px;}
 .error-container p{display:inline-block; padding:4px; background: #F0F0B0;}
 .text-counter{color:#bbb ; padding:10px 0px; float:right;}
 .form-container{margin-top:20px;}
+.tag-post{display: inline-block; padding:3px; font-size:10px; background:#ddd; margin-left:10px;}
+
+/* Admin Toolbar */
+.admin-toolbar{background:#555; padding:10px; margin-bottom:10px;}
+.admin-toolbar a{color:#ccc;}
+.admin-toolbar a:hover{color:#fff;}
 
 .right{float:right;}
 .left{float:left;}

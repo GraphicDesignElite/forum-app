@@ -27,9 +27,9 @@
                         </p>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-2 table-heading">
-                        <p ng-click="orderByDate()">Views
-                            <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
-                            <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
+                        <p ng-click="orderByView()">Views
+                            <span ng-show="rowFilter == 'views'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-views'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
                     </div>
                     <div class="col-md-1 col-sm-1 col-xs-1 table-heading">
@@ -48,7 +48,7 @@
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="post in posts | orderBy: rowFilter">
                     <div class="col-md-7 col-sm-7 col-xs-7">
-                        <p><a href="/#/viewpost/{{post._id}}">{{post.title | cut:true:60: ' ...'}}</a></p>
+                        <p><a href="/#/viewpost/{{post._id}}">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p>
                         <p class="category-description">Posted {{post.created | date:'MM-dd-yy @ HH:mm:ss' }} by {{post.author }}</p>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-2">

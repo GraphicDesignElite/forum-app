@@ -1,0 +1,33 @@
+<div id="close-posts-display">
+	<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="page-title">Close a Post</h1>
+				</div>
+			</div>
+		</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						<h3 class="post-title">{{post.title}}</h3>
+						<p class="post-created-date">Created at {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
+						<div class="view-post-content">{{post.postcontent}}</div>
+						<div class="info-line">
+							{{post.upvotes}}&nbsp;Likes |&nbsp;{{post.downvotes}}&nbsp;Dislikes |&nbsp;{{post.comments.length}}&nbsp;Comments |&nbsp;Category:&nbsp;{{post.category}}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 comment-container">
+						<h5>Are You Sure You Want To Close This Post? Comments will become disabled!</h5>
+						<a class="btn btn-default back-btn" href="/#/viewpost/{{post._id}}">Go Back</a>
+						<a class="btn btn-primary delete-btn" ng-click="closePost()"><i class="fa fa-exclamation-triangle"></i> Close</a>
+					</div>
+				</div>
+			</div>
+
+		</div>	
+	</div>
+</div>

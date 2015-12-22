@@ -1,12 +1,20 @@
 <div id="view-posts-display">
 	<div class="container">
 		<div class="row">
+			<div class="col-md-12 admin-toolbar clearfix">
+				<div class="right-post-btns">
+					<a class="right delete-button" ng-href="/#/deletepost/{{post._id}}"><i class="fa fa-times-circle-o"></i> Delete</a>
+					<!-- close and open discussion -->
+					<a class="right close-button" ng-if="post.active == true" ng-href="/#/closepost/{{post._id}}"><i class="fa fa-sign-out"></i> Close Discussion</a>
+					<a class="right close-button" ng-if="post.active == false" ng-href="/#/openpost/{{post._id}}"><i class="fa fa-sign-out"></i> Reopen Discussion</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
-						<div class="right-post-btns">
-							<a class="right delete-button" ng-href="/#/deletepost/{{post._id}}"><i class="fa fa-times-circle-o"></i></a>
-						</div>
+						
 						<h1 class="post-title">{{post.title}}</h1>
 						<p class="post-created-date">Created by: {{post.author }} on {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
 						<div class="view-post-content">{{post.postcontent}}</div>
@@ -36,7 +44,9 @@
 							</form>
 						</div>
 						<div ng-show="post.active == false">
+							<div class="user-message">
 							This Discussion Is Closed.
+							</div>
 						</div>
 						<h4>{{post.comments.length}} Comments on &quot;{{post.title | cut:true:20: ' ...'}}&quot;</h4>
 						<div class="comment-block" ng-repeat="comment in post.comments | orderBy : -comment.created">

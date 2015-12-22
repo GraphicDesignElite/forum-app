@@ -18,7 +18,6 @@ router.param('post', function(req, res, next, id) {
 });
 router.param('comment', function(req, res, next, id) {
   var query = Comment.findById(id);
-
   query.exec(function (err, comment){
     if (err) { return next(err); }
     if (!comment) { return next(new Error('can\'t find comment')); }
@@ -29,7 +28,6 @@ router.param('comment', function(req, res, next, id) {
 });
 router.param('category', function(req, res, next, id) {
   var query = Category.findById(id);
-
   query.exec(function (err, category){
     if (err) { return next(err); }
     if (!category) { return next(new Error('can\'t find category')); }
@@ -38,6 +36,9 @@ router.param('category', function(req, res, next, id) {
     return next();
   });
 });
+
+
+
 
 /* GET Our Home Page. */
 router.get('/', function(req, res, next) {
@@ -68,6 +69,11 @@ router.post('/posts/:category', function(req, res, next){
 });
 // Return a single Post
 router.get('/posts/:post', function(req, res, next) {
+  // Add a view each time a user visits
+  req.post.addview(function(err, post){
+    if (err) { return next(err); }
+  });  
+  
   req.post.populate('comments', function(err, post) {
     if (err) { return next(err); }
 
@@ -89,10 +95,25 @@ router.put('/posts/:post/downvote', function(req, res, next) {
     res.json(post);
   });
 });
+
+// Close a post
+router.put('/posts/:post/close', function(req, res, next) {
+  req.post.close(function(err, post){
+    if (err) { return next(err); }
+    res.json(post);
+  });
+});
+// Open a post
+router.put('/posts/:post/open', function(req, res, next) {
+  req.post.open(function(err, post){
+    if (err) { return next(err); }
+    res.json(post);
+  });
+});
+
 // Delete a post
 router.delete('/posts/delete/:post', function(req, res) {
-    console.log("Deleting Post" + req.post._id);
-    
+    console.log("Deleting Post" + req.post._id);  
     Post.findById(req.post._id)
         .exec(function(err, doc) {
             if (err || !doc) {
@@ -142,7 +163,6 @@ router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
 });
 
 
-
 // Return All Categories
 router.get('/categories', function(req, res, next) {
    Category.find(function(err, categories){
@@ -151,8 +171,13 @@ router.get('/categories', function(req, res, next) {
    });
 });
 
-// Return a single Category in the works
+// Return a single Category
 router.get('/categories/:category', function(req, res, next) {
+  /* Add a view for each user visit */
+  req.category.addview(function(err, post){
+    if (err) { return next(err); }
+  });
+  
   req.category.populate('posts', function(err, posts) {
     if (err) { return next(err); }
     res.json(posts);
