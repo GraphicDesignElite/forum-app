@@ -110,7 +110,6 @@ router.put('/posts/:post/open', function(req, res, next) {
     res.json(post);
   });
 });
-
 // Delete a post
 router.delete('/posts/delete/:post', function(req, res) {
     console.log("Deleting Post" + req.post._id);  

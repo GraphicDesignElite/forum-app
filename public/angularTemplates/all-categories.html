@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12 admin-toolbar clearfix">
                     <div class="right-post-btns">
-                        <a class="right" ng-href="/#/add-category"><i class="fa fa-plus-square"></i> Add New</a>
+                        <a class="right" ng-href="/#/add-category"><i class="fa fa-plus-square"></i> Add New Category</a>
                         <!-- close and open discussion -->
                     </div>
                 </div>
@@ -34,22 +34,22 @@
                         <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
                         <p>{{message}}</p>
                     </div>
-                    <div class="col-md-10 col-sm-7 col-xs-7 table-heading">
+                    <div class="col-md-8 col-sm-7 col-xs-7 table-heading">
                         <p ng-click="orderByTitle()">Categories
                             <span ng-show="rowFilter == 'categoryname'"><i class="fa fa-arrow-circle-down"></i></span>
                             <span ng-show="rowFilter == '-categoryname'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
                     </div>
-                    <div class="col-md-1 col-sm-3 col-xs-3 table-heading">
-                        <p ng-click="orderByDate()">Topics
-                            <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
-                            <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
+                    <div class="col-md-2 col-sm-3 col-xs-3 table-heading">
+                        <p ng-click="orderByTopics()">Topics
+                            <span ng-show="rowFilter == '-posts.length'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == 'posts.length'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
                     </div>
-                    <div class="col-md-1 col-sm-2 col-xs-2 table-heading">
+                    <div class="col-md-2 col-sm-2 col-xs-2 table-heading">
                         <p ng-click="orderByViews()">Views
-                            <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
-                            <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
+                            <span ng-show="rowFilter == 'views'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-views'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
                     </div>
                 </div>
@@ -61,14 +61,14 @@
         <div class="container">
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="category in categories | orderBy: rowFilter">
-                    <div class="col-md-10 col-sm-7 col-xs-7">
-                        <p><a href="/#/category/{{category._id}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="delete-button" confirm="Are you sure?"  ng-click="deleteCategory(category)"><i class="fa fa-times-circle-o"></i></a></p>
+                    <div class="col-md-8 col-sm-7 col-xs-7">
+                        <p><a href="/#/category/{{category._id}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="delete-button"  ng-click="deleteCategory(category)"><i class="fa fa-times-circle-o"></i></a></p>
                         <p ng-if="category.categorydescription" class="category-description"><i class="fa fa-chevron-right"></i> {{category.categorydescription | cut:true:60: ' ...'}}</p>
                     </div>
-                    <div class="col-md-1 col-sm-3 col-xs-3">
-                        <p>{{category.posts.length}} <i class="fa fa-weixin"></i></p>
+                    <div class="col-md-2 col-sm-3 col-xs-3">
+                        <p>{{category.posts.length}}</p>
                     </div>
-                    <div class="col-md-1 col-sm-2 col-xs-2">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
                         <p>{{category.views}}</p>
                     </div>
                 </div>

@@ -29,6 +29,23 @@ app.controller('CategoryCtrl', ['$scope','$location','categories', 'userMessages
             $scope.rowFilter = '-created';
         }
     };
+    $scope.orderByTopics= function(){
+        if($scope.rowFilter == 'posts.length'){
+            $scope.rowFilter = '-posts.length';
+        }
+        else{
+            $scope.rowFilter = 'posts.length';
+        }
+    };
+    $scope.orderByViews = function(){
+        if($scope.rowFilter == 'views'){
+            $scope.rowFilter = '-views';
+        }
+        else{
+            $scope.rowFilter = 'views';
+        }
+    };
+    
     $scope.hideMessage = function(){
         userMessages.setMessage('');
         $scope.message = userMessages.getMessage();
