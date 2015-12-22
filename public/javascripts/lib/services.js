@@ -23,8 +23,8 @@ app.factory('posts',  ['$http', function($http){
             angular.copy(data, o.posts);
         });
     };
-    o.create = function(post) {
-        return $http.post('/posts', post).success(function(data){
+    o.create = function(post, category) {
+        return $http.post('/posts/' + category, post).success(function(data){
             o.posts.push(data);
         });
     };
@@ -98,6 +98,9 @@ app.factory('categories',  ['$http', function($http){
         return $http.delete('/categories/delete/' + category._id).then(function(res){
             return res.data;
         });
+    };
+    o.addPost = function(category, post) {
+        return $http.post('/posts/' + category + '/' + post);
     };
   return o;
 }]);

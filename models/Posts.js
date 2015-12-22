@@ -3,13 +3,12 @@ var mongoose = require('mongoose');
 var PostSchema = new mongoose.Schema({
 	title: String,
 	postcontent: String,
-	categoryID: String,
-	category: String,
 	author: {type: String, default: 'Developer'},
 	upvotes: {type: Number, default: 0},
 	downvotes: {type: Number, default: 0},
 	created: {type: Date, default: Date.now()},
-	comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
+	comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+	category: {type: mongoose.Schema.Types.ObjectId, ref: 'Category'}
 });
 
 PostSchema.methods.upvote = function(cb) {

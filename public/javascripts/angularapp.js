@@ -63,6 +63,18 @@ function($stateProvider, $urlRouterProvider) {
     }
    });
    
+   $stateProvider  
+  .state('viewCategory', {
+    url: '/category/{id}',
+    templateUrl: 'angularTemplates/view-category.html',
+    controller: 'ViewCategoryCtrl',
+    resolve: {
+      category: ['$stateParams', 'categories', function($stateParams, categories) {
+        return categories.getOne($stateParams.id);
+       }]
+    }
+   });
+   
     $stateProvider  
   .state('deletePostConfirm', {
     url: '/deletepost/{id}',

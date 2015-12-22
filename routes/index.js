@@ -56,12 +56,19 @@ router.get('/posts', function(req, res, next) {
 });
 
 // Create a post
-router.post('/posts', function(req, res, next){
+router.post('/posts/:category', function(req, res, next){
     var post = new Post(req.body);
+    post.category = req.category;
+    
     post.save(function(err, post){
        if(err) return next(err);
        
-       res.json(post);
+       // attempt to add post into category posts
+        req.category.posts.push(post);
+        req.category.save(function(err, category) {
+        if(err){ return next(err); }
+        res.json(post);
+        });
     });
 });
 
@@ -74,7 +81,7 @@ router.get('/posts/:post', function(req, res, next) {
   });
 });
 
-// Get the comments with the post
+// Add a new comment
 router.post('/posts/:post/comments', function(req, res, next) {
   var comment = new Comment(req.body);
   comment.post = req.post;
@@ -123,6 +130,7 @@ router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
 // Delete a post
 router.delete('/posts/delete/:post', function(req, res) {
     console.log("Deleting Post" + req.post._id);
+    
     Post.findById(req.post._id)
         .exec(function(err, doc) {
             if (err || !doc) {
@@ -141,6 +149,7 @@ router.delete('/posts/delete/:post', function(req, res) {
         });
 });
 
+
 // Return All Categories
 router.get('/categories', function(req, res, next) {
    Category.find(function(err, categories){
@@ -151,11 +160,15 @@ router.get('/categories', function(req, res, next) {
 
 // Return a single Category in the works
 router.get('/categories/:category', function(req, res, next) {
-  req.post.populate('posts', function(err, post) {
+  req.category.populate('posts', function(err, posts) {
     if (err) { return next(err); }
 
-    res.json(post);
+    res.json(posts);
   });
+});
+
+router.post('/posts/:category/:post', function(req, res, next) {
+ console.log('did it at least')
 });
 
 

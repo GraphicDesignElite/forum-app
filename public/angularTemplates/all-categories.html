@@ -29,7 +29,7 @@
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="category in categories | orderBy: rowFilter">
                     <div class="col-md-9 col-sm-7 col-xs-7">
-                        <p><a href="/#/category/{{category.categoryslug}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="right small-grey-button delete-button" confirm="Are you sure?"  ng-click="deleteCategory(category)"><i class="fa fa-times-circle-o"></i></a></p>
+                        <p><a href="/#/category/{{category._id}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="right small-grey-button delete-button" confirm="Are you sure?"  ng-click="deleteCategory(category)"><i class="fa fa-times-circle-o"></i></a></p>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-3">
                         <p>{{category.categoryslug}}</p>
