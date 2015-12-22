@@ -33,12 +33,12 @@ app.controller('RecentPostsCtrl', ['$scope','posts', 'userMessages', function($s
             $scope.rowFilter = '-upvotes';
         }
     };
-    $scope.orderByDate= function(){
-        if($scope.rowFilter == '-created'){
-            $scope.rowFilter = 'created';
+    $scope.orderByReplies= function(){
+        if($scope.rowFilter == '-comments.length'){
+            $scope.rowFilter = 'comments.length';
         }
         else{
-            $scope.rowFilter = '-created';
+            $scope.rowFilter = '-comments.length';
         }
     };
     $scope.hideMessage = function(){

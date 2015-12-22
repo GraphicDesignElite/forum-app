@@ -7,6 +7,8 @@ var PostSchema = new mongoose.Schema({
 	upvotes: {type: Number, default: 0},
 	downvotes: {type: Number, default: 0},
 	created: {type: Date, default: Date.now()},
+	views: Number,
+	active: {type: Boolean, default: true},
 	comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
 	category: {type: mongoose.Schema.Types.ObjectId, ref: 'Category'}
 });
@@ -17,6 +19,10 @@ PostSchema.methods.upvote = function(cb) {
 };
 PostSchema.methods.downvote = function(cb) {
   this.downvotes += 1;
+  this.save(cb);
+};
+PostSchema.methods.addview = function(cb) {
+  this.views += 1;
   this.save(cb);
 };
 

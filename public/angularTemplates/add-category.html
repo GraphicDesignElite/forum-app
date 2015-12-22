@@ -4,7 +4,7 @@
             <div class="row form-container">
                 <form name="addcategoryform" ng-submit="addCategory(addcategoryform.$valid)" novalidate >
                     <div class="col-md-12">
-                        <h4>Add a Category</h4>
+                        <h1 class="page-title">Add a Category (Admin)</h1>
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="newCategoryTitle">New Category Name</label>
@@ -21,8 +21,15 @@
                                     <slug from="newCategoryTitle" to="newCategorySlug">{{newCategorySlug}}</slug>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="newCategoryDescription">Category Short Description</label>
+                                <input type="text" class="form-control" ng-model="newCategoryDescription" name="newCategoryDescription" ng-maxlength="40" />
+                                <div class="error-container" ng-messages="addpostform.newPostDescription.$error" ng-if="addpostform.newPostDescription.$touched">
+                                    <p ng-message="maxlength">Your Description is too long.</p>
+                                </div>
+                            </div>
                       
-                        <button class="btn btn-primary" type="submit" ng-disabled="addcategoryform.$invalid"><i class="fa fa-plus-circle"></i> Add Post</button>
+                        <button class="btn btn-primary" type="submit" ng-disabled="addcategoryform.$invalid"><i class="fa fa-plus-circle"></i> Add New Category</button>
                         <a href="/#/categories/" class="btn btn-default"><i class="fa fa-chevron-left"></i> Go Back</a>
                     </div>
                 </form>   

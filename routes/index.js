@@ -8,7 +8,6 @@ var Category = mongoose.model('Category');
 
 router.param('post', function(req, res, next, id) {
   var query = Post.findById(id);
-
   query.exec(function (err, post){
     if (err) { return next(err); }
     if (!post) { return next(new Error('can\'t find post')); }
@@ -17,7 +16,6 @@ router.param('post', function(req, res, next, id) {
     return next();
   });
 });
-
 router.param('comment', function(req, res, next, id) {
   var query = Comment.findById(id);
 
@@ -29,7 +27,6 @@ router.param('comment', function(req, res, next, id) {
     return next();
   });
 });
-
 router.param('category', function(req, res, next, id) {
   var query = Category.findById(id);
 
@@ -46,7 +43,6 @@ router.param('category', function(req, res, next, id) {
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Forum Home' });
 });
-
 // Return All Posts
 router.get('/posts', function(req, res, next) {
    Post.find(function(err, posts){
@@ -54,7 +50,6 @@ router.get('/posts', function(req, res, next) {
        res.json(posts);
    });
 });
-
 // Create a post
 router.post('/posts/:category', function(req, res, next){
     var post = new Post(req.body);
@@ -71,7 +66,6 @@ router.post('/posts/:category', function(req, res, next){
         });
     });
 });
-
 // Return a single Post
 router.get('/posts/:post', function(req, res, next) {
   req.post.populate('comments', function(err, post) {
@@ -80,23 +74,6 @@ router.get('/posts/:post', function(req, res, next) {
     res.json(post);
   });
 });
-
-// Add a new comment
-router.post('/posts/:post/comments', function(req, res, next) {
-  var comment = new Comment(req.body);
-  comment.post = req.post;
-
-  comment.save(function(err, comment){
-    if(err){ return next(err); }
-
-    req.post.comments.push(comment);
-    req.post.save(function(err, post) {
-      if(err){ return next(err); }
-      res.json(comment);
-    });
-  });
-});
-
 // Upvote a post
 router.put('/posts/:post/upvote', function(req, res, next) {
   req.post.upvote(function(err, post){
@@ -110,21 +87,6 @@ router.put('/posts/:post/downvote', function(req, res, next) {
   req.post.downvote(function(err, post){
     if (err) { return next(err); }
     res.json(post);
-  });
-});
-
-// Upvote a Comment
-router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
-  req.comment.upvote(function(err, comment){
-    if (err) { return next(err); }
-    res.json(comment);
-  });
-});
-// Downvote a Comment
-router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
-  req.comment.downvote(function(err, comment){
-    if (err) { return next(err); }
-    res.json(comment);
   });
 });
 // Delete a post
@@ -149,6 +111,37 @@ router.delete('/posts/delete/:post', function(req, res) {
         });
 });
 
+// Add a new comment
+router.post('/posts/:post/comments', function(req, res, next) {
+  var comment = new Comment(req.body);
+  comment.post = req.post;
+
+  comment.save(function(err, comment){
+    if(err){ return next(err); }
+
+    req.post.comments.push(comment);
+    req.post.save(function(err, post) {
+      if(err){ return next(err); }
+      res.json(comment);
+    });
+  });
+});
+// Upvote a Comment
+router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+  req.comment.upvote(function(err, comment){
+    if (err) { return next(err); }
+    res.json(comment);
+  });
+});
+// Downvote a Comment
+router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
+  req.comment.downvote(function(err, comment){
+    if (err) { return next(err); }
+    res.json(comment);
+  });
+});
+
+
 
 // Return All Categories
 router.get('/categories', function(req, res, next) {
@@ -162,22 +155,15 @@ router.get('/categories', function(req, res, next) {
 router.get('/categories/:category', function(req, res, next) {
   req.category.populate('posts', function(err, posts) {
     if (err) { return next(err); }
-
     res.json(posts);
   });
 });
-
-router.post('/posts/:category/:post', function(req, res, next) {
- console.log('did it at least')
-});
-
 
 // Create a Category
 router.post('/categories', function(req, res, next){
     var category = new Category(req.body);
     category.save(function(err, post){
-       if(err) return next(err);
-       
+       if(err) return next(err); 
        res.json(post);
     });
 });

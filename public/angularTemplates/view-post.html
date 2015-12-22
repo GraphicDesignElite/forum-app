@@ -5,7 +5,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="right-post-btns">
-							<a class="right delete-button small-grey-button" ng-href="/#/deletepost/{{post._id}}"><i class="fa fa-times-circle-o"></i></a>
+							<a class="right delete-button" ng-href="/#/deletepost/{{post._id}}"><i class="fa fa-times-circle-o"></i></a>
 						</div>
 						<h1 class="post-title">{{post.title}}</h1>
 						<p class="post-created-date">Created by: {{post.author }} on {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
@@ -23,16 +23,21 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 comment-container">
-						<form ng-submit="addComment(addcommentform.$valid)" class="add-comment-form" name="addcommentform" novalidate>
-							<div class="row">
-								<div class="col-md-9">
-									<input type="text" class="form-control" ng-model="newComment" placeholder="Add a Comment" required ng-maxlength="100">
+						<div ng-show="post.active == true">
+							<form ng-submit="addComment(addcommentform.$valid)" class="add-comment-form" name="addcommentform" novalidate>
+								<div class="row">
+									<div class="col-md-9">
+										<input type="text" class="form-control" ng-model="newComment" placeholder="Add a Comment" required ng-maxlength="100">
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn btn-primary" ng-disabled="addcommentform.$invalid">Add a Comment</button>
+									</div>
 								</div>
-								<div class="col-md-3">
-									<button type="submit" class="btn btn-primary" ng-disabled="addcommentform.$invalid">Add a Comment</button>
-								</div>
-							</div>
-						</form>
+							</form>
+						</div>
+						<div ng-show="post.active == false">
+							This Discussion Is Closed.
+						</div>
 						<h4>{{post.comments.length}} Comments on &quot;{{post.title | cut:true:20: ' ...'}}&quot;</h4>
 						<div class="comment-block" ng-repeat="comment in post.comments | orderBy : -comment.created">
 							<p class="post-created-date">Commented at {{comment.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>

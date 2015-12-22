@@ -1,20 +1,44 @@
     <div id="posts-display">
         <!-- start responsive table header -->
         <div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="page-title">Categories</h1>
+				</div>
+			</div>
+		</div>
+        <div class="container">
             <div class="row">
                 <div class="table-wrap">
+                    <div ng-if="categories.length == 0">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="user-message" ng-show="message !=''">
+                                        <p>No Posts To Display</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="user-message" ng-show="message !=''">
                         <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
                         <p>{{message}}</p>
                     </div>
-                    <div class="col-md-9 col-sm-7 col-xs-7 table-heading">
+                    <div class="col-md-10 col-sm-7 col-xs-7 table-heading">
                         <p ng-click="orderByTitle()">Categories
                             <span ng-show="rowFilter == 'categoryname'"><i class="fa fa-arrow-circle-down"></i></span>
                             <span ng-show="rowFilter == '-categoryname'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
                     </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3 table-heading">
-                        <p ng-click="orderByDate()">URL Slug
+                    <div class="col-md-1 col-sm-3 col-xs-3 table-heading">
+                        <p ng-click="orderByDate()">Topics
+                            <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-md-1 col-sm-2 col-xs-2 table-heading">
+                        <p ng-click="orderByViews()">Views
                             <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
                             <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
@@ -28,11 +52,15 @@
         <div class="container">
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="category in categories | orderBy: rowFilter">
-                    <div class="col-md-9 col-sm-7 col-xs-7">
-                        <p><a href="/#/category/{{category._id}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="right small-grey-button delete-button" confirm="Are you sure?"  ng-click="deleteCategory(category)"><i class="fa fa-times-circle-o"></i></a></p>
+                    <div class="col-md-10 col-sm-7 col-xs-7">
+                        <p><a href="/#/category/{{category._id}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="delete-button" confirm="Are you sure?"  ng-click="deleteCategory(category)"><i class="fa fa-times-circle-o"></i></a></p>
+                        <p ng-if="category.categorydescription" class="category-description"><i class="fa fa-chevron-right"></i> {{category.categorydescription | cut:true:60: ' ...'}}</p>
                     </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <p>{{category.categoryslug}}</p>
+                    <div class="col-md-1 col-sm-3 col-xs-3">
+                        <p>{{category.posts.length}} <i class="fa fa-weixin"></i></p>
+                    </div>
+                    <div class="col-md-1 col-sm-2 col-xs-2">
+                        <p>{{category.views}}</p>
                     </div>
                 </div>
             </div>

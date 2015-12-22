@@ -9,6 +9,8 @@ app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories'
         categories.create({
             categoryname: $scope.newCategoryTitle,
             categoryslug: $scope.newCategorySlug,
+            categorydescription: $scope.newCategoryDescription,
+            views: 0,
         });
         $scope.newCategoryTitle = '';
         $scope.showMessage = true;

@@ -24,6 +24,19 @@ function($stateProvider, $urlRouterProvider) {
       controller: 'AddCategoryCtrl'
    }); 
    
+   $stateProvider  
+  .state('deleteCategoryConfirm', {
+    url: '/deletecategory/{id}',
+    templateUrl: 'angularTemplates/delete-category.html',
+    controller: 'DeleteCategoryCtrl',
+    resolve: {
+      post: ['$stateParams', 'categories', function($stateParams, categories) {
+        return categories.getOne($stateParams.id);
+       }]
+       
+    }
+   }); 
+   
   $stateProvider
     .state('recentPosts', {
   url: '/recent-posts',
@@ -88,5 +101,5 @@ function($stateProvider, $urlRouterProvider) {
     }
    });  
 
-  $urlRouterProvider.otherwise('recent-posts');
+  $urlRouterProvider.otherwise('categories');
 }]);

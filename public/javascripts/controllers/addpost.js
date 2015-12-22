@@ -13,6 +13,8 @@ app.controller('AddPostCtrl', ['$scope', '$location','posts', 'userMessages', 'c
             postcontent: $scope.newPostContent,
             upvotes: 0,
             downvotes: 0,
+            views: 0,
+            active: true,
             author: 'Developer',
         }, $scope.newPostCategory);
         $scope.newPostTitle = '';

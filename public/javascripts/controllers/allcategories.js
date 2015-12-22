@@ -14,11 +14,11 @@ app.controller('CategoryCtrl', ['$scope','$location','categories', 'userMessages
     
     // display and ordering functions
     $scope.orderByTitle = function(){
-        if($scope.rowFilter == 'title'){
-            $scope.rowFilter = '-title';
+        if($scope.rowFilter == 'categoryname'){
+            $scope.rowFilter = '-categoryname';
         }
         else{
-            $scope.rowFilter = 'title';
+            $scope.rowFilter = 'categoryname';
         }
     };
     $scope.orderByDate= function(){

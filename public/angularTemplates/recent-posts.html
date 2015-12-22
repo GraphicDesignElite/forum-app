@@ -1,4 +1,11 @@
     <div id="posts-display">
+        <div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1 class="page-title">Recent Posts</h1>
+				</div>
+			</div>
+		</div>
         <!-- start responsive table header -->
         <div class="container">
             <div class="row">
@@ -13,13 +20,19 @@
                             <span ng-show="rowFilter == '-title'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
                     </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3 table-heading">
-                        <p ng-click="orderByDate()">Date
+                    <div class="col-md-2 col-sm-2 col-xs-2 table-heading">
+                        <p ng-click="orderByReplies()">Replies
+                            <span ng-show="rowFilter == 'comments.length'"><i class="fa fa-arrow-circle-down"></i></span>
+                            <span ng-show="rowFilter == '-comments.length'"><i class="fa fa-arrow-circle-up"></i></span>
+                        </p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 table-heading">
+                        <p ng-click="orderByDate()">Views
                             <span ng-show="rowFilter == 'created'"><i class="fa fa-arrow-circle-down"></i></span>
                             <span ng-show="rowFilter == '-created'"><i class="fa fa-arrow-circle-up"></i></span>
                         </p>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xs-2 table-heading">
+                    <div class="col-md-1 col-sm-1 col-xs-1 table-heading">
                         <p ng-click="orderByVotes()">&nbsp;
                             <span ng-show="rowFilter == '-upvotes'"><i class="fa fa-arrow-circle-down"></i></span>
                             <span ng-show="rowFilter == 'upvotes'"><i class="fa fa-arrow-circle-up"></i></span>
@@ -36,11 +49,15 @@
                 <div class="row post-row" ng-repeat="post in posts | orderBy: rowFilter">
                     <div class="col-md-7 col-sm-7 col-xs-7">
                         <p><a href="/#/viewpost/{{post._id}}">{{post.title | cut:true:60: ' ...'}}</a></p>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        <p>{{post.created | date:'MM-dd-yy @ HH:mm:ss' }}</p>
+                        <p class="category-description">Posted {{post.created | date:'MM-dd-yy @ HH:mm:ss' }} by {{post.author }}</p>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-2">
+                        <p>{{post.comments.length }}</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <p>{{post.views }}</p>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1">
                         <p class="upvote-display"><span class="upvote-count">+{{post.upvotes}}</span>&nbsp;<span class="downvote-count">-{{post.downvotes}}</span></p>
                     </div>
                 </div>
