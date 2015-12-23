@@ -5,8 +5,8 @@ app.config([
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
   
-  $stateProvider
-    .state('categoryList', {
+//All Categories
+$stateProvider.state('categoryList', {
   url: '/categories',
   templateUrl: 'angularTemplates/all-categories.html',
   controller: 'CategoryCtrl',
@@ -15,54 +15,65 @@ function($stateProvider, $urlRouterProvider) {
         return categories.getAll();
         }]
     }
-  });
+});
   
-  $stateProvider
-    .state('addCategory', {
+//Add a New Category
+$stateProvider.state('addCategory', {
       url: '/add-category',
       templateUrl: 'angularTemplates/add-category.html',
       controller: 'AddCategoryCtrl'
-   }); 
+}); 
    
-   $stateProvider  
-  .state('deleteCategoryConfirm', {
-    url: '/deletecategory/{id}',
+//View a Single Category
+$stateProvider.state('viewCategory', {
+    url: '/category/{id}',
+    templateUrl: 'angularTemplates/view-category.html',
+    controller: 'ViewCategoryCtrl',
+    resolve: {
+      category: ['$stateParams', 'categories', function($stateParams, categories) {
+        return categories.getOne($stateParams.id);
+       }]
+    }
+});
+   
+//Delete a Category
+$stateProvider.state('deleteCategory', {
+    url: '/delete-category/{id}',
     templateUrl: 'angularTemplates/delete-category.html',
     controller: 'DeleteCategoryCtrl',
     resolve: {
-      post: ['$stateParams', 'categories', function($stateParams, categories) {
+      category: ['$stateParams', 'categories', function($stateParams, categories) {
         return categories.getOne($stateParams.id);
        }]
-       
     }
-   }); 
-   
-  $stateProvider
-    .state('recentPosts', {
-  url: '/recent-posts',
-  templateUrl: 'angularTemplates/recent-posts.html',
-  controller: 'RecentPostsCtrl',
-  resolve: {
+});
+  
+//View all Recent Posts Regardless of Category
+$stateProvider.state('recentPosts', {
+    url: '/recent-posts',
+    templateUrl: 'angularTemplates/recent-posts.html',
+    controller: 'RecentPostsCtrl',
+    resolve: {
         postPromise: ['posts', function(posts){
         return posts.getAll();
         }]
     }
-  });  
+});  
   
-  $stateProvider
-    .state('addPost', {
-      url: '/add-post',
-      templateUrl: 'angularTemplates/add-post.html',
-      controller: 'AddPostCtrl',
-      resolve: {
+//Add a New Post
+$stateProvider.state('addPost', {
+    url: '/add-post',
+    templateUrl: 'angularTemplates/add-post.html',
+    controller: 'AddPostCtrl',
+    resolve: {
         postPromise: ['categories', function(categories){
         return categories.getAll();
         }]
     }
-    });  
-      
-  $stateProvider  
-  .state('viewPost', {
+});
+ 
+//View a Single Post With Comments    
+$stateProvider.state('viewPost', {
     url: '/viewpost/{id}',
     templateUrl: 'angularTemplates/view-post.html',
     controller: 'ViewPostsCtrl',
@@ -74,58 +85,43 @@ function($stateProvider, $urlRouterProvider) {
         return posts.getAll();
        }] 
     }
-   });
+});
    
-   $stateProvider  
-  .state('viewCategory', {
-    url: '/category/{id}',
-    templateUrl: 'angularTemplates/view-category.html',
-    controller: 'ViewCategoryCtrl',
-    resolve: {
-      category: ['$stateParams', 'categories', function($stateParams, categories) {
-        return categories.getOne($stateParams.id);
-       }]
-    }
-   });
-   
-    $stateProvider  
-  .state('deletePostConfirm', {
+//Delete a post
+$stateProvider.state('deletePostConfirm', {
     url: '/deletepost/{id}',
     templateUrl: 'angularTemplates/delete-post.html',
     controller: 'DeletePostsCtrl',
     resolve: {
       post: ['$stateParams', 'posts', function($stateParams, posts) {
         return posts.getOne($stateParams.id);
-       }]
-       
+       }] 
     }
-   });
-   
-   $stateProvider  
-  .state('closePostConfirm', {
+});
+
+//Close a Post / Discussion 
+$stateProvider.state('closePostConfirm', {
     url: '/closepost/{id}',
     templateUrl: 'angularTemplates/close-post.html',
     controller: 'ClosePostsCtrl',
     resolve: {
       post: ['$stateParams', 'posts', function($stateParams, posts) {
         return posts.getOne($stateParams.id);
-       }]
-       
+       }]  
     }
-   });
-   
-   $stateProvider  
-  .state('openPostConfirm', {
+});
+
+//Reopen a Post / Discussion    
+$stateProvider.state('openPostConfirm', {
     url: '/openpost/{id}',
     templateUrl: 'angularTemplates/open-post.html',
     controller: 'OpenPostsCtrl',
     resolve: {
       post: ['$stateParams', 'posts', function($stateParams, posts) {
         return posts.getOne($stateParams.id);
-       }]
-       
+       }]   
     }
-   });      
+});      
 
   $urlRouterProvider.otherwise('categories');
 }]);

@@ -14,4 +14,10 @@ CategorySchema.methods.addview = function(cb) {
   this.save(cb);
 };
 
+CategorySchema.pre('remove', function(next) {
+    // Middleware Remove all the category references to the removed post
+    this.model('Post').remove( { category: this._id }, next );	
+	
+});
+
 mongoose.model('Category', CategorySchema);

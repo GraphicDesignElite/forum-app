@@ -3,9 +3,12 @@ app.controller('DeletePostsCtrl', ['$state', '$scope','$location', 'posts', 'pos
     $scope.post = post;
 	
 	 $scope.deletePost = function(){
-        posts.deleteOne(post._id);
+        posts.deleteOne(post._id).then(function(){
+            $state.go('recentPosts', {}, { reload: true });
+            
+        });
         $scope.showMessage = true;
-        $state.go('recentPosts');
+        
         userMessages.setMessage("Your Post was Deleted Successfully");
     }
     

@@ -35,9 +35,13 @@ PostSchema.methods.open = function(cb) {
 };
 
 PostSchema.pre('remove', function(next) {
+    // Remove all the comments associated with the removed post
+    this.model('Comment').remove( { post: this._id }, next )
+    
     // Middleware Remove all the category references to the removed post
     this.model('Category').update({ posts: this._id },
     { $pull: { posts: { $in: [this._id] }} } , next);
 });
+
 
 mongoose.model('Post', PostSchema);

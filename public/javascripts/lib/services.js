@@ -109,8 +109,8 @@ app.factory('categories',  ['$http', function($http){
             return res.data;
         });
     };
-    o.deleteOne = function(category) {
-        return $http.delete('/categories/delete/' + category._id).then(function(res){
+    o.deleteOne = function(id) {
+        return $http.delete('/categories/delete/' + id).then(function(res){
             return res.data;
         });
     };

@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 // Set your Mongo Location Here
-var dbURI = 'mongodb://localhost/forum';
+var dbURI = 'mongodb://localhost/forum_02';
 var mongoose = require('mongoose');
 
 require('./models/Posts');

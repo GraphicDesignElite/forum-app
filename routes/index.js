@@ -31,7 +31,6 @@ router.param('category', function(req, res, next, id) {
   query.exec(function (err, category){
     if (err) { return next(err); }
     if (!category) { return next(new Error('can\'t find category')); }
-
     req.category = category;
     return next();
   });
@@ -146,6 +145,7 @@ router.post('/posts/:post/comments', function(req, res, next) {
     });
   });
 });
+
 // Upvote a Comment
 router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
   req.comment.upvote(function(err, comment){
@@ -153,6 +153,7 @@ router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
     res.json(comment);
   });
 });
+
 // Downvote a Comment
 router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
   req.comment.downvote(function(err, comment){
@@ -160,7 +161,6 @@ router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
     res.json(comment);
   });
 });
-
 
 // Return All Categories
 router.get('/categories', function(req, res, next) {
@@ -193,15 +193,17 @@ router.post('/categories', function(req, res, next){
 });
 // Delete a category
 router.delete('/categories/delete/:category', function(req, res) {
-    console.log("Deleting Category" + req.category._id);
+    console.log("Deleting Category " + req.category._id);
     Category.findById(req.category._id)
         .exec(function(err, doc) {
             if (err || !doc) {
+                console.log("Did not find it ");
                 res.statusCode = 404;
                 res.send({});
             } else {
                 doc.remove(function(err) {
                     if (err) {
+                        console.log("ERROR $)#... ");
                         res.statusCode = 403;
                         res.send(err);
                     } else {
