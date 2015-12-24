@@ -1,12 +1,21 @@
 <div id="close-posts-display">
 	<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1 class="page-title">Close a Post</h1>
-				</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="page-title">Close a Post</h1>
 			</div>
 		</div>
-	<div class="container">
+	</div>
+	<div class="container" 	ng-if="post.active == false">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="user-message warning" ng-show="message !=''">
+					<p>This Post Is Already Inactive.</p>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div class="container" ng-if="post.active == true">
 		<div class="row">
 			<div class="col-md-8">
 				<div class="row">

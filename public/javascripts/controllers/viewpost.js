@@ -26,5 +26,7 @@ app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', function($scope, pos
 			$scope.post.comments.push(comment);
 		});
 		$scope.newComment = '';
+		$scope.addcommentform.$setUntouched();
+		
 	};
 }]);

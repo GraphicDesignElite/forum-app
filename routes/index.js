@@ -111,13 +111,14 @@ router.put('/posts/:post/open', function(req, res, next) {
 });
 // Delete a post
 router.delete('/posts/delete/:post', function(req, res) {
-    console.log("Deleting Post" + req.post._id);  
+    console.log("Deleting Post with ID: " + req.post._id);  
     Post.findById(req.post._id)
         .exec(function(err, doc) {
             if (err || !doc) {
                 res.statusCode = 404;
                 res.send({});
             } else {
+                console.log(doc.title);
                 doc.remove(function(err) {
                     if (err) {
                         res.statusCode = 403;
@@ -135,15 +136,22 @@ router.post('/posts/:post/comments', function(req, res, next) {
   var comment = new Comment(req.body);
   comment.post = req.post;
 
-  comment.save(function(err, comment){
-    if(err){ return next(err); }
-
-    req.post.comments.push(comment);
-    req.post.save(function(err, post) {
-      if(err){ return next(err); }
-      res.json(comment);
+  if(req.post.active && comment.body.length > 1){
+    comment.save(function(err, comment){
+        if(err){ return next(err); }
+   
+        req.post.comments.push(comment);
+        req.post.save(function(err, post) {
+        if(err){ return next(err); }
+        res.json(comment);
+        });
     });
-  });
+  }
+  else{
+      var err = ("Failed. The Post Is Inactive.")
+      res.send(err);
+      return next(err);
+  }
 });
 
 // Upvote a Comment
@@ -193,17 +201,15 @@ router.post('/categories', function(req, res, next){
 });
 // Delete a category
 router.delete('/categories/delete/:category', function(req, res) {
-    console.log("Deleting Category " + req.category._id);
+    console.log("Deleting Category with ID: " + req.category._id);
     Category.findById(req.category._id)
         .exec(function(err, doc) {
             if (err || !doc) {
-                console.log("Did not find it ");
                 res.statusCode = 404;
                 res.send({});
             } else {
                 doc.remove(function(err) {
                     if (err) {
-                        console.log("ERROR $)#... ");
                         res.statusCode = 403;
                         res.send(err);
                     } else {

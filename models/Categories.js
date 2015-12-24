@@ -8,14 +8,13 @@ var CategorySchema = new mongoose.Schema({
 	created: {type: Date, default: Date.now()},
 	posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
 });
-
 CategorySchema.methods.addview = function(cb) {
   this.views += 1;
   this.save(cb);
 };
 
 CategorySchema.pre('remove', function(next) {
-    // Middleware Remove all the category references to the removed post
+    // Middleware Remove all the Posts in the category
     this.model('Post').remove( { category: this._id }, next );	
 	
 });

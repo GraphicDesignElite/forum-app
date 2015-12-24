@@ -48,15 +48,20 @@ p.category-description{font-size:12px; color:#666; padding-top:3px;}
 #view-posts-display .btn.back-btn{float:right;}
 #view-posts-display .post-title{ margin-top:0px; }
 
-/* Utilities Styles */
+/* Utilities and Forms Styles */
 .user-message{background:#CBFCCB; border:1px solid #9FE39F; padding:15px; margin-bottom:10px;}
-.user-message.warning{    background: #FCD6D6; border: 1px solid #F26E6E;}
+.user-message.warning{background: #FCD6D6; border: 1px solid #F26E6E;}
 .user-message p{padding:0px; margin:0px;}
 .error-container{margin-top:5px;}
 .error-container p{display:inline-block; padding:4px; background: #F0F0B0;}
+.ng-invalid.ng-touched{background:#FCD6D6;}
 .text-counter{color:#bbb ; padding:10px 0px; float:right;}
-.form-container{margin-top:20px;}
+.text-counter .over-limit{color:#D96666}
+.value-changed{background:#F0F0B0;}
+.edited-marker{ font-size:11px; font-weight: normal; margin-left:5px;}
+.form-control[disabled], fieldset[disabled] .form-control{background:#F6F5F5;}
 .tag-post{display: inline-block; padding:3px; font-size:10px; background:#ddd; margin-left:10px;}
+
 
 /* Admin Toolbar */
 .admin-toolbar{background:#555; padding:10px; margin-bottom:10px;}

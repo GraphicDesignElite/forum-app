@@ -1,14 +1,18 @@
-    <!-- Add a new Post -->
+    <!-- Edit a new Post -->
     <div id="form-container">
         <div class="container">
             <div class="row">
                 <form name="addpostform" ng-submit="addPost(addpostform.$valid)" novalidate >
                     <div class="col-md-12">
-                        <h1 class="page-title">Create a New Post</h1>
+                        <div class="user-message warning" ng-if="post.active != true">
+                            <p>Closed posts cannot be edited. <a class="right close-button" ng-if="post.active == false" ng-href="/#/openpost/{{post._id}}"><i class="fa fa-sign-out"></i> Reopen</a></p>
+                        </div>
+                        
+                        <h1 class="page-title">Edit Post</h1>
                         <div class="form-group">
-                            <label for="newPostTitle">Post Title</label>
                             <div class="text-counter"><span ng-class="{'over-limit' : (maxTitleSize - addpostform.newPostTitle.$viewValue.length) < 0}">{{maxTitleSize - addpostform.newPostTitle.$viewValue.length}}</span></div>
-                            <input type="text" class="form-control" ng-model="newPostTitle" name="newPostTitle" required ng-minlength="5" ng-maxlength="maxTitleSize" />
+                            <label for="newPostTitle">Post Title <span class="edited-marker" ng-show="newPostTitle != oldPostTitle">(Edited)</span></label>
+                            <input type="text" class="form-control" ng-model="newPostTitle" ng-class="{ 'value-changed': newPostTitle != oldPostTitle}" name="newPostTitle" required ng-minlength="1" ng-maxlength="100" ng-disabled="post.active != true" />
                             <div class="error-container" ng-messages="addpostform.newPostTitle.$error" ng-if="addpostform.newPostTitle.$touched">
                                 <p ng-message="minlength">Your Post Title is too short.</p>
                                 <p ng-message="maxlength">Your Post Title is too long.</p>
@@ -16,9 +20,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="newPostContent">Post Content</label>
+                            <label for="newPostContent">Post Content <span class="edited-marker" ng-show="newPostContent != oldPostContent">(Edited)</span></label>
                             <div class="text-counter">{{maxPostContentSize - newPostContent.length}}</div>
-                            <textarea class="form-control" maxlength="{{maxPostContentSize}}" rows="4" cols="50" ng-model="newPostContent" name="newPostContent" ng-trim="false" required ng-maxlength="{{maxPostContentSize}}"></textarea>
+                            <textarea class="form-control" ng-class="{ 'value-changed': newPostContent != oldPostContent}" maxlength="{{maxPostContentSize}}" rows="4" cols="50" ng-model="newPostContent" name="newPostContent" ng-disabled="post.active != true" ng-trim="false" required ng-maxlength="230"></textarea>
                             
                             <div class="error-container" ng-messages="addpostform.newPostContent.$error" ng-if="addpostform.newPostContent.$touched">
                                 <p ng-message="minlength">Your Post Content is too short.</p>
@@ -27,13 +31,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="category">Category</label>
-                            <select name="category" id="category" class="form-control" ng-model="newPostCategory" required>
-                                 <option value="">--Please Select a Category--</option>
+                            <label for="category">Category <span class="edited-marker" ng-show="newPostCategory != oldPostCategory">(Changed)</span></label>
+                            <select name="category" id="category" ng-class="{ 'value-changed': newPostCategory != oldPostCategory}" class="form-control" ng-model="newPostCategory" required ng-disabled="post.active != true">
+                                 <option value="" disabled="disabled">--Please Select a Category--</option>
                                  <option ng-repeat="category in categories" value="{{category._id}}">{{category.categoryname}}</option>
                             </select> 
                         </div>
-                        <button class="btn btn-primary" type="submit" ng-disabled="addpostform.$invalid"><i class="fa fa-plus-circle"></i> Add Post</button>
+          
+                        <button class="btn btn-primary" type="submit" ng-disabled="addpostform.$invalid || post.active != true"><i class="fa fa-plus-circle"></i> Update Post</button>
                         <a href="/#/home/" class="btn btn-default"><i class="fa fa-chevron-left"></i> Go Back</a>
                     </div>
                 </form>   

@@ -86,6 +86,21 @@ $stateProvider.state('viewPost', {
        }] 
     }
 });
+
+//View a Single Post With Comments    
+$stateProvider.state('editPost', {
+    url: '/editpost/{id}',
+    templateUrl: 'angularTemplates/edit-post.html',
+    controller: 'EditPostsCtrl',
+    resolve: {
+      post: ['$stateParams', 'posts', function($stateParams, posts) {
+        return posts.getOne($stateParams.id);
+       }],
+      postPromise: ['categories', function(categories){
+        return categories.getAll();
+       }] 
+    }
+});
    
 //Delete a post
 $stateProvider.state('deletePostConfirm', {
