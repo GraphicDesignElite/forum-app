@@ -57,7 +57,6 @@ router.post('/posts/:category', function(req, res, next){
     
     post.save(function(err, post){
        if(err) return next(err);
-       
        // attempt to add post into category posts
         req.category.posts.push(post);
         req.category.save(function(err, category) {
@@ -66,6 +65,28 @@ router.post('/posts/:category', function(req, res, next){
         });
     });
 });
+
+// Edit a post
+router.post('/posts/:post/:category', function(req, res, next){
+    var oldCategory = req.post.category;
+    var conditions = { _id: req.post._id };
+    var options = {new: true}
+    var update = {
+        title: req.body.title,
+        postcontent: req.body.postcontent,
+        category: req.body.category
+    }  
+    Post.findOneAndUpdate(conditions, update, options, function(err, doc){
+        if (err){return err;} 
+        console.log(doc);
+        
+        
+        return res.send("succesfully saved");
+    });
+    
+    
+});
+
 // Return a single Post
 router.get('/posts/:post', function(req, res, next) {
   // Add a view each time a user visits

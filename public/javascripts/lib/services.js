@@ -28,6 +28,11 @@ app.factory('posts',  ['$http', function($http){
             o.posts.push(data);
         });
     };
+    o.edit = function(updateData, post, category) {
+        return $http.post('/posts/' + post._id + '/' + category, updateData).success(function(data){
+           o.posts.push(data);
+        });
+    };
     o.upvote = function(post) {
         return $http.put('/posts/' + post._id + '/upvote')
             .success(function(data){

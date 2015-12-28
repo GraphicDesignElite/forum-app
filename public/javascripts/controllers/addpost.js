@@ -22,7 +22,7 @@ app.controller('AddPostCtrl', ['$state', '$scope','posts', 'userMessages', 'cate
             $scope.newPostContent = '';
             $scope.showMessage = true;
             $scope.addpostform.$setUntouched();
-            userMessages.setMessage("Your Post was Added Successfully");
+            userMessages.setMessage("Your Post was Edited Successfully");
         });
         
     }

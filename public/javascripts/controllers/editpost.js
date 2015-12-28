@@ -1,4 +1,4 @@
-app.controller('EditPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', 'categories', function($scope, posts, post, userMessages, categories){
+app.controller('EditPostsCtrl', ['$state','$scope', 'posts', 'post', 'userMessages', 'categories', function($state, $scope, posts, post, userMessages, categories){
 	
     $scope.categories = categories.categories;
     $scope.post = post;
@@ -14,16 +14,13 @@ app.controller('EditPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', 'cat
     $scope.newPostCategory = $scope.post.category;
     
     
-	$scope.EditPost = function(valid){
+	$scope.editPost = function(valid){
         if(!valid || !$scope.newPostTitle || $scope.newPostTitle === '' || !$scope.newPostContent || $scope.newPostContent === ''){ return; }
-        posts.update({
-            title: $scope.newPostTitle ,
+        posts.edit({
+            title: $scope.newPostTitle,
             postcontent: $scope.newPostContent,
-            upvotes: 0,
-            downvotes: 0,
-            views: 0,
-            active: true,
-        }, $scope.newPostCategory).then(function(){
+            category: $scope.newPostCategory
+        }, $scope.post, $scope.newPostCategory).then(function(){
             $state.go('categoryList', {}, { reload: true });
             $scope.newPostTitle = '';
             $scope.newPostContent = '';
