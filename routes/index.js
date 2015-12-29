@@ -68,22 +68,33 @@ router.post('/posts/:category', function(req, res, next){
 
 // Edit a post
 router.post('/posts/:post/:category', function(req, res, next){
-    var oldCategory = req.post.category;
+    var oldCategory = req.category;
     var conditions = { _id: req.post._id };
     var options = {new: true}
     var update = {
         title: req.body.title,
         postcontent: req.body.postcontent,
         category: req.body.category
-    }  
+    }
+    // update the post
     Post.findOneAndUpdate(conditions, update, options, function(err, doc){
         if (err){return err;} 
-        console.log(doc);
-        
-        
-        return res.send("succesfully saved");
+        console.log("The Document returned is : " + doc);  
     });
+    // if we change categories we need to remove from the old and add to the new
+    if(oldCategory != req.body.category){
+            Category.findByIdAndUpdate(oldCategory, {$pull : {posts: req.post._id}}, {new:true}, 
+            function(err, model) {
+                console.log("The old model: " + model);
+            });
+            Category.findByIdAndUpdate(req.body.category, {$push : {posts: req.post._id}},{new:true}, 
+            function(err, model) {
+                console.log("The new model: " + model);
+            });         
+            console.log('the category changed')      
+    }
     
+    return res.send("succesfully saved");
     
 });
 

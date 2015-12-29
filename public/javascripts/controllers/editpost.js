@@ -20,7 +20,7 @@ app.controller('EditPostsCtrl', ['$state','$scope', 'posts', 'post', 'userMessag
             title: $scope.newPostTitle,
             postcontent: $scope.newPostContent,
             category: $scope.newPostCategory
-        }, $scope.post, $scope.newPostCategory).then(function(){
+        }, $scope.post, $scope.oldPostCategory).then(function(){
             $state.go('categoryList', {}, { reload: true });
             $scope.newPostTitle = '';
             $scope.newPostContent = '';
