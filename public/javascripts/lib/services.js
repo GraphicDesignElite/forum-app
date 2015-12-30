@@ -29,18 +29,18 @@ app.factory('posts',  ['$http', function($http){
         });
     };
     o.edit = function(updateData, post, category) {
-        return $http.post('/posts/' + post._id + '/' + category, updateData).success(function(data){
+        return $http.post('/post/edit/' + post._id + '/' + category, updateData).success(function(data){
            o.posts.push(data);
         });
     };
     o.upvote = function(post) {
-        return $http.put('/posts/' + post._id + '/upvote')
+        return $http.put('/post/upvote/' + post._id)
             .success(function(data){
             post.upvotes += 1;
         });
    };
    o.downvote = function(post) {
-        return $http.put('/posts/' + post._id + '/downvote')
+        return $http.put('/post/downvote/' + post._id)
             .success(function(data){
             post.downvotes += 1;
         });
@@ -51,33 +51,33 @@ app.factory('posts',  ['$http', function($http){
         });
     };
     o.deleteOne = function(id) {
-        return $http.delete('/posts/delete/' + id).then(function(res){
+        return $http.delete('/post/delete/' + id).then(function(res){
             return res.data;
         });
-    };
+    }
     o.close = function(post) {
-        return $http.put('/posts/' + post._id + '/close')
+        return $http.put('/post/close/' + post._id)
             .success(function(data){
             post.active = false;
         });
     };
     o.open = function(post) {
-        return $http.put('/posts/' + post._id + '/open')
+        return $http.put('/post/open/' + post._id)
             .success(function(data){
             post.active = true;
         });
     };
     o.addComment = function(id, comment) {
-        return $http.post('/posts/' + id + '/comments', comment);
+        return $http.post('/post/' + id + '/comments', comment);
     };
     o.upvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/upvote')
+    return $http.put('/comment/upvote/'+ comment._id)
         .success(function(data){
         comment.upvotes += 1;
         });
     };
     o.downvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/downvote')
+    return $http.put('/comment/downvote/'+ comment._id)
         .success(function(data){
         comment.downvotes += 1;
         });
@@ -119,9 +119,7 @@ app.factory('categories',  ['$http', function($http){
             return res.data;
         });
     };
-    o.addPost = function(category, post) {
-        return $http.post('/posts/' + category + '/' + post);
-    };
+    
   return o;
 }]);
 

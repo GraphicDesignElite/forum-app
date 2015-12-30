@@ -8,7 +8,7 @@
                         <div class="form-group">
                             <label for="newPostTitle">Post Title</label>
                             <div class="text-counter"><span ng-class="{'over-limit' : (maxTitleSize - addpostform.newPostTitle.$viewValue.length) < 0}">{{maxTitleSize - addpostform.newPostTitle.$viewValue.length}}</span></div>
-                            <input type="text" class="form-control" ng-model="newPostTitle" name="newPostTitle" required ng-minlength="5" ng-maxlength="maxTitleSize" />
+                            <input type="text" class="form-control" ng-model="newPostTitle" name="newPostTitle" required ng-minlength="1" ng-maxlength="maxTitleSize" />
                             <div class="error-container" ng-messages="addpostform.newPostTitle.$error" ng-if="addpostform.newPostTitle.$touched">
                                 <p ng-message="minlength">Your Post Title is too short.</p>
                                 <p ng-message="maxlength">Your Post Title is too long.</p>

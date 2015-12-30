@@ -6,6 +6,7 @@ app.controller('EditPostsCtrl', ['$state','$scope', 'posts', 'post', 'userMessag
     $scope.maxPostContentSize = 400;
     $scope.maxTitleSize = 80;
     
+    //Display the changes for the user so they know what has been modified
     $scope.oldPostTitle = $scope.post.title;
 	$scope.oldPostContent = $scope.post.postcontent;
     $scope.oldPostCategory = $scope.post.category;

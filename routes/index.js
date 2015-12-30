@@ -39,10 +39,11 @@ router.param('category', function(req, res, next, id) {
 
 
 
-/* GET Our Home Page. */
+/* Main Page and Bootstrap with Angular. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Forum Home' });
 });
+
 // Return All Posts
 router.get('/posts', function(req, res, next) {
    Post.find(function(err, posts){
@@ -65,62 +66,26 @@ router.post('/posts/:category', function(req, res, next){
         });
     });
 });
-
-// Edit a post
-router.post('/posts/:post/:category', function(req, res, next){
-    var oldCategory = req.category;
-    var conditions = { _id: req.post._id };
-    var options = {new: true}
-    var update = {
-        title: req.body.title,
-        postcontent: req.body.postcontent,
-        category: req.body.category
-    }
-    // update the post
-    Post.findOneAndUpdate(conditions, update, options, function(err, doc){
-        if (err){return err;} 
-        console.log("The Document returned is : " + doc);  
-    });
-    // if we change categories we need to remove from the old and add to the new
-    if(oldCategory != req.body.category){
-            Category.findByIdAndUpdate(oldCategory, {$pull : {posts: req.post._id}}, {new:true}, 
-            function(err, model) {
-                console.log("The old model: " + model);
-            });
-            Category.findByIdAndUpdate(req.body.category, {$push : {posts: req.post._id}},{new:true}, 
-            function(err, model) {
-                console.log("The new model: " + model);
-            });         
-            console.log('the category changed')      
-    }
-    
-    return res.send("succesfully saved");
-    
-});
-
-// Return a single Post
+// Get a single Post
 router.get('/posts/:post', function(req, res, next) {
-  // Add a view each time a user visits
   req.post.addview(function(err, post){
     if (err) { return next(err); }
   });  
-  
   req.post.populate('comments', function(err, post) {
     if (err) { return next(err); }
-
     res.json(post);
   });
 });
+
 // Upvote a post
-router.put('/posts/:post/upvote', function(req, res, next) {
+router.put('/post/upvote/:post', function(req, res, next) {
   req.post.upvote(function(err, post){
     if (err) { return next(err); }
     res.json(post);
   });
 });
-
 // Downvote a post
-router.put('/posts/:post/downvote', function(req, res, next) {
+router.put('/post/downvote/:post', function(req, res, next) {
   req.post.downvote(function(err, post){
     if (err) { return next(err); }
     res.json(post);
@@ -128,21 +93,21 @@ router.put('/posts/:post/downvote', function(req, res, next) {
 });
 
 // Close a post
-router.put('/posts/:post/close', function(req, res, next) {
+router.put('/post/close/:post', function(req, res, next) {
   req.post.close(function(err, post){
     if (err) { return next(err); }
     res.json(post);
   });
 });
 // Open a post
-router.put('/posts/:post/open', function(req, res, next) {
+router.put('/post/open/:post', function(req, res, next) {
   req.post.open(function(err, post){
     if (err) { return next(err); }
     res.json(post);
   });
 });
 // Delete a post
-router.delete('/posts/delete/:post', function(req, res) {
+router.delete('/post/delete/:post', function(req, res) {
     console.log("Deleting Post with ID: " + req.post._id);  
     Post.findById(req.post._id)
         .exec(function(err, doc) {
@@ -162,9 +127,35 @@ router.delete('/posts/delete/:post', function(req, res) {
             }
         });
 });
+// Edit a post
+router.post('/post/edit/:post/:category', function(req, res, next){
+    var oldCategory = req.category;
+    var conditions = { _id: req.post._id };
+    var options = {new: true};
+    var update = {
+        title: req.body.title,
+        postcontent: req.body.postcontent,
+        category: req.body.category
+    };
+    Post.findOneAndUpdate(conditions, update, options, function(err, doc){
+        if (err){return err;} 
+    });
+    // Change Category if needed
+    if(oldCategory != req.body.category){
+        Category.findByIdAndUpdate(oldCategory, {$pull : {posts: req.post._id}}, {new:true}, 
+            function(err, model) {
+                 if (err){return err;} 
+            });
+        Category.findByIdAndUpdate(req.body.category, {$push : {posts: req.post._id}},{new:true}, 
+            function(err, model) {
+                 if (err){return err;} 
+            });         
+    }
+    res.send("succesfully saved"); 
+});
 
 // Add a new comment
-router.post('/posts/:post/comments', function(req, res, next) {
+router.post('/post/:post/comments', function(req, res, next) {
   var comment = new Comment(req.body);
   comment.post = req.post;
 
@@ -187,7 +178,7 @@ router.post('/posts/:post/comments', function(req, res, next) {
 });
 
 // Upvote a Comment
-router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+router.put('/comment/upvote/:comment', function(req, res, next) {
   req.comment.upvote(function(err, comment){
     if (err) { return next(err); }
     res.json(comment);
@@ -195,7 +186,7 @@ router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
 });
 
 // Downvote a Comment
-router.put('/posts/:post/comments/:comment/downvote', function(req, res, next) {
+router.put('/comment/downvote/:comment', function(req, res, next) {
   req.comment.downvote(function(err, comment){
     if (err) { return next(err); }
     res.json(comment);
@@ -251,5 +242,6 @@ router.delete('/categories/delete/:category', function(req, res) {
             }
         });
 });
+
 
 module.exports = router;
