@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var CategorySchema = new mongoose.Schema({
 	categoryname: String,
-	categoryslug: String,
+	categoryslug: { type : String , unique : true, required : true, dropDups: true },
 	categorydescription: String,
 	views: {type: Number, default: 0},
 	created: {type: Date, default: Date.now()},
@@ -15,8 +15,12 @@ CategorySchema.methods.addview = function(cb) {
 
 CategorySchema.pre('remove', function(next) {
     // Middleware Remove all the Posts in the category
-    this.model('Post').remove( { category: this._id }, next );	
-	
+    this.model('Post').find( { category: this._id }, function(err, docs){
+        for( var doc in docs){
+            docs[doc].remove();
+        }
+    });	
+	next();
 });
 
 mongoose.model('Category', CategorySchema);

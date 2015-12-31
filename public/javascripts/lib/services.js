@@ -133,6 +133,9 @@ app.service('userMessages', function () {
         },
         setMessage: function(value) {
             usermessage = value;
+        },
+        autoHide: function(){
+            
         }
     };
 });

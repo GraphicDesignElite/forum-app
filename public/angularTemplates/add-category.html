@@ -4,8 +4,13 @@
             <div class="row form-container">
                 <form name="addcategoryform" ng-submit="addCategory(addcategoryform.$valid)" novalidate >
                     <div class="col-md-12">
+                        <div class="user-message warning" ng-show="message !=''">
+                            <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                            <p>{{message}}</p>
+                        </div>
+                        
                         <h1 class="page-title">Add a Category (Admin)</h1>
-                        <div class="form-group">
+                        <div>
                             <div class="form-group">
                                 <label for="newCategoryTitle">New Category Name</label>
                                 <input type="text" class="form-control" ng-model="newCategoryTitle" name="newCategoryTitle" required ng-minlength="2" ng-maxlength="100" />

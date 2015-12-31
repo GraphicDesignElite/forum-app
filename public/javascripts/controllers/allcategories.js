@@ -6,6 +6,7 @@ app.controller('CategoryCtrl', ['$scope','$location','categories', 'userMessages
     $scope.categories = categories.categories; // add [categories] from our factory in angularapp
     $scope.message = userMessages.getMessage();
     
+    
     $scope.deleteCategory = function(category){
         categories.deleteOne(category);
         $scope.showMessage = true;

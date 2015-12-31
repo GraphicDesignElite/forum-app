@@ -217,14 +217,17 @@ router.get('/categories/:category', function(req, res, next) {
 // Create a Category
 router.post('/categories', function(req, res, next){
     var category = new Category(req.body);
-    category.save(function(err, post){
-       if(err) return next(err); 
-       res.json(post);
+    category.save(function(err, category){
+       if(err){
+            return next(err);
+       }
+       res.json(category);
     });
 });
 // Delete a category
 router.delete('/categories/delete/:category', function(req, res) {
     console.log("Deleting Category with ID: " + req.category._id);
+
     Category.findById(req.category._id)
         .exec(function(err, doc) {
             if (err || !doc) {

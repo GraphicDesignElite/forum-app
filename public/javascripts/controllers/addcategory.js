@@ -1,7 +1,9 @@
 app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories', 'userMessages', function($state, $scope, $location, categories, userMessages){
 
-
+    $scope.message = '';
     $scope.maxPostContentSize = 230;
+    
+    
     
     // add posts function
     $scope.addCategory = function(valid){
@@ -11,12 +13,24 @@ app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories'
             categoryslug: $scope.newCategorySlug,
             categorydescription: $scope.newCategoryDescription,
             views: 0,
-        });
-        $scope.newCategoryTitle = '';
-        $scope.showMessage = true;
-        $scope.addcategoryform.$setUntouched();
-        $state.go('categoryList');
-        userMessages.setMessage("Your Category was Added Successfully");
+        }).then(function(){
+            $scope.newCategoryTitle = '';
+            $scope.showMessage = true;
+            $scope.addcategoryform.$setUntouched();
+            $state.go('categoryList');
+            userMessages.setMessage("Your Category was Added Successfully"); 
+            
+        },function(error){
+           userMessages.setMessage("This Category Cannot Be Added!");
+           $scope.message = userMessages.getMessage();
+        }
+        );
+        
+    }
+    
+    $scope.hideMessage = function(){
+        userMessages.setMessage('');
+        $scope.message = userMessages.getMessage();
     }
     
 }]);

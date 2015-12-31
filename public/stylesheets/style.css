@@ -42,6 +42,8 @@ p.category-description{font-size:12px; color:#666; padding-top:3px;}
 .upvote-button .fa, .downvote-button .fa{ color:#bbb; cursor:pointer;}
 .hide-message-btn{float:right; margin-top:-10px; background:#9FE39F;}
 .hide-message-btn .fa{color:#CBFCCB;}
+.warning .hide-message-btn{background: #F26E6E;}
+.warning .hide-message-btn .fa{ color: #FCD6D6;}
 .small-grey-button{padding:2px 4px; background: #ccc; display: inline-block;}
 
 
