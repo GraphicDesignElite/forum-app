@@ -35,7 +35,15 @@ router.param('category', function(req, res, next, id) {
     return next();
   });
 });
-
+router.param('categoryslug', function(req, res, next, slug) {
+  var query = Category.findOne({'categoryslug': slug});
+  query.exec(function (err, category){
+    if (err) { return next(err); }
+    if (!category) { return next(new Error('can\'t find category slug')); }
+    req.categoryslug = category;
+    return next();
+  });
+});
 
 
 
@@ -201,14 +209,25 @@ router.get('/categories', function(req, res, next) {
    });
 });
 
-// Return a single Category
+// Return a single Category by id
 router.get('/categories/:category', function(req, res, next) {
-  /* Add a view for each user visit */
   req.category.addview(function(err, post){
     if (err) { return next(err); }
   });
   
   req.category.populate('posts', function(err, posts) {
+    if (err) { return next(err); }
+    res.json(posts);
+  });
+});
+
+// Return a single Category by slug value
+router.get('/categories/view/:categoryslug', function(req, res, next) {
+  req.categoryslug.addview(function(err, post){
+    if (err) { return next(err); }
+  });
+  
+  req.categoryslug.populate('posts', function(err, posts) {
     if (err) { return next(err); }
     res.json(posts);
   });

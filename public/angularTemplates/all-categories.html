@@ -62,7 +62,7 @@
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="category in categories | orderBy: rowFilter">
                     <div class="col-md-8 col-sm-7 col-xs-7">
-                        <p><a href="/#/category/{{category._id}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="delete-button"  ng-href="#/delete-category/{{category._id}}"><i class="fa fa-times-circle-o"></i></a></p>
+                        <p><a href="/#/categories/{{category.categoryslug}}">{{category.categoryname | cut:true:60: ' ...'}}</a> <a class="delete-button"  ng-href="#/delete-category/{{category._id}}"><i class="fa fa-times-circle-o"></i></a></p>
                         <p ng-if="category.categorydescription" class="category-description"><i class="fa fa-chevron-right"></i> {{category.categorydescription | cut:true:60: ' ...'}}</p>
                     </div>
                     <div class="col-md-2 col-sm-3 col-xs-3">

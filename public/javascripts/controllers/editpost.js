@@ -22,12 +22,12 @@ app.controller('EditPostsCtrl', ['$state','$scope', 'posts', 'post', 'userMessag
             postcontent: $scope.newPostContent,
             category: $scope.newPostCategory
         }, $scope.post, $scope.oldPostCategory).then(function(){
-            $state.go('categoryList', {}, { reload: true });
+            window.history.go(-1);
             $scope.newPostTitle = '';
             $scope.newPostContent = '';
             $scope.showMessage = true;
             $scope.addpostform.$setUntouched();
-            userMessages.setMessage("Your Post was Added Successfully");
+            userMessages.setMessage("Your Post was Edited Successfully");
         });
         
     }

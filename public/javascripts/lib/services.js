@@ -114,6 +114,11 @@ app.factory('categories',  ['$http', function($http){
             return res.data;
         });
     };
+    o.getOneBySlug = function(slug) {
+        return $http.get('/categories/view/' + slug).then(function(res){
+            return res.data;
+        });
+    };
     o.deleteOne = function(id) {
         return $http.delete('/categories/delete/' + id).then(function(res){
             return res.data;

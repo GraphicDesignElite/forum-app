@@ -5,6 +5,13 @@ app.config([
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
   
+  
+// Root Functions
+// Control mobile menu
+function NavBarCtrl($scope) {
+    $scope.isCollapsed = true;
+}  
+  
 //All Categories
 $stateProvider.state('categoryList', {
   url: '/categories',
@@ -24,7 +31,7 @@ $stateProvider.state('addCategory', {
       controller: 'AddCategoryCtrl'
 }); 
    
-//View a Single Category
+//View a Single Category By ID
 $stateProvider.state('viewCategory', {
     url: '/category/{id}',
     templateUrl: 'angularTemplates/view-category.html',
@@ -32,6 +39,18 @@ $stateProvider.state('viewCategory', {
     resolve: {
       category: ['$stateParams', 'categories', function($stateParams, categories) {
         return categories.getOne($stateParams.id);
+       }]
+    }
+});
+
+//View a Single Category By Name
+$stateProvider.state('viewCategoryByName', {
+    url: '/categories/{slug}',
+    templateUrl: 'angularTemplates/view-category.html',
+    controller: 'ViewCategoryByNameCtrl',
+    resolve: {
+      category: ['$stateParams', 'categories', function($stateParams, categories) {
+        return categories.getOneBySlug($stateParams.slug);
        }]
     }
 });
@@ -74,7 +93,7 @@ $stateProvider.state('addPost', {
  
 //View a Single Post With Comments    
 $stateProvider.state('viewPost', {
-    url: '/viewpost/{id}',
+    url: '/view-post/{id}/{slug}',
     templateUrl: 'angularTemplates/view-post.html',
     controller: 'ViewPostsCtrl',
     resolve: {

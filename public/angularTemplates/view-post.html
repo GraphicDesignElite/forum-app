@@ -35,7 +35,7 @@
 							<form ng-submit="addComment(addcommentform.$valid)" class="add-comment-form" name="addcommentform" novalidate>
 								<div class="row">
 									<div class="col-md-9">
-										<input type="text" class="form-control" ng-model="newComment" placeholder="Add a Comment" required ng-maxlength="100">
+										<input type="text" class="form-control comment-field" ng-model="newComment" placeholder="Add a Comment" required ng-maxlength="100">
 									</div>
 									<div class="col-md-3">
 										<button type="submit" class="btn btn-primary" ng-disabled="addcommentform.$invalid">Add a Comment</button>
