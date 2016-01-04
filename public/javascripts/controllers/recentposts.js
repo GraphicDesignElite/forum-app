@@ -6,6 +6,7 @@ app.controller('RecentPostsCtrl', ['$scope','posts', 'userMessages', function($s
        
     $scope.posts = posts.posts; // add [posts] from our factory in angularapp
     $scope.message = userMessages.getMessage();
+    
   
     // upvote a post with our vote service
     $scope.upvotePost = function(post){

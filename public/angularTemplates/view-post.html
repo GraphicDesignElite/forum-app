@@ -35,7 +35,7 @@
 							<form ng-submit="addComment(addcommentform.$valid)" class="add-comment-form" name="addcommentform" novalidate>
 								<div class="row">
 									<div class="col-md-9">
-										<input type="text" class="form-control comment-field" ng-model="newComment" placeholder="Add a Comment" required ng-maxlength="100">
+                                        <textarea class="form-control comment-field" ng-model="newComment" placeholder="Add a Comment" required ng-maxlength="500" rows="3"></textarea>
 									</div>
 									<div class="col-md-3">
 										<button type="submit" class="btn btn-primary" ng-disabled="addcommentform.$invalid">Add a Comment</button>
@@ -63,6 +63,9 @@
 			</div>
 			<div class="col-md-4" id="recent-posts-feed">
 				<h4>Recent Posts</h4>
+                <div ng-if="posts.length <= 1">
+                    No Other Posts Available 
+                </div>
 				<div class="recent-post" ng-repeat="recentpost in posts | orderBy: '-created'" ng-if="recentpost.title != post.title">
 					<a ng-href="/#/viewpost/{{recentpost._id}}">{{recentpost.title | cut:true:40: ' ...' }}</a>
 					<div class="info-line">
