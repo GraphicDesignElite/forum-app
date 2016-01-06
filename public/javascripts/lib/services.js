@@ -29,18 +29,18 @@ app.factory('posts',  ['$http', function($http){
         });
     };
     o.edit = function(updateData, post, category) {
-        return $http.post('/post/edit/' + post._id + '/' + category, updateData).success(function(data){
+        return $http.post('/posts/edit/' + post._id + '/' + category, updateData).success(function(data){
            o.posts.push(data);
         });
     };
     o.upvote = function(post) {
-        return $http.put('/post/upvote/' + post._id)
+        return $http.put('/posts/upvote/' + post._id)
             .success(function(data){
             post.upvotes += 1;
         });
    };
    o.downvote = function(post) {
-        return $http.put('/post/downvote/' + post._id)
+        return $http.put('/posts/downvote/' + post._id)
             .success(function(data){
             post.downvotes += 1;
         });
@@ -51,24 +51,24 @@ app.factory('posts',  ['$http', function($http){
         });
     };
     o.deleteOne = function(id) {
-        return $http.delete('/post/delete/' + id).then(function(res){
+        return $http.delete('/posts/delete/' + id).then(function(res){
             return res.data;
         });
     }
     o.close = function(post) {
-        return $http.put('/post/close/' + post._id)
+        return $http.put('/posts/close/' + post._id)
             .success(function(data){
             post.active = false;
         });
     };
     o.open = function(post) {
-        return $http.put('/post/open/' + post._id)
+        return $http.put('/posts/open/' + post._id)
             .success(function(data){
             post.active = true;
         });
     };
     o.addComment = function(id, comment) {
-        return $http.post('/post/' + id + '/comments', comment);
+        return $http.post('/comment/' + id + '/comments', comment);
     };
     o.upvoteComment = function(post, comment) {
     return $http.put('/comment/upvote/'+ comment._id)

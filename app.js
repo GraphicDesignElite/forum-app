@@ -31,7 +31,6 @@ mongoose.connection.on('error',function (err) {
   console.log('Mongoose default connection error: ' + err);
 }); 
 
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -60,8 +59,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
 
+
+// Error handlers
 // development only error handler - prints errors
 if (process.env.SERVER === 'development') {
   app.use(function(err, req, res, next) {

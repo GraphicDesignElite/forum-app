@@ -67,8 +67,9 @@
                     No Other Posts Available 
                 </div>
 				<div class="recent-post" ng-repeat="recentpost in posts | orderBy: '-created'" ng-if="recentpost.title != post.title">
-					<a ng-href="/#/viewpost/{{recentpost._id}}">{{recentpost.title | cut:true:40: ' ...' }}</a>
-					<div class="info-line">
+					<a ng-href="/#/view-post/{{recentpost._id}}/{{recentpost.title | slugify}}">{{recentpost.title | cut:true:40: ' ...' }}</a>
+					
+                    <div class="info-line">
 						{{recentpost.upvotes}}&nbsp;Likes, {{recentpost.downvotes}}&nbsp;Dislikes, {{recentpost.comments.length}}&nbsp;Comments
 					</div>
 				</div>
