@@ -62,7 +62,7 @@ app.factory('posts',  ['$http', function($http){
         });
     };
     o.open = function(post) {
-        return $http.put('/posts/open/' + post._id)
+        return $http.put('/post/open/' + post._id)
             .success(function(data){
             post.active = true;
         });

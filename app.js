@@ -31,8 +31,6 @@ mongoose.connection.on('error',function (err) {
   console.log('Mongoose default connection error: ' + err);
 }); 
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -49,8 +47,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/',  require('./routes/index'));
+app.use('/user', require('./routes/user'));
+app.use('/comment', require('./routes/comment'));
+app.use('/posts', require('./routes/posts'));
+app.use('/categories', require('./routes/categories'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

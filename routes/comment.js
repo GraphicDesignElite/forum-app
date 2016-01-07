@@ -28,30 +28,44 @@ router.param('comment', function(req, res, next, id) {
     return next();
   });
 });
-router.param('category', function(req, res, next, id) {
-  var query = Category.findById(id);
-  query.exec(function (err, category){
-    if (err) { return next(err); }
-    if (!category) { return next(new Error('can\'t find category')); }
-    req.category = category;
-    return next();
-  });
-});
-router.param('categoryslug', function(req, res, next, slug) {
-  var query = Category.findOne({'categoryslug': slug});
-  query.exec(function (err, category){
-    if (err) { return next(err); }
-    if (!category) { return next(new Error('can\'t find category slug')); }
-    req.categoryslug = category;
-    return next();
-  });
+
+// Add a new comment
+router.post('/:post/comments', function(req, res, next) {
+  var comment = new Comment(req.body);
+  comment.post = req.post;
+
+  if(req.post.active && comment.body.length > 1){
+    comment.save(function(err, comment){
+        if(err){ return next(err); }
+   
+        req.post.comments.push(comment);
+        req.post.save(function(err, post) {
+        if(err){ return next(err); }
+        res.json(comment);
+        });
+    });
+  }
+  else{
+      var err = ("Failed. The Post Is Inactive.")
+      res.send(err);
+      return next(err);
+  }
 });
 
-/* Main Page and Bootstrap with Angular. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Forum Home' });
+// Upvote a Comment
+router.put('/upvote/:comment', function(req, res, next) {
+  req.comment.upvote(function(err, comment){
+    if (err) { return next(err); }
+    res.json(comment);
+  });
 });
-
+// Downvote a Comment
+router.put('/downvote/:comment', function(req, res, next) {
+  req.comment.downvote(function(err, comment){
+    if (err) { return next(err); }
+    res.json(comment);
+  });
+});
 
 
 module.exports = router;
