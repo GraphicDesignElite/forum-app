@@ -48,7 +48,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
 app.use('/',  require('./routes/index'));
-app.use('/user', require('./routes/user'));
 app.use('/comment', require('./routes/comment'));
 app.use('/posts', require('./routes/posts'));
 app.use('/categories', require('./routes/categories'));

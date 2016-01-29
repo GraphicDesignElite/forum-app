@@ -2,10 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
+var passport = require('passport');
+var jwt = require('express-jwt');
+
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
 var Category = mongoose.model('Category');
 
+var auth = jwt({secret: process.env.DB_SECRET, userProperty: 'payload'});
 
 // Route Parameters
 router.param('post', function(req, res, next, id) {
