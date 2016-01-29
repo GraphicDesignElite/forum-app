@@ -1,0 +1,28 @@
+    <!-- Add a new Post -->
+    <div id="form-container">
+        <div class="container">
+            <div class="row">
+                <form name="registerform" ng-submit="register()" novalidate >
+                    <div class="col-md-12">
+                        <h1 class="page-title">Create an Account</h1>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" ng-model="user.username" name="username" required/>
+                            <div class="error-container" ng-messages="registerform.username.$error" ng-if="registerform.username.$touched">
+                                <p ng-message="required">Your username is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="text" class="form-control" ng-model="user.password" name="password" required/>
+                            <div class="error-container" ng-messages="registerform.password.$error" ng-if="registerform.password.$touched">
+                                <p ng-message="required">Your password is required.</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary" type="submit" ng-disabled="registerform.$invalid"><i class="fa fa-plus-circle"></i> Register</button>
+                    </div>
+                </form>   
+            </div>
+        </div>
+    </div>

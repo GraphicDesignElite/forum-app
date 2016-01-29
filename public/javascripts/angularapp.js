@@ -157,5 +157,29 @@ $stateProvider.state('openPostConfirm', {
     }
 });      
 
+//Log in and Register States
+$stateProvider.state('login', {
+      url: '/login',
+      templateUrl: 'angularTemplates/login.html',
+      controller: 'AuthCtrl',
+      onEnter: ['$state', 'auth', function($state, auth){
+        if(auth.isLoggedIn()){
+            $state.go('categories');
+        }
+      }]
+}); 
+$stateProvider.state('register', {
+      url: '/register',
+      templateUrl: 'angularTemplates/register.html',
+      controller: 'AuthCtrl',
+      onEnter: ['$state', 'auth', function($state, auth){
+        if(auth.isLoggedIn()){
+            $state.go('categories');
+        }
+      }]
+}); 
+
+
+
   $urlRouterProvider.otherwise('categories');
 }]);

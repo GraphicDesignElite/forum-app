@@ -1,5 +1,28 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
+<nav class="navbar navbar-default" ng-controller="NavCtrl">
+  <div class="user-menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li>
+                        <span ng-if="!isLoggedIn()">
+                            <a href="/#/login">Log In</a>
+                        </span>
+                        <span ng-if="isLoggedIn()">
+                            <a ng-click="logOut()">Log Out</a>
+                        </span>
+                    </li>
+                    <li>
+                        <span ng-if="isLoggedIn()">
+                            <a href="link-to-profile">{{currentUser}}</a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
