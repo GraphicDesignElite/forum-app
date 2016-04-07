@@ -34,10 +34,10 @@ router.param('comment', function(req, res, next, id) {
 });
 
 // Add a new comment
-router.post('/:post/comments',auth, function(req, res, next) { // enabled authorization
+router.post('/:post/comments', function(req, res, next) { 
   var comment = new Comment(req.body);
   comment.post = req.post;
-
+ 
   if(req.post.active && comment.body.length > 1){
     comment.save(function(err, comment){
         if(err){ return next(err); }

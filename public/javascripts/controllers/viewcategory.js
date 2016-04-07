@@ -26,6 +26,14 @@ app.controller('ViewCategoryCtrl', ['$scope', 'posts', 'category', function($sco
             $scope.rowFilter = '-comments.length';
         }
     };
+    $scope.orderByView = function(){
+        if($scope.rowFilter == '-views'){
+            $scope.rowFilter = 'views';
+        }
+        else{
+            $scope.rowFilter = '-views';
+        }
+    };
 	
 
 }]);

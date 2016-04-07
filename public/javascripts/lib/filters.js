@@ -13,7 +13,6 @@ app.filter('cut', function () {
                     value = value.substr(0, lastspace);
                 }
             }
-
             return value + (tail || ' …');
         };
     });
