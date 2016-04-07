@@ -19,65 +19,65 @@ app.factory('posts',  ['$http', function($http){
         ]
     };
     o.getAll = function() {
-        return $http.get('/posts').success(function(data){
+        return $http.get('/api/posts').success(function(data){
             angular.copy(data, o.posts);
         });
     };
     o.create = function(post, category) {
-        return $http.post('/posts/' + category, post).success(function(data){
+        return $http.post('/api/posts/' + category, post).success(function(data){
             o.posts.push(data);
         });
     };
     o.edit = function(updateData, post, category) {
-        return $http.post('/posts/edit/' + post._id + '/' + category, updateData).success(function(data){
+        return $http.post('/api/posts/edit/' + post._id + '/' + category, updateData).success(function(data){
            o.posts.push(data);
         });
     };
     o.upvote = function(post) {
-        return $http.put('/posts/upvote/' + post._id)
+        return $http.put('/api/posts/upvote/' + post._id)
             .success(function(data){
             post.upvotes += 1;
         });
    };
    o.downvote = function(post) {
-        return $http.put('/posts/downvote/' + post._id)
+        return $http.put('/api/posts/downvote/' + post._id)
             .success(function(data){
             post.downvotes += 1;
         });
     };
     o.getOne = function(id) {
-        return $http.get('/posts/' + id).then(function(res){
+        return $http.get('/api/posts/' + id).then(function(res){
             return res.data;
         });
     };
     o.deleteOne = function(id) {
-        return $http.delete('/posts/delete/' + id).then(function(res){
+        return $http.delete('/api/posts/delete/' + id).then(function(res){
             return res.data;
         });
     }
     o.close = function(post) {
-        return $http.put('/posts/close/' + post._id)
+        return $http.put('/api/posts/close/' + post._id)
             .success(function(data){
             post.active = false;
         });
     };
     o.open = function(post) {
-        return $http.put('/posts/open/' + post._id)
+        return $http.put('/api/posts/open/' + post._id)
             .success(function(data){
             post.active = true;
         });
     };
     o.addComment = function(id, comment) {
-        return $http.post('/comment/' + id + '/comments', comment);
+        return $http.post('/api/comment/' + id + '/comments', comment);
     };
     o.upvoteComment = function(post, comment) {
-    return $http.put('/comment/upvote/'+ comment._id)
+    return $http.put('/api/comment/upvote/'+ comment._id)
         .success(function(data){
         comment.upvotes += 1;
         });
     };
     o.downvoteComment = function(post, comment) {
-    return $http.put('/comment/downvote/'+ comment._id)
+    return $http.put('/api/comment/downvote/'+ comment._id)
         .success(function(data){
         comment.downvotes += 1;
         });
@@ -100,27 +100,27 @@ app.factory('categories',  ['$http', function($http){
         ]
     };
     o.getAll = function() {
-        return $http.get('/categories').success(function(data){
+        return $http.get('/api/categories').success(function(data){
             angular.copy(data, o.categories);
         });
     };
      o.create = function(category) {
-        return $http.post('/categories', category).success(function(data){
+        return $http.post('/api/categories', category).success(function(data){
             o.categories.push(data);
         });
     };
     o.getOne = function(id) {
-        return $http.get('/categories/' + id).then(function(res){
+        return $http.get('/api/categories/' + id).then(function(res){
             return res.data;
         });
     };
     o.getOneBySlug = function(slug) {
-        return $http.get('/categories/view/' + slug).then(function(res){
+        return $http.get('/api/categories/view/' + slug).then(function(res){
             return res.data;
         });
     };
     o.deleteOne = function(id) {
-        return $http.delete('/categories/delete/' + id).then(function(res){
+        return $http.delete('/api/categories/delete/' + id).then(function(res){
             return res.data;
         });
     };
@@ -157,12 +157,12 @@ app.factory('auth', ['$http','$window', function($http, $window){
         }
     };
     auth.register = function(user){
-        return $http.post('/register', user).success(function(data){
+        return $http.post('/api/register', user).success(function(data){
             auth.saveToken(data.token);
         });
     };
     auth.logIn = function(user){
-        return $http.post('/login', user).success(function(data){
+        return $http.post('/api/login', user).success(function(data){
             auth.saveToken(data.token);
         });
     };
