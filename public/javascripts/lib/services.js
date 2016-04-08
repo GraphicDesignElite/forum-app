@@ -38,7 +38,7 @@ app.factory('posts',  ['$http', function($http){
             .success(function(data){
             post.upvotes += 1;
         });
-   };
+    };
    o.downvote = function(post) {
         return $http.put('/api/posts/downvote/' + post._id)
             .success(function(data){

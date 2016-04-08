@@ -1,15 +1,15 @@
 	<div id="posts-display">
-		<div class="container">
+		<div class="container add-margin-bottom">
 			<div class="row">
 				<div class="col-md-12 admin-toolbar clearfix">
 					<div class="right-post-btns">
-						<a class="right" ng-href="/#/add-post"><i class="fa fa-plus-square"></i> Add New Post</a>
+						<a class="right" ng-href="/add-post"><i class="fa fa-plus-square"></i> Add New Post</a>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="page-title"><a href="#/categories">Delete a Category</a> <i class="fa fa-chevron-right"></i> {{category.categoryname}}</h1>
+					<h1 class="page-title"><a href="/categories">Delete a Category</a> <i class="fa fa-chevron-right"></i> {{category.categoryname}}</h1>
 					<p class="warning">Are you sure you want to delete this category? All posts and comments in <strong>{{category.categoryname}}</strong> will be deleted forever!</p>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="post in category.posts | orderBy: rowFilter">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <p><a href="/#/viewpost/{{post._id}}">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p>
+                        <p><a href="/viewpost/{{post._id}}">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p>
                         <p class="category-description">Posted {{post.created | date:'MM-dd-yy @ HH:mm:ss' }} by {{post.author }}</p>
                     </div>
                 </div>

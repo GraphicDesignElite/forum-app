@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -11,8 +12,8 @@ var Category = mongoose.model('Category');
 var User = mongoose.model('User');
 
 
-var auth = jwt({secret: process.env.DB_SECRET, userProperty: 'payload'});
-
+var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+//process.env.DB_SECRET
 
 // Route Parameters ----------------------------------------------------------- 
 router.param('post', function(req, res, next, id) {
@@ -348,6 +349,14 @@ router.get('/', function(req, res, next) {
         })(req, res, next);
     });
     
-    
+    router.get('/*', function(req, res) {
+    // AJAX requests are aren't expected to be redirected to the AngularJS app
+    if (req.xhr) {
+        return res.status(404).send(req.url + ' not found');
+    }
+
+    // `sendfile` requires the safe, resolved path to your AngularJS app
+    res.render('index', { title: 'Forum Home' });
+    });
     
 module.exports = router;

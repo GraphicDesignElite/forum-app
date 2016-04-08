@@ -5,7 +5,7 @@
                 <form name="editpostform" ng-submit="editPost(editpostform.$valid)" novalidate >
                     <div class="col-md-12">
                         <div class="user-message warning" ng-if="post.active != true">
-                            <p>Closed posts cannot be edited. <a class="right close-button" ng-if="post.active == false" ng-href="/#/openpost/{{post._id}}"><i class="fa fa-sign-out"></i> Reopen</a></p>
+                            <p>Closed posts cannot be edited. <a class="right close-button" ng-if="post.active == false" ng-href="/openpost/{{post._id}}"><i class="fa fa-sign-out"></i> Reopen</a></p>
                         </div>
                         
                         <h1 class="page-title">Edit Post</h1>
@@ -39,7 +39,7 @@
                         </div>
           
                         <button class="btn btn-primary" type="submit" ng-disabled="editpostform.$invalid || post.active != true"><i class="fa fa-plus-circle"></i> Update Post</button>
-                        <a href="/#/home/" class="btn btn-default"><i class="fa fa-chevron-left"></i> Go Back</a>
+                        <a href="/home/" class="btn btn-default"><i class="fa fa-chevron-left"></i> Go Back</a>
                     </div>
                 </form>   
             </div>

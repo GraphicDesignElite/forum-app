@@ -3,7 +3,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="right-post-btns right-post-btns admin-toolbar clearfix">
-						<a class="right" ng-href="/#/add-post"><i class="fa fa-plus-square"></i> Add New Post</a>
+						<a class="right" ng-href="/add-post"><i class="fa fa-plus-square"></i> Add New Post</a>
 					</div>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="post in category.posts | orderBy: rowFilter">
                     <div class="col-md-7 col-sm-7 col-xs-7">
-                        <p><a href="/#/view-post/{{post._id}}/{{post.title | slugify}}">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p>
+                        <p><a href="/view-post/{{post._id}}/{{post.title | slugify}}">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p>
                         <p class="category-description">Posted {{post.created | date:'MM-dd-yy @ HH:mm:ss' }} by {{post.author }}</p>
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-2">

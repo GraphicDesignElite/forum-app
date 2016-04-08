@@ -3,11 +3,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="right-post-btns admin-toolbar clearfix">
-					<a class="right delete-button" ng-href="/#/deletepost/{{post._id}}"><i class="fa fa-times-circle-o"></i> Delete</a>
-					<a class="right delete-button" ng-href="/#/editpost/{{post._id}}"><i class="fa fa-pencil-square-o"></i> Edit</a>
+					<a class="right delete-button" ng-href="/deletepost/{{post._id}}"><i class="fa fa-times-circle-o"></i> Delete</a>
+					<a class="right delete-button" ng-href="/editpost/{{post._id}}"><i class="fa fa-pencil-square-o"></i> Edit</a>
 					<!-- close and open discussion -->
-					<a class="right close-button" ng-if="post.active == true" ng-href="/#/closepost/{{post._id}}"><i class="fa fa-sign-out"></i> Close Discussion</a>
-					<a class="right close-button" ng-if="post.active == false" ng-href="/#/openpost/{{post._id}}"><i class="fa fa-sign-out"></i> Reopen Discussion</a>
+					<a class="right close-button" ng-if="post.active == true" ng-href="/closepost/{{post._id}}"><i class="fa fa-sign-out"></i> Close Discussion</a>
+					<a class="right close-button" ng-if="post.active == false" ng-href="/openpost/{{post._id}}"><i class="fa fa-sign-out"></i> Reopen Discussion</a>
 				</div>
 			</div>
 		</div>
@@ -71,7 +71,7 @@
                             No Other Posts Available 
                         </div>
                         <div class="recent-post" ng-repeat="recentpost in posts | orderBy: '-created'" ng-if="recentpost.title != post.title">
-                            <a ng-href="/#/view-post/{{recentpost._id}}/{{recentpost.title | slugify}}">{{recentpost.title | cut:true:40: ' ...' }}</a>
+                            <a ng-href="/view-post/{{recentpost._id}}/{{recentpost.title | slugify}}">{{recentpost.title | cut:true:40: ' ...' }}</a>
                             
                             <div class="info-line">
                                 {{recentpost.upvotes}}&nbsp;Likes, {{recentpost.downvotes}}&nbsp;Dislikes, {{recentpost.comments.length}}&nbsp;Comments

@@ -5,11 +5,11 @@ app.config([
 '$urlRouterProvider',
 '$httpProvider',
 '$locationProvider',
-function($stateProvider, $urlRouterProvider, $httpProvider) {
+function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     
     // Expose XHR requests to server
       $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-      
+      $locationProvider.html5Mode(true);
     // Root Functions
     // Control mobile menu
     function NavBarCtrl($scope) {
@@ -167,9 +167,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider) {
         templateUrl: 'angularTemplates/login.html',
         controller: 'AuthCtrl',
         onEnter: ['$state', 'auth', function($state, auth){
-            if(auth.isLoggedIn()){
-                $state.go('categories');
-            }
+            //if(auth.isLoggedIn()){
+               // $state.go('categories');
+           // }
         }]
     }); 
     $stateProvider.state('register', {
@@ -177,9 +177,9 @@ function($stateProvider, $urlRouterProvider, $httpProvider) {
         templateUrl: 'angularTemplates/register.html',
         controller: 'AuthCtrl',
         onEnter: ['$state', 'auth', function($state, auth){
-            if(auth.isLoggedIn()){
-                $state.go('categories');
-            }
+            //if(auth.isLoggedIn()){
+               // $state.go('categories');
+            //}
         }]
     }); 
 
