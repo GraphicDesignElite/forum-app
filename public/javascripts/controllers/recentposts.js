@@ -1,23 +1,16 @@
 
 app.controller('RecentPostsCtrl', ['$scope','posts', 'userMessages', function($scope, posts, userMessages){
-
+    // GET THE POSTS
+    $scope.posts = posts.posts;
     
-    $scope.message = "";
-       
-    $scope.posts = posts.posts; // add [posts] from our factory in angularapp
-    $scope.message = userMessages.getMessage();
-    
-  
-    // upvote a post with our vote service
-    $scope.upvotePost = function(post){
-        posts.upvote(post);
+    //HANDLE USER MESSAGES
+    $scope.userMessage = userMessages.getMessage();
+    $scope.hideMessage = function(){
+        userMessages.hideMessage();
+        $scope.userMessage = userMessages.getMessage();
     }
-    // downvote a post with our vote service
-	$scope.downvotePost = function(post){
-        posts.downvote(post);
-    }
-      
-    // display and ordering functions
+ 
+    // DISPLAY ORDERING
     $scope.orderByTitle = function(){
         if($scope.rowFilter == 'title'){
             $scope.rowFilter = '-title';
@@ -50,9 +43,6 @@ app.controller('RecentPostsCtrl', ['$scope','posts', 'userMessages', function($s
             $scope.rowFilter = '-comments.length';
         }
     };
-    $scope.hideMessage = function(){
-        userMessages.setMessage('');
-        $scope.message = userMessages.getMessage();
-    }
+    
 }]);
 

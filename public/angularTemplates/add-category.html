@@ -1,20 +1,32 @@
-<!-- Add a new Post -->
+    <!-- USER MESSAGE DISPLAY BLOCK -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-message" ng-show="userMessage !=''">
+                    <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                    <p>{{userMessage}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ADD CATEGORY FORM -->
     <div id="form-container">
         <div class="container">
+            <div>
+                 <div class="user-message warning" ng-show="userMessage !=''">
+                    <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                    <p>{{userMessage}}</p>
+                </div>
+            </div>
             <div class="row form-container">
                 <form name="addcategoryform" ng-submit="addCategory(addcategoryform.$valid)" novalidate >
                     <div class="col-md-12">
-                        <div class="user-message warning" ng-show="message !=''">
-                            <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
-                            <p>{{message}}</p>
-                        </div>
-                        
                         <h1 class="page-title">Add a Category (Admin)</h1>
                         <div>
                             <div class="form-group">
                                 <label for="newCategoryTitle">New Category Name</label>
                                 <input type="text" class="form-control" ng-model="newCategoryTitle" name="newCategoryTitle" required ng-minlength="2" ng-maxlength="100" />
-                                <div class="error-container" ng-messages="addpostform.newPostTitle.$error" ng-if="addpostform.newPostTitle.$touched">
+                                <div class="error-container" ng-messages="addcategoryform.newCategoryTitle.$error" ng-if="addcategoryform.newCategoryTitle.$touched">
                                     <p ng-message="minlength">Your Category Name Title is too short.</p>
                                     <p ng-message="maxlength">Your Category Name is too long.</p>
                                     <p ng-message="required">A Category Name is required.</p>
@@ -29,7 +41,7 @@
                             <div class="form-group">
                                 <label for="newCategoryDescription">Category Short Description</label>
                                 <input type="text" class="form-control" ng-model="newCategoryDescription" name="newCategoryDescription" ng-maxlength="40" />
-                                <div class="error-container" ng-messages="addpostform.newPostDescription.$error" ng-if="addpostform.newPostDescription.$touched">
+                                <div class="error-container" ng-messages="addcategoryform.newCategoryDescription.$error" ng-if="addcategoryform.newCategoryDescription.$touched">
                                     <p ng-message="maxlength">Your Description is too long.</p>
                                 </div>
                             </div>

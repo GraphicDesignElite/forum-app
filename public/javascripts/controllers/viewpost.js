@@ -1,9 +1,16 @@
-app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', function($scope, posts, post){
+app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', function($scope, posts, post, userMessages){
 	
-	$scope.posts = posts.posts;  // if we want to display recent posts below
-    $scope.post = post;
+	$scope.posts = posts.posts;  // GET POSTS FOR RECENTS
+    $scope.post = post; // GET POST TO DISPLAY
 	
+    //HANDLE USER MESSAGES
+    $scope.userMessage = userMessages.getMessage();
+    $scope.hideMessage = function(){
+        userMessages.hideMessage();
+        $scope.userMessage = userMessages.getMessage();
+    }
 	
+    //SOCIAL INTERACTION
 	$scope.upvotePost = function(post){
         posts.upvote(post);
     }
@@ -16,7 +23,8 @@ app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', function($scope, pos
 	$scope.downvoteComment = function(comment){
         posts.downvoteComment(post, comment);
     }
-	
+    
+	//ADD A COMMENT
 	$scope.addComment = function(valid){
 	if(!valid || $scope.newComment === '' || $scope.newComment === 'null' ){ return; }
 		posts.addComment(post._id, {

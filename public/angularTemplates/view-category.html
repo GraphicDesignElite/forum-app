@@ -1,4 +1,16 @@
-	<div id="posts-display">
+	<!-- USER MESSAGE DISPLAY BLOCK -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-message" ng-show="userMessage !=''">
+                    <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                    <p>{{userMessage}}</p>
+                 </div>
+            </div>
+        </div>
+    </div> 
+    <!-- DISPLAY CATEGORIES TABLE HEADER AND CONTROLS -->
+    <div id="posts-display">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -9,11 +21,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<h1 class="page-title"><a href="#/categories">Categories</a> <i class="fa fa-chevron-right"></i> {{category.categoryname}}</h1>
+					<h1 class="page-title"><a href="/categories">Categories</a> <i class="fa fa-chevron-right"></i> {{category.categoryname}}</h1>
 				</div>
 			</div>
 		</div>
-        <!-- start responsive table header -->
 		<div ng-if="category.posts == 0">
 			<div class="container">
 				<div class="row">
@@ -56,9 +67,8 @@
 					</div>
 				</div>
 			</div>
-        <!-- end responsive table header -->
 		</div>
-        <!-- start display posts -->
+        <!-- DISPLAY CATEGORIES -->
         <div class="container">
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="post in category.posts | orderBy: rowFilter">

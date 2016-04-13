@@ -1,10 +1,19 @@
 app.controller('DeleteCategoryCtrl', ['$state','$scope', 'categories', 'category', 'userMessages', function($state, $scope, categories, category, userMessages){
+    
+    // GET THE POST TO BE DELETED FOR REVIEW
     $scope.category = category;
-    // display and ordering functions
+    
+    //HANDLE USER MESSAGES
+    $scope.userMessage = userMessages.getMessage();
+    $scope.hideMessage = function(){
+        userMessages.hideMessage();
+        $scope.userMessage = userMessages.getMessage();
+    }
+    
+    // DELETE A CATEGORY AND ALL POSTS AND COMMENTS INSIDE OF IT
     $scope.deleteCategory = function(){
         categories.deleteOne(category._id).then(function(){
             window.history.go(-1);
-            userMessages.setMessage("The Category was Deleted Successfully");
         },
         function(){
            $state.go('categoryList', {}, { reload: true });

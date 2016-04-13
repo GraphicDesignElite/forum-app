@@ -3,10 +3,18 @@ app.controller('EditPostsCtrl', ['$state','$scope', 'posts', 'post', 'userMessag
     $scope.categories = categories.categories;
     $scope.post = post;
     
+    // CREATE SENSIBLE DEFAULTS
     $scope.maxPostContentSize = 400;
     $scope.maxTitleSize = 80;
     
-    //Display the changes for the user so they know what has been modified
+    //HANDLE USER MESSAGES
+    $scope.userMessage = userMessages.getMessage();
+    $scope.hideMessage = function(){
+        userMessages.hideMessage();
+        $scope.userMessage = userMessages.getMessage();
+    }
+    
+    // DISPLAY CHANGED FIELDS TO USER
     $scope.oldPostTitle = $scope.post.title;
 	$scope.oldPostContent = $scope.post.postcontent;
     $scope.oldPostCategory = $scope.post.category;
@@ -14,7 +22,7 @@ app.controller('EditPostsCtrl', ['$state','$scope', 'posts', 'post', 'userMessag
 	$scope.newPostContent = $scope.post.postcontent;
     $scope.newPostCategory = $scope.post.category;
     
-    
+    // EDIT THE POST
 	$scope.editPost = function(valid){
         if(!valid || !$scope.newPostTitle || $scope.newPostTitle === '' || !$scope.newPostContent || $scope.newPostContent === ''){ return; }
         posts.edit({
@@ -27,7 +35,6 @@ app.controller('EditPostsCtrl', ['$state','$scope', 'posts', 'post', 'userMessag
             $scope.newPostContent = '';
             $scope.showMessage = true;
             $scope.addpostform.$setUntouched();
-            userMessages.setMessage("Your Post was Edited Successfully");
         });
         
     }

@@ -1,6 +1,6 @@
 // posts service
 
-app.factory('posts',  ['$http', function($http){
+app.factory('posts',  ['$http', 'userMessages', function($http, userMessages){
     var o = {
       //Debug model
     posts: [ 
@@ -26,11 +26,13 @@ app.factory('posts',  ['$http', function($http){
     o.create = function(post, category) {
         return $http.post('/api/posts/' + category, post).success(function(data){
             o.posts.push(data);
+            userMessages.setMessage("Your Post was Added Successfully");
         });
     };
     o.edit = function(updateData, post, category) {
         return $http.post('/api/posts/edit/' + post._id + '/' + category, updateData).success(function(data){
            o.posts.push(data);
+           userMessages.setMessage("Your Post was Edited Successfully");
         });
     };
     o.upvote = function(post) {
@@ -52,6 +54,7 @@ app.factory('posts',  ['$http', function($http){
     };
     o.deleteOne = function(id) {
         return $http.delete('/api/posts/delete/' + id).then(function(res){
+            userMessages.setMessage("Your Post was Deleted");
             return res.data;
         });
     }
@@ -59,12 +62,14 @@ app.factory('posts',  ['$http', function($http){
         return $http.put('/api/posts/close/' + post._id)
             .success(function(data){
             post.active = false;
+            userMessages.setMessage("The Post has been closed: " +  post.title );
         });
     };
     o.open = function(post) {
         return $http.put('/api/posts/open/' + post._id)
             .success(function(data){
             post.active = true;
+            userMessages.setMessage("The Post has been reopened: " +  post.title );
         });
     };
     o.addComment = function(id, comment) {
@@ -86,7 +91,7 @@ app.factory('posts',  ['$http', function($http){
 }]);
 
 // CATEGORIES service
-app.factory('categories',  ['$http', function($http){
+app.factory('categories',  ['$http', 'userMessages', function($http, userMessages){
     var o = {
       //Debug model
     categories: [ 
@@ -107,6 +112,7 @@ app.factory('categories',  ['$http', function($http){
      o.create = function(category) {
         return $http.post('/api/categories', category).success(function(data){
             o.categories.push(data);
+            userMessages.setMessage("The New Category: " + category.categoryslug + " was Added Successfully");
         });
     };
     o.getOne = function(id) {
@@ -121,6 +127,7 @@ app.factory('categories',  ['$http', function($http){
     };
     o.deleteOne = function(id) {
         return $http.delete('/api/categories/delete/' + id).then(function(res){
+            userMessages.setMessage("The Category was Deleted Successfully");
             return res.data;
         });
     };
@@ -129,7 +136,7 @@ app.factory('categories',  ['$http', function($http){
 }]);
 
 //AUTHORIZATION service
-app.factory('auth', ['$http','$window', function($http, $window){
+app.factory('auth', ['$http','$window', '$timeout', 'userMessages', function($http, $window, $timeout, userMessages){
     var auth = {};
     auth.saveToken = function (token){
         $window.localStorage['forum-token'] = token;
@@ -159,14 +166,17 @@ app.factory('auth', ['$http','$window', function($http, $window){
     auth.register = function(user){
         return $http.post('/api/register', user).success(function(data){
             auth.saveToken(data.token);
+            userMessages.setMessage("Your Account Has Been Created.")
         });
     };
     auth.logIn = function(user){
         return $http.post('/api/login', user).success(function(data){
             auth.saveToken(data.token);
+            userMessages.setMessage( user.username + "has succesfully logged in.")
         });
     };
     auth.logOut = function(){
+        userMessages.setMessage("You have succesfully logged out.")
         $window.localStorage.removeItem('forum-token');
     };
     
@@ -183,8 +193,8 @@ app.service('userMessages', function () {
         setMessage: function(value) {
             usermessage = value;
         },
-        autoHide: function(){
-            
+        hideMessage: function() {
+            usermessage = '';
         }
     };
 });

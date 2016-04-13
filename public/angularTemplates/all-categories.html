@@ -1,5 +1,16 @@
+    <!-- USER MESSAGE DISPLAY BLOCK -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-message" ng-show="userMessage !=''">
+                    <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                    <p>{{userMessage}}</p>
+                 </div>
+            </div>
+        </div>
+    </div>        
+    <!--  DISPLAY ALL CATEGORIES -->  
     <div id="posts-display">
-        <!-- start responsive table header -->
         <div class="container">
             <div class="row">
                 <div class="col-md-12 clearfix">
@@ -9,7 +20,6 @@
                     </div>
                 </div>
             </div>
-            
 			<div class="row">
 				<div class="col-md-12">
 					<h1 class="page-title">Categories</h1>
@@ -30,10 +40,6 @@
         <div class="container"  ng-if="categories.length != 0">
             <div class="row">
                 <div class="table-wrap">
-                    <div class="user-message" ng-show="message !=''">
-                        <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
-                        <p>{{message}}</p>
-                    </div>
                     <div class="col-md-8 col-sm-7 col-xs-7 table-heading">
                         <p ng-click="orderByTitle()">Categories
                             <span ng-show="rowFilter == 'categoryname'"><i class="fa fa-arrow-circle-down"></i></span>
@@ -55,9 +61,6 @@
                 </div>
             </div>
         </div>
-        <!-- end responsive table header -->
-        
-        <!-- start display categories -->
         <div class="container">
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="category in categories | orderBy: rowFilter">
@@ -74,5 +77,5 @@
                 </div>
             </div>
         </div>       
-    </div><!-- end posts-display -->
+    </div>
    

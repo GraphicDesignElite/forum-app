@@ -12,7 +12,7 @@ var Category = mongoose.model('Category');
 var User = mongoose.model('User');
 
 
-var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+var auth = jwt({secret: '2455645364365676gdfsggfdsgs', userProperty: 'payload'});
 //process.env.DB_SECRET
 
 // Route Parameters ----------------------------------------------------------- 
@@ -325,6 +325,7 @@ router.get('/', function(req, res, next) {
         var user = new User();
         user.username = req.body.username;
         user.setPassword(req.body.password);
+        user.email =  req.body.email;
         
         user.save(function(err){
             if(err){return next(err)}

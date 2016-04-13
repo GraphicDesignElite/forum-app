@@ -1,3 +1,15 @@
+    <!-- USER MESSAGE DISPLAY BLOCK -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-message" ng-show="userMessage !=''">
+                    <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                    <p>{{userMessage}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SHOW RECENT POSTS TABLE HEADER AND CONTROLS -->
     <div id="posts-display">
         <div class="container">
             <div class="row">
@@ -24,14 +36,9 @@
 				</div>
 			</div>
 		</div>
-        <!-- start responsive table header -->
         <div class="container" ng-if="posts.length != 0">
             <div class="row">
                 <div class="table-wrap">
-                    <div class="user-message" ng-show="message !=''">
-                        <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
-                        <p>{{message}}</p>
-                    </div>
                     <div class="col-md-7 col-sm-7 col-xs-7 table-heading">
                         <p ng-click="orderByTitle()">Title
                             <span ng-show="rowFilter == 'title'"><i class="fa fa-arrow-circle-down"></i></span>
@@ -59,9 +66,8 @@
                 </div>
             </div>
         </div>
-        <!-- end responsive table header -->
         
-        <!-- start display posts -->
+        <!-- DISPLAY POSTS -->
         <div class="container">
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="post in posts | orderBy: rowFilter">
@@ -81,5 +87,5 @@
                 </div>
             </div>
         </div>      
-    </div><!-- end posts-display -->
+    </div>
    

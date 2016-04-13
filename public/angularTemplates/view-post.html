@@ -1,3 +1,15 @@
+<!-- USER MESSAGE DISPLAY BLOCK -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="user-message" ng-show="userMessage !=''">
+                <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
+                <p>{{userMessage}}</p>
+            </div>
+        </div>
+    </div>
+</div> 
+
 <div id="view-posts-display">
 	<div class="container">
 		<div class="row">
@@ -5,7 +17,6 @@
 				<div class="right-post-btns admin-toolbar clearfix">
 					<a class="right delete-button" ng-href="/deletepost/{{post._id}}"><i class="fa fa-times-circle-o"></i> Delete</a>
 					<a class="right delete-button" ng-href="/editpost/{{post._id}}"><i class="fa fa-pencil-square-o"></i> Edit</a>
-					<!-- close and open discussion -->
 					<a class="right close-button" ng-if="post.active == true" ng-href="/closepost/{{post._id}}"><i class="fa fa-sign-out"></i> Close Discussion</a>
 					<a class="right close-button" ng-if="post.active == false" ng-href="/openpost/{{post._id}}"><i class="fa fa-sign-out"></i> Reopen Discussion</a>
 				</div>

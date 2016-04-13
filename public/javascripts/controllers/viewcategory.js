@@ -1,7 +1,15 @@
-app.controller('ViewCategoryCtrl', ['$scope', 'posts', 'category', function($scope, posts, category){
+app.controller('ViewCategoryCtrl', ['$scope', 'posts', 'category', 'userMessages', function($scope, posts, category, userMessages){
 	
     $scope.category = category;
-    // display and ordering functions
+    
+    //HANDLE USER MESSAGES
+    $scope.userMessage = userMessages.getMessage();
+    $scope.hideMessage = function(){
+        userMessages.hideMessage();
+        $scope.userMessage = userMessages.getMessage();
+    }
+    
+    // DISPLAY ORDERING
     $scope.orderByTitle = function(){
         if($scope.rowFilter == 'title'){
             $scope.rowFilter = '-title';

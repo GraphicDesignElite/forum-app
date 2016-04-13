@@ -2,11 +2,17 @@ app.controller('OpenPostsCtrl', ['$state', '$scope','$location', 'posts', 'post'
 	
     $scope.post = post;
 	
-	 $scope.openPost = function(){
+    //HANDLE USER MESSAGES
+    $scope.userMessage = userMessages.getMessage();
+    $scope.hideMessage = function(){
+        userMessages.hideMessage();
+        $scope.userMessage = userMessages.getMessage();
+    }
+    //OPEN A POST
+	$scope.openPost = function(){
         posts.open(post);
         $scope.showMessage = true;
         $state.go('recentPosts');
-        userMessages.setMessage("Your Post was Reopened Successfully");
     }
     
 }]);

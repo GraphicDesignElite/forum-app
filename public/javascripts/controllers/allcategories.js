@@ -1,19 +1,22 @@
 
 app.controller('CategoryCtrl', ['$scope','$location','categories', 'userMessages', function($scope, $location, categories, userMessages){
- 
-    $scope.message = "";
-       
-    $scope.categories = categories.categories; // add [categories] from our factory in angularapp
-    $scope.message = userMessages.getMessage();
+    // GET ALL CATEGORIES
+    $scope.categories = categories.categories; 
     
-    
+    //HANDLE USER MESSAGES
+    $scope.userMessage = userMessages.getMessage();
+    $scope.hideMessage = function(){
+        userMessages.hideMessage();
+        $scope.userMessage = userMessages.getMessage();
+    }
+    // DELETE A CATEGORY
     $scope.deleteCategory = function(category){
         categories.deleteOne(category);
         $scope.showMessage = true;
         userMessages.setMessage("The Category was Deleted Successfully");
     }
     
-    // display and ordering functions
+    // CATEGORY DISPLAY ORDER
     $scope.orderByTitle = function(){
         if($scope.rowFilter == 'categoryname'){
             $scope.rowFilter = '-categoryname';
@@ -46,10 +49,6 @@ app.controller('CategoryCtrl', ['$scope','$location','categories', 'userMessages
             $scope.rowFilter = 'views';
         }
     };
-    
-    $scope.hideMessage = function(){
-        userMessages.setMessage('');
-        $scope.message = userMessages.getMessage();
-    }
+   
 }]);
 

@@ -51,7 +51,7 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     $stateProvider.state('viewCategoryByName', {
         url: '/categories/{slug}',
         templateUrl: 'angularTemplates/view-category.html',
-        controller: 'ViewCategoryByNameCtrl',
+        controller: 'ViewCategoryCtrl',
         resolve: {
         category: ['$stateParams', 'categories', function($stateParams, categories) {
             return categories.getOneBySlug($stateParams.slug);
