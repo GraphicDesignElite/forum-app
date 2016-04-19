@@ -66,13 +66,13 @@ router.get('/', function(req, res, next) {
 // Posts Routes ----------------------------------------------------------- 
     // Return All Posts
     router.get('/api/posts/', function(req, res, next) {
-    Post.find(function(err, posts){
-        if(err)return next(err)
-        res.json(posts);
-    });
+        Post.find(function(err, posts){
+            if(err)return next(err)
+            res.json(posts);
+        });
     });
     // Create a post
-    router.post('/api/posts/:category', function(req, res, next){
+    router.post('/api/posts/:category', auth, function(req, res, next){
         var post = new Post(req.body);
         post.category = req.category;
         
@@ -88,44 +88,44 @@ router.get('/', function(req, res, next) {
     });
     // Get a single Post
     router.get('/api/posts/:post', function(req, res, next) {
-    req.post.addview(function(err, post){
-        if (err) { return next(err); }
-    });  
-    req.post.populate('comments', function(err, post) {
-        if (err) { return next(err); }
-        res.json(post);
-    });
+        req.post.addview(function(err, post){
+            if (err) { return next(err); }
+        });  
+        req.post.populate('comments', function(err, post) {
+            if (err) { return next(err); }
+            res.json(post);
+        });
     });
     // Upvote a post
-    router.put('/api/posts/upvote/:post', function(req, res, next) {
-    req.post.upvote(function(err, post){
-        if (err) { return next(err); }
-        res.json(post);
-    });
+    router.put('/api/posts/upvote/:post', auth, function(req, res, next) {
+        req.post.upvote(function(err, post){
+            if (err) { return next(err); }
+            res.json(post);
+        });
     });
     // Downvote a post
-    router.put('/api/posts/downvote/:post', function(req, res, next) {
-    req.post.downvote(function(err, post){
-        if (err) { return next(err); }
-        res.json(post);
-    });
+    router.put('/api/posts/downvote/:post', auth, function(req, res, next) {
+        req.post.downvote(function(err, post){
+            if (err) { return next(err); }
+            res.json(post);
+        });
     });
     // Close a post
-    router.put('/api/posts/close/:post', function(req, res, next) {
-    req.post.close(function(err, post){
-        if (err) { return next(err); }
-        res.json(post);
-    });
+    router.put('/api/posts/close/:post', auth, function(req, res, next) {
+        req.post.close(function(err, post){
+            if (err) { return next(err); }
+            res.json(post);
+        });
     });
     // Open a post
-    router.put('/api/posts/open/:post', function(req, res, next) {
-    req.post.open(function(err, post){
-        if (err) { return next(err); }
-        res.json(post);
-    });
+    router.put('/api/posts/open/:post', auth, function(req, res, next) {
+        req.post.open(function(err, post){
+            if (err) { return next(err); }
+            res.json(post);
+        });
     });
     // Delete a post
-    router.delete('/api/posts/delete/:post', function(req, res) {
+    router.delete('/api/posts/delete/:post', auth, function(req, res) {
         console.log("Deleting Post with ID: " + req.post._id);  
         Post.findById(req.post._id)
             .exec(function(err, doc) {
@@ -146,7 +146,7 @@ router.get('/', function(req, res, next) {
             });
     });
     // Edit a post
-    router.post('/api/posts/edit/:post/:category', function(req, res, next){
+    router.post('/api/posts/edit/:post/:category', auth, function(req, res, next){
         var oldCategory = req.category;
         var conditions = { _id: req.post._id };
         var options = {new: true};
@@ -174,7 +174,7 @@ router.get('/', function(req, res, next) {
 
 // Comment Routes ----------------------------------------------------------------- 
     // Add a new comment
-    router.post('/api/comments/:post/comments', function(req, res, next) { 
+    router.post('/api/comments/:post/comments', auth, function(req, res, next) { 
         var comment = new Comment(req.body);
         comment.post = req.post;
         
@@ -196,14 +196,14 @@ router.get('/', function(req, res, next) {
         }
     });
     // Upvote a Comment
-    router.put('/api/comments/upvote/:comment', function(req, res, next) {
+    router.put('/api/comments/upvote/:comment', auth, function(req, res, next) {
         req.comment.upvote(function(err, comment){
             if (err) { return next(err); }
             res.json(comment);
         });
     });
     // Downvote a Comment 
-    router.put('/api/comments/downvote/:comment', function(req, res, next) {
+    router.put('/api/comments/downvote/:comment', auth, function(req, res, next) {
         req.comment.downvote(function(err, comment){
             if (err) { return next(err); }
             res.json(comment);
@@ -246,7 +246,7 @@ router.get('/', function(req, res, next) {
     });
 
     // Create a Category
-    router.post('/api/categories/', function(req, res, next){
+    router.post('/api/categories/', auth, function(req, res, next){
         var category = new Category(req.body);
         category.save(function(err, category){
         if(err){
@@ -257,7 +257,7 @@ router.get('/', function(req, res, next) {
     });
 
     // Delete a category
-    router.delete('/api/categories/delete/:category', function(req, res) {
+    router.delete('/api/categories/delete/:category', auth, function(req, res) {
         console.log("Deleting Category with ID: " + req.category._id);
         Category.findById(req.category._id)
             .exec(function(err, doc) {
@@ -279,7 +279,7 @@ router.get('/', function(req, res, next) {
 
 // Comments Routes -----------------------------------------------------------------
     // Add a new comment
-    router.post('/api/comment/:post/comments', function(req, res, next) { 
+    router.post('/api/comment/:post/comments', auth, function(req, res, next) { 
     var comment = new Comment(req.body);
     comment.post = req.post;
     
@@ -302,14 +302,14 @@ router.get('/', function(req, res, next) {
     });
 
     // Upvote a Comment
-    router.put('/api/comment/upvote/:comment', function(req, res, next) {
+    router.put('/api/comment/upvote/:comment', auth, function(req, res, next) {
     req.comment.upvote(function(err, comment){
         if (err) { return next(err); }
         res.json(comment);
     });
     });
     // Downvote a Comment
-    router.put('/api/comment/downvote/:comment', function(req, res, next) {
+    router.put('/api/comment/downvote/:comment', auth, function(req, res, next) {
     req.comment.downvote(function(err, comment){
         if (err) { return next(err); }
         res.json(comment);

@@ -1,4 +1,4 @@
-app.controller('ClosePostsCtrl', ['$state', '$scope','$location', 'posts', 'post', 'userMessages', function($state, $scope, $location, posts, post, userMessages){
+app.controller('ClosePostsCtrl', ['$state', '$scope','$location', 'posts', 'post', 'userMessages', 'auth', function($state, $scope, $location, posts, post, userMessages, auth){
 	
     // GET THE POST TO CLOSE FOR REVIEW
     $scope.post = post;
@@ -12,9 +12,12 @@ app.controller('ClosePostsCtrl', ['$state', '$scope','$location', 'posts', 'post
     
     // CLOSE A POST
 	$scope.closePost = function(){
-        posts.close(post);
-        $scope.showMessage = true;
-        $state.go('recentPosts');
+        posts.close(post).then(
+            function(){
+                $state.go('recentPosts', {}, { reload: true });
+            }
+        );
+        
     }
     
 }]);

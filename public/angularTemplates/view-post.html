@@ -8,8 +8,7 @@
             </div>
         </div>
     </div>
-</div> 
-
+</div>
 <div id="view-posts-display">
 	<div class="container">
 		<div class="row">
@@ -45,7 +44,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 comment-container">
-                            <div ng-show="post.active == true">
+                            <div ng-show="post.active && isLoggedIn">
                                 <form ng-submit="addComment(addcommentform.$valid)" class="add-comment-form" name="addcommentform" novalidate>
                                     <div class="row">
                                         <div class="col-md-9">
@@ -57,7 +56,12 @@
                                     </div>
                                 </form>
                             </div>
-                            <div ng-show="post.active == false">
+                            <div ng-show="!isLoggedIn">
+                                <div class="user-message">
+                                You Must Be Logged In To Comment. <a href="/login">Log In</a>
+                                </div>
+                            </div>
+                            <div ng-show="!post.active && isLoggedIn">
                                 <div class="user-message">
                                 This Discussion Is Closed.
                                 </div>

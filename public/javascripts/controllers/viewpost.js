@@ -5,7 +5,7 @@ app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', 'aut
 	
     // GET THE CURRENT USER, ONLY USERS CAN COMMENT
     $scope.currentUser = auth.currentUser();
-    
+    $scope.isLoggedIn = auth.isLoggedIn();
     
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
@@ -30,7 +30,7 @@ app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', 'aut
     
 	//ADD A COMMENT
 	$scope.addComment = function(valid){
-	if(!valid || $scope.newComment === '' || $scope.newComment === 'null' ){ return; }
+	if(!valid || $scope.newComment === '' || $scope.newComment === 'null' || !$scope.isLoggedIn ){ return; }
 		posts.addComment(post._id, {
 			body: $scope.newComment,
 			author: $scope.currentUser,

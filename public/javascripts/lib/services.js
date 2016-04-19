@@ -1,22 +1,9 @@
 // posts service
 
-app.factory('posts',  ['$http', 'userMessages', function($http, userMessages){
+app.factory('posts',  ['$http', 'userMessages', 'auth', function($http, userMessages, auth){
     var o = {
       //Debug model
-    posts: [ 
-        {
-            title: 'post 1 title is so long that it actually gets truncated at the end due to the filter',
-            postcontent: 'something',
-            created: Date.now(),
-            upvotes: 5,
-            downvotes: 0,
-            comments: 
-            [
-                {author: 'Joe', body: 'Cool post!', upvotes: 0, downvotes: 0, created: Date.now()},
-                {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0, downvotes: 0, created: Date.now()}
-            ]
-        }
-        ]
+    posts: []
     };
     o.getAll = function() {
         return $http.get('/api/posts').success(function(data){
@@ -24,26 +11,32 @@ app.factory('posts',  ['$http', 'userMessages', function($http, userMessages){
         });
     };
     o.create = function(post, category) {
-        return $http.post('/api/posts/' + category, post).success(function(data){
+        return $http.post('/api/posts/' + category, post, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
             o.posts.push(data);
             userMessages.setMessage("Your Post was Added Successfully");
         });
     };
     o.edit = function(updateData, post, category) {
-        return $http.post('/api/posts/edit/' + post._id + '/' + category, updateData).success(function(data){
+        return $http.post('/api/posts/edit/' + post._id + '/' + category, updateData, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
            o.posts.push(data);
            userMessages.setMessage("Your Post was Edited Successfully");
         });
     };
     o.upvote = function(post) {
-        return $http.put('/api/posts/upvote/' + post._id)
-            .success(function(data){
+        return $http.put('/api/posts/upvote/' + post._id, null, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
             post.upvotes += 1;
         });
     };
    o.downvote = function(post) {
-        return $http.put('/api/posts/downvote/' + post._id)
-            .success(function(data){
+        return $http.put('/api/posts/downvote/' + post._id, null, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
             post.downvotes += 1;
         });
     };
@@ -53,37 +46,43 @@ app.factory('posts',  ['$http', 'userMessages', function($http, userMessages){
         });
     };
     o.deleteOne = function(id) {
-        return $http.delete('/api/posts/delete/' + id).then(function(res){
+        return $http.delete('/api/posts/delete/' + id, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).then(function(res){
             userMessages.setMessage("Your Post was Deleted");
             return res.data;
         });
     }
     o.close = function(post) {
-        return $http.put('/api/posts/close/' + post._id)
-            .success(function(data){
+        return $http.put('/api/posts/close/' + post._id, null, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
             post.active = false;
             userMessages.setMessage("The Post has been closed: " +  post.title );
         });
     };
     o.open = function(post) {
-        return $http.put('/api/posts/open/' + post._id)
-            .success(function(data){
+        return $http.put('/api/posts/open/' + post._id,null, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
             post.active = true;
             userMessages.setMessage("The Post has been reopened: " +  post.title );
         });
     };
     o.addComment = function(id, comment) {
-        return $http.post('/api/comment/' + id + '/comments', comment);
+        return $http.post('/api/comment/' + id + '/comments', comment, {headers: {Authorization: 'Bearer '+auth.getToken()}});
     };
     o.upvoteComment = function(post, comment) {
-    return $http.put('/api/comment/upvote/'+ comment._id)
-        .success(function(data){
+    return $http.put('/api/comment/upvote/'+ comment._id, null, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
         comment.upvotes += 1;
         });
     };
     o.downvoteComment = function(post, comment) {
-    return $http.put('/api/comment/downvote/'+ comment._id)
-        .success(function(data){
+    return $http.put('/api/comment/downvote/'+ comment._id, null, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
         comment.downvotes += 1;
         });
     };
@@ -161,6 +160,14 @@ app.factory('auth', ['$http','$window', '$timeout', 'userMessages', function($ht
             var payload = JSON.parse($window.atob(token.split('.')[1]));
 
             return payload.username;
+        }
+    };
+    auth.userRole = function(){
+        if(auth.isLoggedIn()){
+            var token = auth.getToken();
+            var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+            return payload.userrole;
         }
     };
     auth.register = function(user){

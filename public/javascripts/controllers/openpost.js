@@ -1,4 +1,4 @@
-app.controller('OpenPostsCtrl', ['$state', '$scope','$location', 'posts', 'post', 'userMessages', function($state, $scope, $location, posts, post, userMessages){
+app.controller('OpenPostsCtrl', ['$state', '$scope','$location', 'posts', 'post', 'userMessages', 'auth', function($state, $scope, $location, posts, post, userMessages, auth){
 	
     $scope.post = post;
 	
@@ -10,9 +10,11 @@ app.controller('OpenPostsCtrl', ['$state', '$scope','$location', 'posts', 'post'
     }
     //OPEN A POST
 	$scope.openPost = function(){
-        posts.open(post);
-        $scope.showMessage = true;
-        $state.go('recentPosts');
+        posts.open(post).then(
+            function(){
+                $state.go('recentPosts', {}, { reload: true });
+            }
+        );
     }
     
 }]);
