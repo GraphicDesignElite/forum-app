@@ -1,8 +1,12 @@
-app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', function($scope, posts, post, userMessages){
+app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', 'auth', function($scope, posts, post, userMessages, auth){
 	
 	$scope.posts = posts.posts;  // GET POSTS FOR RECENTS
     $scope.post = post; // GET POST TO DISPLAY
 	
+    // GET THE CURRENT USER, ONLY USERS CAN COMMENT
+    $scope.currentUser = auth.currentUser();
+    
+    
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
     $scope.hideMessage = function(){
@@ -29,7 +33,7 @@ app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', func
 	if(!valid || $scope.newComment === '' || $scope.newComment === 'null' ){ return; }
 		posts.addComment(post._id, {
 			body: $scope.newComment,
-			author: 'user',
+			author: $scope.currentUser,
 		}).success(function(comment) {
 			$scope.post.comments.push(comment);
 		});

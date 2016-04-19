@@ -1,7 +1,9 @@
-app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories', 'userMessages', function($state, $scope, $location, categories, userMessages){
+app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories', 'userMessages','auth', function($state, $scope, $location, categories, userMessages, auth){
 
     $scope.userMessage = '';
     $scope.maxPostContentSize = 230;
+    
+    $scope.currentUser = auth.currentUser();
     
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
@@ -18,9 +20,9 @@ app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories'
             categoryslug: $scope.newCategorySlug,
             categorydescription: $scope.newCategoryDescription,
             views: 0,
+            createdby: $scope.currentUser,
         }).then(function(){
             $scope.newCategoryTitle = '';
-            $scope.showMessage = true;
             $scope.addcategoryform.$setUntouched();
             $state.go('categoryList');
             

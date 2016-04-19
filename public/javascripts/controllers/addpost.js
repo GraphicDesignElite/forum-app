@@ -1,4 +1,4 @@
-app.controller('AddPostCtrl', ['$state', '$scope','posts', 'userMessages', 'categories', function($state, $scope, posts,  userMessages, categories){
+app.controller('AddPostCtrl', ['$state', '$scope','posts', 'userMessages', 'categories', 'auth', function($state, $scope, posts,  userMessages, categories, auth){
     //AUTO POPULATE SYSTEMWIDE CATEGORIES
     $scope.categories = categories.categories;
     
@@ -6,12 +6,15 @@ app.controller('AddPostCtrl', ['$state', '$scope','posts', 'userMessages', 'cate
     $scope.maxPostContentSize = 400;
     $scope.maxTitleSize = 80;
     
+    $scope.currentUser = auth.currentUser();
+    
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
     $scope.hideMessage = function(){
         userMessages.hideMessage();
         $scope.userMessage = userMessages.getMessage();
     }
+    
     
     // ADD A NEW POST
     $scope.addPost = function(valid){
@@ -23,7 +26,7 @@ app.controller('AddPostCtrl', ['$state', '$scope','posts', 'userMessages', 'cate
             downvotes: 0,
             views: 0,
             active: true,
-            author: 'Developer',
+            author: $scope.currentUser,
         }, $scope.newPostCategory).then(function(){
             $state.go('categoryList', {}, { reload: true });
             $scope.newPostTitle = '';
