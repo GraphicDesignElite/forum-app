@@ -1,8 +1,10 @@
-app.controller('ViewCategoryCtrl', ['$scope', 'posts', 'category', 'userMessages', function($scope, posts, category, userMessages){
+app.controller('ViewCategoryCtrl', ['$scope', 'posts', 'category', 'userMessages', 'auth', function($scope, posts, category, userMessages, auth){
 	
     $scope.category = category;
     
-    //HANDLE USER MESSAGES
+    // USER INFORMATION
+    $scope.isLoggedIn = auth.isLoggedIn();
+    // HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
     $scope.hideMessage = function(){
         userMessages.hideMessage();

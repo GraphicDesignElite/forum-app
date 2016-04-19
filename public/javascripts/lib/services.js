@@ -58,7 +58,7 @@ app.factory('posts',  ['$http', 'userMessages', 'auth', function($http, userMess
         headers: {Authorization: 'Bearer '+auth.getToken()}
         }).success(function(data){
             post.active = false;
-            userMessages.setMessage("The Post has been closed: " +  post.title );
+            userMessages.setMessage("The Post '" + post.title + "' has been closed.");
         });
     };
     o.open = function(post) {
@@ -66,7 +66,7 @@ app.factory('posts',  ['$http', 'userMessages', 'auth', function($http, userMess
         headers: {Authorization: 'Bearer '+auth.getToken()}
         }).success(function(data){
             post.active = true;
-            userMessages.setMessage("The Post has been reopened: " +  post.title );
+            userMessages.setMessage("The Post '" + post.title + "' has been reopened.");
         });
     };
     o.addComment = function(id, comment) {
@@ -170,6 +170,14 @@ app.factory('auth', ['$http','$window', '$timeout', 'userMessages', function($ht
             return payload.userrole;
         }
     };
+    auth.isAdmin = function(){
+        if(auth.isLoggedIn()){
+            var token = auth.getToken();
+            var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+            return payload.userrole == 'Admin';
+        }
+    };
     auth.register = function(user){
         return $http.post('/api/register', user).success(function(data){
             auth.saveToken(data.token);
@@ -179,7 +187,7 @@ app.factory('auth', ['$http','$window', '$timeout', 'userMessages', function($ht
     auth.logIn = function(user){
         return $http.post('/api/login', user).success(function(data){
             auth.saveToken(data.token);
-            userMessages.setMessage( user.username + "has succesfully logged in.")
+            userMessages.setMessage( user.username + " has succesfully logged in.")
         });
     };
     auth.logOut = function(){

@@ -319,7 +319,7 @@ router.get('/', function(req, res, next) {
 // User Registration Routes -----------------------------------------------------------------
     // Register New User
     router.post('/api/register', function(req, res, next) {
-        if(!req.body.username || !req.body.password){
+        if(!req.body.username || !req.body.password || !req.body.email || !req.body.confirmpassword){
             return res.status(400).json({message:"Please fill out all fields"});
         }
         var user = new User();
@@ -330,7 +330,7 @@ router.get('/', function(req, res, next) {
         user.save(function(err){
             if(err){return next(err)}
             
-            return res.json({token: user.generateJWT});
+            return res.json({token: user.generateJWT()});
         })
     });
     //Log In User

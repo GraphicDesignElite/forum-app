@@ -7,8 +7,8 @@ var UserSchema = new mongoose.Schema({
 	username:{type: String, lowercase: true, unique: true},
     email:{type: String, unique: true},
     verified: {type: Boolean, default: true},
-    comments: {type: Number, default: 0},
-    posts: {type: Number, default: 0},
+    numcomments: {type: Number, default: 0},
+    numposts: {type: Number, default: 0},
     userrole: {type: String, default: 'User'},
     hash: String,
     salt: String
@@ -33,6 +33,7 @@ UserSchema.methods.generateJWT = function() {
   return jwt.sign({
     _id: this._id,
     username: this.username,
+    userrole: this.userrole,
     exp: parseInt(exp.getTime() / 1000),
   }, '2455645364365676gdfsggfdsgs');
 };

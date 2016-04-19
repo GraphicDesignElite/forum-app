@@ -1,9 +1,13 @@
 
-app.controller('CategoryCtrl', ['$scope','$location','categories', 'userMessages', function($scope, $location, categories, userMessages){
+app.controller('CategoryCtrl', ['$scope','$location','categories', 'userMessages', 'auth', function($scope, $location, categories, userMessages, auth){
     // GET ALL CATEGORIES
     $scope.categories = categories.categories; 
     
-    //HANDLE USER MESSAGES
+    // USER INFO
+    $scope.isLoggedIn = auth.isLoggedIn();
+    $scope.isAdmin = auth.isAdmin();
+    
+    // HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
     $scope.hideMessage = function(){
         userMessages.hideMessage();

@@ -30,6 +30,13 @@ app.controller('AuthCtrl', ['$scope', '$state', 'auth','userMessages', function(
     $scope.logIn = function(){
         auth.logIn($scope.user).error(function(error){
         $scope.error = error;
+        if(error.search('message')){
+            $scope.serversideError ="The Username or Password is Incorrect.";
+        }
+        else{
+            $scope.serversideError ="Unknown Error.";
+        }
+        
         }).then(function(){
         $state.go('categoryList',{},{ reload: true });
         });

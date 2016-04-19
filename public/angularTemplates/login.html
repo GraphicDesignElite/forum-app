@@ -1,3 +1,13 @@
+    <!-- HANDLE SERVER ERRORS -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-message warning" ng-show="error.message">
+                    <p>{{error.message}}</p>
+                 </div>
+            </div>
+        </div>
+    </div>
     <!-- LOGIN FORM -->
     <div id="form-container">
         <div class="container">
@@ -19,10 +29,10 @@
                                 <p ng-message="required">Your password is required.</p>
                             </div>
                         </div>
-                        
                         <button class="btn btn-primary" type="submit" ng-disabled="loginform.$invalid"><i class="fa fa-plus-circle"></i> Log In</button>
                     </div>
                 </form>   
             </div>
         </div>
     </div>
+    

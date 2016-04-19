@@ -1,7 +1,9 @@
 
-app.controller('RecentPostsCtrl', ['$scope','posts', 'userMessages', function($scope, posts, userMessages){
+app.controller('RecentPostsCtrl', ['$scope','posts', 'userMessages', 'auth', function($scope, posts, userMessages, auth){
     // GET THE POSTS
     $scope.posts = posts.posts;
+    
+    $scope.isLoggedIn = auth.isLoggedIn();
     
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
