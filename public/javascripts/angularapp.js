@@ -8,8 +8,8 @@ app.config([
 function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     
     // Expose XHR requests to server
-      $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-      $locationProvider.html5Mode(true);
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    $locationProvider.html5Mode(true);
     // Root Functions
     // Control mobile menu
     function NavBarCtrl($scope) {
@@ -32,7 +32,12 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     $stateProvider.state('addCategory', {
         url: '/add-category',
         templateUrl: 'angularTemplates/add-category.html',
-        controller: 'AddCategoryCtrl'
+        controller: 'AddCategoryCtrl',
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(!auth.isAdmin()){
+                $state.go('login');
+            }
+        }]
     }); 
     
     //View a Single Category By ID
@@ -68,7 +73,12 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
         category: ['$stateParams', 'categories', function($stateParams, categories) {
             return categories.getOne($stateParams.id);
         }]
-        }
+        },
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(!auth.isAdmin()){
+                $state.go('login');
+            }
+        }]
     });
     
     //View all Recent Posts Regardless of Category
@@ -92,7 +102,12 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
             postPromise: ['categories', function(categories){
             return categories.getAll();
             }]
-        }
+        },
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(!auth.isLoggedIn()){
+                $state.go('login');
+            }
+        }]
     });
     
     //View a Single Post With Comments    
@@ -133,8 +148,13 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
         resolve: {
         post: ['$stateParams', 'posts', function($stateParams, posts) {
             return posts.getOne($stateParams.id);
-        }] 
-        }
+            }] 
+        },
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(!auth.isLoggedIn()){
+                $state.go('login');
+            }
+        }]
     });
 
     //Close a Post / Discussion 
@@ -146,7 +166,12 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
         post: ['$stateParams', 'posts', function($stateParams, posts) {
             return posts.getOne($stateParams.id);
         }]  
-        }
+        },
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(!auth.isLoggedIn()){
+                $state.go('login');
+            }
+        }]
     });
 
     //Reopen a Post / Discussion    
@@ -158,28 +183,60 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
         post: ['$stateParams', 'posts', function($stateParams, posts) {
             return posts.getOne($stateParams.id);
         }]   
-        }
+        },
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(!auth.isLoggedIn()){
+                $state.go('login');
+            }
+        }]
     });      
 
-    //Log in and Register States
+    // User info State    
+    $stateProvider.state('userProfile', {
+        url: '/user-profile/{username}',
+        templateUrl: 'angularTemplates/user-profile.html',
+        controller: 'UserProfileCtrl',
+        resolve: {
+        user: ['$stateParams', 'users', function($stateParams, users) {
+            return users.getOne($stateParams.username);
+        }]
+        }
+    });
+
+    // Log in State
     $stateProvider.state('login', {
         url: '/login',
         templateUrl: 'angularTemplates/login.html',
         controller: 'AuthCtrl',
+        resolve: { // get the previous state incase we require a log in to take action
+            PreviousState: [
+                "$state",
+                    function ($state) {
+                        var currentStateData = {
+                            Name: $state.current.name,
+                            Params: $state.params,
+                            URL: $state.href($state.current.name, $state.params)
+                        };
+                    return currentStateData;
+                    }
+              ]
+        },
         onEnter: ['$state', 'auth', function($state, auth){
-            //if(auth.isLoggedIn()){
-               // $state.go('categories');
-           // }
+            if(auth.isLoggedIn()){
+                $state.go('categoryList');
+            }
         }]
     }); 
+    
+    // Registration state
     $stateProvider.state('register', {
         url: '/register',
         templateUrl: 'angularTemplates/register.html',
         controller: 'AuthCtrl',
         onEnter: ['$state', 'auth', function($state, auth){
-            //if(auth.isLoggedIn()){
-               // $state.go('categories');
-            //}
+            if(auth.isLoggedIn()){
+                $state.go('categoryList');
+            }
         }]
     }); 
 

@@ -24,8 +24,9 @@
         <div class="container">
             <div class="row">
                 <form name="registerform" ng-submit="register()" novalidate >
-                    <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6">
+                    <div class="col-md-offset-4 col-sm-offset-3 col-md-4 col-sm-6">
                         <h1 class="page-title">Create an Account</h1>
+                        <div class="user-message note">Creating an account is completely free. You must be logged in to participate in discussion or make posts.</div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <input type="email" class="form-control" ng-model="user.email" name="email" required/>
@@ -57,7 +58,10 @@
                                 <p ng-message="password">You must confirm your password.</p>
                             </div>
                         </div>
-                        <button class="btn btn-primary" type="submit" ng-disabled="registerform.$invalid"><i class="fa fa-plus-circle"></i> Register</button>
+                        <button class="btn btn-primary add-margin-bottom" type="submit" ng-disabled="registerform.$invalid"><i class="fa fa-plus-circle"></i> Register</button>
+                        <div class="user-message standard">
+                            Already have an account? <a href="/login">Log In</a>
+                        </div>
                     </div>
                 </form>   
             </div>

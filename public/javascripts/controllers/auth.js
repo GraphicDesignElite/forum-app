@@ -23,7 +23,7 @@ app.controller('AuthCtrl', ['$scope', '$state', 'auth','userMessages', function(
         }
         
         }).then(function(){
-            $state.go('categoryList');
+            $state.go('categoryList',{},{ reload: true });
         });
     };
 

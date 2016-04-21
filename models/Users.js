@@ -24,6 +24,15 @@ UserSchema.methods.validPassword = function(password) {
   return this.hash === hash;
 };
 
+UserSchema.methods.addpost = function(cb) {
+  this.numposts += 1;
+  this.save(cb);
+};
+UserSchema.methods.addcomment = function(cb) {
+  this.numcomments += 1;
+  this.save(cb);
+};
+
 UserSchema.methods.generateJWT = function() {
   // set expiration to 1 day
   var today = new Date();

@@ -70,17 +70,17 @@ app.factory('posts',  ['$http', 'userMessages', 'auth', function($http, userMess
         });
     };
     o.addComment = function(id, comment) {
-        return $http.post('/api/comment/' + id + '/comments', comment, {headers: {Authorization: 'Bearer '+auth.getToken()}});
+        return $http.post('/api/comments/' + id + '/comments', comment, {headers: {Authorization: 'Bearer '+auth.getToken()}});
     };
     o.upvoteComment = function(post, comment) {
-    return $http.put('/api/comment/upvote/'+ comment._id, null, {
+    return $http.put('/api/comments/upvote/'+ comment._id, null, {
         headers: {Authorization: 'Bearer '+auth.getToken()}
         }).success(function(data){
         comment.upvotes += 1;
         });
     };
     o.downvoteComment = function(post, comment) {
-    return $http.put('/api/comment/downvote/'+ comment._id, null, {
+    return $http.put('/api/comments/downvote/'+ comment._id, null, {
         headers: {Authorization: 'Bearer '+auth.getToken()}
         }).success(function(data){
         comment.downvotes += 1;
@@ -90,7 +90,7 @@ app.factory('posts',  ['$http', 'userMessages', 'auth', function($http, userMess
 }]);
 
 // CATEGORIES service
-app.factory('categories',  ['$http', 'userMessages', function($http, userMessages){
+app.factory('categories',  ['$http', 'userMessages', 'auth', function($http, userMessages, auth){
     var o = {
       //Debug model
     categories: [ 
@@ -109,7 +109,9 @@ app.factory('categories',  ['$http', 'userMessages', function($http, userMessage
         });
     };
      o.create = function(category) {
-        return $http.post('/api/categories', category).success(function(data){
+        return $http.post('/api/categories', category, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).success(function(data){
             o.categories.push(data);
             userMessages.setMessage("The New Category: " + category.categoryslug + " was Added Successfully");
         });
@@ -125,11 +127,38 @@ app.factory('categories',  ['$http', 'userMessages', function($http, userMessage
         });
     };
     o.deleteOne = function(id) {
-        return $http.delete('/api/categories/delete/' + id).then(function(res){
+        return $http.delete('/api/categories/delete/' + id, {
+        headers: {Authorization: 'Bearer '+auth.getToken()}
+        }).then(function(res){
             userMessages.setMessage("The Category was Deleted Successfully");
             return res.data;
         });
     };
+    
+  return o;
+}]);
+
+// USERS service
+app.factory('users',  ['$http', 'userMessages', 'auth', function($http, userMessages, auth){
+    var o = {
+    //Debug model
+    users: [ 
+            {
+            username: 'Test'
+            }
+        ]
+    };
+    o.getAll = function() {
+        return $http.get('/api/users').success(function(data){
+            angular.copy(data, o.users);
+        });
+    };
+    o.getOne = function(id) {
+        return $http.get('/api/users/' + id).then(function(res){
+            return res.data;
+        });
+    };
+    
     
   return o;
 }]);

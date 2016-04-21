@@ -1,4 +1,4 @@
-app.controller('DeleteCategoryCtrl', ['$state','$scope', 'categories', 'category', 'userMessages', function($state, $scope, categories, category, userMessages){
+app.controller('DeleteCategoryCtrl', ['$state','$scope', 'categories', 'category', 'userMessages', 'auth', function($state, $scope, categories, category, userMessages, auth){
     
     // GET THE POST TO BE DELETED FOR REVIEW
     $scope.category = category;

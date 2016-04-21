@@ -18,9 +18,9 @@ app.controller('AddPostCtrl', ['$state', '$scope','posts', 'userMessages', 'cate
     
     // ADD A NEW POST
     $scope.addPost = function(valid){
-        if(!valid || !$scope.newPostTitle || $scope.newPostTitle === '' || !$scope.newPostContent || $scope.newPostContent === ''){ return; }
+        if(!valid || !$scope.newPostTitle || $scope.newPostTitle === '' || !$scope.newPostContent || $scope.newPostContent === '' || !auth.currentUser()){ return; }
         posts.create({
-            title: $scope.newPostTitle ,
+            title: $scope.newPostTitle,
             postcontent: $scope.newPostContent,
             upvotes: 0,
             downvotes: 0,

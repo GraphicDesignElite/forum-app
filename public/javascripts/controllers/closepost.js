@@ -3,6 +3,10 @@ app.controller('ClosePostsCtrl', ['$state', '$scope','$location', 'posts', 'post
     // GET THE POST TO CLOSE FOR REVIEW
     $scope.post = post;
 	
+    // GET THE USER
+    $scope.currentUser = auth.currentUser();
+    
+    
     // HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
     $scope.hideMessage = function(){

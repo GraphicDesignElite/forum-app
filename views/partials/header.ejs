@@ -1,23 +1,28 @@
+
 <nav class="navbar navbar-default" ng-controller="NavCtrl">
   <div class="user-menu">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <ul>
-                    <li>
-                        <span ng-if="!isLoggedIn()">
+                <ul auto-active>
+                    <li ng-if="!isLoggedIn()" ng-class="{ active: isCurrentPath('/login') }">
+                        <span>
                             <a href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Log In</a>
                         </span>
-                        <span ng-if="!isLoggedIn()">
+                    </li>
+                    <li ng-if="!isLoggedIn()" ng-class="{ active: isCurrentPath('/register') }">    
+                        <span>
                             <a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
                         </span>
-                        <span ng-if="isLoggedIn()">
+                    </li>
+                    <li ng-if="isLoggedIn()">
+                        <span>
                             <a ng-click="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a>
                         </span>
                     </li>
-                    <li>
-                        <span ng-if="isLoggedIn()">
-                            <a href="link-to-profile"><i class="fa fa-user" aria-hidden="true"></i> {{currentUser() }}</a>
+                    <li ng-if="isLoggedIn()">
+                        <span>
+                            <a href="/user/{{currentUser() }}"><i class="fa fa-user" aria-hidden="true"></i> {{currentUser() }}</a>
                         </span>
                     </li>
                 </ul>
@@ -39,11 +44,11 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" uib-collapse="!isCollapsed" id="mainmenu">
-      <ul class="nav navbar-nav">
-        <li><a href="/categories">View Categories</a></li>
-        <li><a href="/recent-posts">Recent Posts</a></li>
+      <ul class="nav navbar-nav" auto-active>
+        <li ng-class="{ active: isCurrentPath('/categories') }"><a href="/categories">View Categories</a></li>
+        <li ng-class="{ active: isCurrentPath('/recent-posts') }"><a href="/recent-posts">Recent Posts</a></li>
       </ul>
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right" role="search" action="/search-posts/" method="post">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>

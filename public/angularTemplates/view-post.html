@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="right-post-btns admin-toolbar clearfix">
-                    <a class="right" ng-href="/login" ng-show="!isLoggedIn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login To Post</a>
+                    <a class="right" ng-href="/login" ng-show="!isLoggedIn">Login To Post</a>
                     <a class="right" ng-href="/add-post" ng-show="isLoggedIn"><i class="fa fa-plus-square"></i> Add New Post</a>
 					<a class="right delete-button" ng-href="/deletepost/{{post._id}}" ng-show="isLoggedIn"><i class="fa fa-times-circle-o"></i> Delete</a>
 					<a class="right delete-button" ng-href="/editpost/{{post._id}}" ng-show="isLoggedIn"><i class="fa fa-pencil-square-o"></i> Edit</a>
@@ -31,12 +31,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h1 class="page-title">{{post.title}}</h1>
-                            <p class="post-created-date">Created by: {{post.author }} on {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
+                            <p class="post-created-date">Created by: <a ng-href="/user-profile/{{post.author}}">{{post.author }}</a> on {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
                             <div class="view-post-content">{{post.postcontent}}</div>
                             <div class="info-line">
                                 {{post.upvotes}}&nbsp;Likes |&nbsp;{{post.downvotes}}&nbsp;Dislikes |&nbsp;{{post.comments.length}}&nbsp;Comments |&nbsp;{{post.views}}&nbsp;Views
                             </div>
-                            <div class="row">
+                            <div class="row" ng-show="isLoggedIn">
                                 <div class="col-md-3">
                                     <span class="upvote-button" ng-click="upvotePost(post)"><i class="fa fa-thumbs-up"></i></span>
                                     <span class="downvote-button" ng-click="downvotePost(post)"><i class="fa fa-thumbs-down"></i></span>
@@ -59,7 +59,7 @@
                                 </form>
                             </div>
                             <div ng-show="!isLoggedIn">
-                                <div class="user-message">
+                                <div class="user-message standard">
                                 You Must Be Logged In To Comment. <a href="/login">Log In</a>
                                 </div>
                             </div>
@@ -68,15 +68,17 @@
                                 This Discussion Is Closed.
                                 </div>
                             </div>
-                            <h4>{{post.comments.length}} Comment<span ng-if="post.comments.length > 1">s</span> on &quot;{{post.title | cut:true:20: ' ...'}}&quot;</h4>
+                            <h4>{{post.comments.length}} Comment<span ng-if="post.comments.length != 1">s</span> on &quot;{{post.title | cut:true:20: ' ...'}}&quot;</h4>
                             <div class="comment-block" ng-repeat="comment in post.comments | orderBy : -comment.created">
-                                <p class="post-created-date">Commented by {{comment.author}} at {{comment.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
+                                <p class="post-created-date">Commented by <a ng-href="/user-profile/{{comment.author}}">{{comment.author}}</a> at {{comment.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
                                 <p class="comment-body">{{comment.body}}</p>
                                 <div class="info-line">
                                 {{comment.upvotes}}&nbsp;Likes, {{comment.downvotes}}&nbsp;Dislikes
                                 </div>
-                                <span class="upvote-button" ng-click="upvoteComment(comment)"><i class="fa fa-thumbs-up"></i></span>
-                                <span class="downvote-button" ng-click="downvoteComment(comment)"><i class="fa fa-thumbs-down"></i></span>
+                                <div ng-show="isLoggedIn">
+                                    <span class="upvote-button" ng-click="upvoteComment(comment)"><i class="fa fa-thumbs-up"></i></span>
+                                    <span class="downvote-button" ng-click="downvoteComment(comment)"><i class="fa fa-thumbs-down"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>

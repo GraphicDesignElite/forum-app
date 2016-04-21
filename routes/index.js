@@ -54,6 +54,16 @@ router.param('categoryslug', function(req, res, next, slug) {
     return next();
   });
 });
+router.param('user', function(req, res, next, username) {
+  var query = User.findOne({'username': username});
+  query.exec(function (err, user){
+    if (err) { return next(err); }
+    if (!user) { return next(new Error('can\'t find user')); }
+
+    req.user = user;
+    return next();
+  });
+});
 
 
 
@@ -74,8 +84,13 @@ router.get('/', function(req, res, next) {
     // Create a post
     router.post('/api/posts/:category', auth, function(req, res, next){
         var post = new Post(req.body);
+        // increment user post count
+        User.findOne({ 'username': req.body.author }, function (err, user) {
+            if (err) return handleError(err);
+                user.addpost(user);
+        });
         post.category = req.category;
-        
+ 
         post.save(function(err, post){
         if(err) return next(err);
         // attempt to add post into category posts
@@ -112,6 +127,7 @@ router.get('/', function(req, res, next) {
     });
     // Close a post
     router.put('/api/posts/close/:post', auth, function(req, res, next) {
+
         req.post.close(function(err, post){
             if (err) { return next(err); }
             res.json(post);
@@ -133,7 +149,6 @@ router.get('/', function(req, res, next) {
                     res.statusCode = 404;
                     res.send({});
                 } else {
-                    console.log(doc.title);
                     doc.remove(function(err) {
                         if (err) {
                             res.statusCode = 403;
@@ -177,8 +192,14 @@ router.get('/', function(req, res, next) {
     router.post('/api/comments/:post/comments', auth, function(req, res, next) { 
         var comment = new Comment(req.body);
         comment.post = req.post;
-        
         if(req.post.active && comment.body.length > 1){
+            
+            // increment user comment count
+            User.findOne({ 'username': comment.author }, function (err, user) {
+                if (err) return handleError(err);
+                    user.addcomment(user);
+            });
+            // save the new comment
             comment.save(function(err, comment){
                 if(err){ return next(err); }
         
@@ -317,6 +338,16 @@ router.get('/', function(req, res, next) {
     });
 
 // User Registration Routes -----------------------------------------------------------------
+    // Get user profile
+    router.get('/api/users/:user', function(req, res, next) {
+        var user = {}
+        user.username = req.user.username;
+        user.email = req.user.email;
+        user.numcomments = req.user.numcomments;
+        user.numposts = req.user.numposts;
+        res.json(user);
+    });
+    
     // Register New User
     router.post('/api/register', function(req, res, next) {
         if(!req.body.username || !req.body.password || !req.body.email || !req.body.confirmpassword){
@@ -343,7 +374,7 @@ router.get('/', function(req, res, next) {
             if(err){ return next(err); }
 
             if(user){
-            return res.json({token: user.generateJWT()});
+            return res.json({token: user.generateJWT( )});
             } else {
             return res.status(401).json(info);
             }

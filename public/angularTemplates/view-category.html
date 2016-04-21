@@ -16,7 +16,7 @@
 				<div class="col-md-12">
 					<div class="right-post-btns right-post-btns admin-toolbar clearfix">
 						<a class="right" ng-href="/add-post" ng-show="isLoggedIn"><i class="fa fa-plus-square"></i> Add New Post</a>
-                        <a class="right" ng-href="/login" ng-show="!isLoggedIn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login To Post</a>
+                        <a class="right" ng-href="/login" ng-show="!isLoggedIn">Login To Post</a>
 					</div>
 				</div>
 			</div>
@@ -41,25 +41,25 @@
 			<div class="container">
 				<div class="row">
 					<div class="table-wrap">
-						<div class="col-md-7 col-sm-7 col-xs-7 table-heading">
+						<div class="col-md-6 col-sm-6 col-xs-6 table-heading">
 							<p ng-click="orderByTitle()">Title
 								<span ng-show="rowFilter == 'title'"><i class="fa fa-arrow-circle-down"></i></span>
 								<span ng-show="rowFilter == '-title'"><i class="fa fa-arrow-circle-up"></i></span>
 							</p>
 						</div>
-						<div class="col-md-2 col-sm-2 col-xs-2 table-heading">
+						<div class="col-md-2 col-sm-2 col-xs-3 table-heading">
 							<p ng-click="orderByReplies()">Replies
 								<span ng-show="rowFilter == 'comments.length'"><i class="fa fa-arrow-circle-down"></i></span>
 								<span ng-show="rowFilter == '-comments.length'"><i class="fa fa-arrow-circle-up"></i></span>
 							</p>
 						</div>
-						<div class="col-md-2 col-sm-2 col-xs-2 table-heading">
+						<div class="col-md-2 col-sm-2 hidden-xs table-heading">
 							<p ng-click="orderByView()">Views
 								<span ng-show="rowFilter == 'views'"><i class="fa fa-arrow-circle-down"></i></span>
 								<span ng-show="rowFilter == '-views'"><i class="fa fa-arrow-circle-up"></i></span>
 							</p>
 						</div>
-						<div class="col-md-1 col-sm-1 col-xs-1 table-heading">
+						<div class="col-md-2 col-sm-2 col-xs-3 table-heading">
 							<p ng-click="orderByVotes()">&nbsp;
 								<span ng-show="rowFilter == '-upvotes'"><i class="fa fa-arrow-circle-down"></i></span>
 								<span ng-show="rowFilter == 'upvotes'"><i class="fa fa-arrow-circle-up"></i></span>
@@ -73,17 +73,17 @@
         <div class="container">
             <div class="table-wrap">
                 <div class="row post-row" ng-repeat="post in category.posts | orderBy: rowFilter">
-                    <div class="col-md-7 col-sm-7 col-xs-7">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
                         <p><a href="/view-post/{{post._id}}/{{post.title | slugify}}">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p>
                         <p class="category-description">Posted {{post.created | date:'MM-dd-yy @ HH:mm:ss' }} by {{post.author }}</p>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xs-2">
+                    <div class="col-md-2 col-sm-2 col-xs-3">
                         <p>{{post.comments.length }}</p>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xs-2">
+                    <div class="col-md-2 col-sm-2 hidden-xs">
                         <p>{{post.views}}</p>
                     </div>
-                    <div class="col-md-1 col-sm-1 col-xs-1">
+                    <div class="col-md-2 col-sm-2 col-xs-3">
                         <p class="upvote-display"><span class="upvote-count">+{{post.upvotes}}</span>&nbsp;<span class="downvote-count">-{{post.downvotes}}</span></p>
                     </div>
                 </div>
