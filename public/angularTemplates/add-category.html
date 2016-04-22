@@ -2,9 +2,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="user-message warning" ng-show="userMessage !=''">
+                <div class="user-message" ng-show="userMessage !=''">
                     <button class="btn hide-message-btn" ng-click="hideMessage()"><i class="fa fa-times"></i></button>
                     <p>{{userMessage}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ERROR MESSAGE DISPLAY BLOCK -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="user-message warning" ng-show="serverError !=''">
+                    <p>{{serverError}}</p>
                 </div>
             </div>
         </div>

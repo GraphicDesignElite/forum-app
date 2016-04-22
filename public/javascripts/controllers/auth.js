@@ -3,7 +3,7 @@ app.controller('AuthCtrl', ['$scope', '$state', 'auth','userMessages', function(
     
     
     // HOLD OUR SERVER ERRORS FOR USER REGISTRATION
-    $scope.serversideError = '';
+    $scope.serverError = '';
     
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();
@@ -31,12 +31,7 @@ app.controller('AuthCtrl', ['$scope', '$state', 'auth','userMessages', function(
     $scope.logIn = function(){
         auth.logIn($scope.user).error(function(error){
         $scope.error = error;
-        if(error.search('message')){
-            $scope.serversideError ="The Username or Password is Incorrect.";
-        }
-        else{
-            $scope.serversideError ="Unknown Error.";
-        }
+        $scope.serverError = error.message;
         
         }).then(function(){
           // return user to previous action

@@ -1,6 +1,9 @@
 app.controller('EditPostsCtrl', ['$state','$scope', 'posts', 'post', 'userMessages', 'categories', function($state, $scope, posts, post, userMessages, categories){
 	
+    // GET ASSIGNABLE CATEGORIES
     $scope.categories = categories.categories;
+    
+    // GET THE POST TO EDIT
     $scope.post = post;
     
     // CREATE SENSIBLE DEFAULTS

@@ -1,8 +1,16 @@
 app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories', 'userMessages','auth', function($state, $scope, $location, categories, userMessages, auth){
 
     $scope.userMessage = '';
-    $scope.maxPostContentSize = 230;
     
+    // SET SENSIBLE DEFAULTS
+    $scope.maxTitleSize = 80;
+    $scope.maxPostContentSize = 400;
+    
+    
+    // HOLD OUR SERVER ERRORS FOR USER REGISTRATION
+    $scope.serverError = '';
+    
+    // GET USER INFORMATION
     $scope.currentUser = auth.currentUser();
     
     //HANDLE USER MESSAGES
@@ -27,9 +35,8 @@ app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories'
             $state.go('categoryList');
             
         },function(error){
-           userMessages.setMessage("A Duplicate Category Cannot Be Added");
-           $scope.userMessage = userMessages.getMessage();
-        }
+           $scope.serverError = "A Duplicate Category Cannot Be Added";
+            }
         );
         
     }

@@ -38,6 +38,7 @@ h1.page-title a{color:#000;}
 .post-row{background: #F6F6F6; padding-top:10px; padding-bottom:10px; text-transform: capitalize;}
 .post-row:nth-child(even){background:#fff;}
 .post-row div:last-child{text-align: right;}
+.post-row div:first-child{text-align: left;}
 .post-row:nth-child(odd){}
 .post-row p{ padding:0px; margin:0px; }
 

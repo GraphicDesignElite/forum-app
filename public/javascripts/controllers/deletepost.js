@@ -1,7 +1,10 @@
-app.controller('DeletePostsCtrl', ['$state', '$scope','$location', 'posts', 'post', 'userMessages', function($state, $scope, $location, posts, post, userMessages){
+app.controller('DeletePostsCtrl', ['$state', '$scope','$location', 'posts', 'post', 'userMessages','auth', function($state, $scope, $location, posts, post, userMessages, auth){
 	
     // GET THE POST TO BE DELETED FOR REVIEW
     $scope.post = post;
+    
+    // GET USER INFORMATION
+    $scope.currentUser = auth.currentUser();
 	
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();

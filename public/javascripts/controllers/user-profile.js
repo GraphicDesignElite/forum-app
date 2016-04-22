@@ -1,10 +1,12 @@
 app.controller('UserProfileCtrl', ['$scope', 'users', 'user', 'userMessages', 'auth', function($scope, users, user, userMessages, auth){
 	
+    // GET THE USER
 	$scope.user = user;
 	
-    // GET THE CURRENT USER, ONLY USERS CAN COMMENT
-    $scope.currentUser = auth.currentUser();
+    // GET USER INFORMATION
     $scope.isLoggedIn = auth.isLoggedIn();
+    $scope.isAdmin = auth.isAdmin();
+    $scope.currentUser = auth.currentUser();
     
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();

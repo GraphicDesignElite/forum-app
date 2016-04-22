@@ -1,4 +1,5 @@
 app.controller('AddPostCtrl', ['$state', '$scope','posts', 'userMessages', 'categories', 'auth', function($state, $scope, posts,  userMessages, categories, auth){
+   
     //AUTO POPULATE SYSTEMWIDE CATEGORIES
     $scope.categories = categories.categories;
     
@@ -6,6 +7,7 @@ app.controller('AddPostCtrl', ['$state', '$scope','posts', 'userMessages', 'cate
     $scope.maxPostContentSize = 400;
     $scope.maxTitleSize = 80;
     
+    // GET USER INFORMATION
     $scope.currentUser = auth.currentUser();
     
     //HANDLE USER MESSAGES

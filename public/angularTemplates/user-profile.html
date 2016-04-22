@@ -53,10 +53,10 @@
             <div class="row post-row" ng-repeat="post in user.posts | orderBy: rowFilter">
                 <div class="col-md-10 col-sm-10 col-xs-10">
                     <p><span class="upvote-count">+{{post.upvotes}}</span>&nbsp;<span class="downvote-count">-{{post.downvotes}}</span>
-                    <a href="/view-post/{{post._id}}/">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p> 
+                    <a href="/view-post/{{post._id}}/{{post.title | slugify }}">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p> 
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2">
-                    <p>{{post.created | timeAgo }}</p>
+                    <p><span title="{{post.created | date:'MM-dd-yy @ h:mm a' }}">{{post.created | timeAgo }}</span></p>
                 </div>
             </div>
         </div>

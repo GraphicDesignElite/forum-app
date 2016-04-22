@@ -1,9 +1,10 @@
 
 app.controller('CategoryCtrl', ['$scope','$location','categories', 'userMessages', 'auth', function($scope, $location, categories, userMessages, auth){
+   
     // GET ALL CATEGORIES
     $scope.categories = categories.categories; 
     
-    // USER INFO
+    // GET USER INFORMATION
     $scope.isLoggedIn = auth.isLoggedIn();
     $scope.isAdmin = auth.isAdmin();
     
