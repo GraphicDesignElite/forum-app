@@ -1,3 +1,4 @@
+
 app.filter('cut', function () {
         return function (value, wordwise, max, tail) {
             if (!value) return '';

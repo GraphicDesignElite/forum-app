@@ -10,5 +10,77 @@
         </div>
     </div> 
     <!-- DISPLAY CATEGORIES TABLE HEADER AND CONTROLS -->
-    
-    {{user}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3 user-profile-image">
+                <img ng-src="http://placehold.it/400x400?text={{user.username}}'s+profile+picture"/>
+            </div>
+            <div class="col-md-9 col-sm-9 user-profile-data">
+                <h1>Username: {{user.username}}</h1>
+                <p><strong>Account Created:</strong> {{user.accountcreated | date}}</p>
+                <p><strong>Last Active:</strong> {{user.recentactivity | date}}</p>
+                <p><strong>Discussions Posted:</strong> {{user.numposts}}</p>
+                <p><strong>Replies:</strong> {{user.numcomments}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+	    <div class="row">
+            <div class="col-md-12">
+                <h4>Recent Activity</h4>
+            </div>        
+        </div>
+    </div>
+    <div ng-if="user.comments.length != 0">
+			<div class="container">
+				<div class="row">
+					<div class="table-wrap">
+                        <h5>Comments</h5>
+						<div class="col-md-6 col-sm-6 col-xs-6 table-heading">
+							<p ng-click="orderByTitle()">Comment
+								<span ng-show="rowFilter == 'title'"><i class="fa fa-arrow-circle-down"></i></span>
+								<span ng-show="rowFilter == '-title'"><i class="fa fa-arrow-circle-up"></i></span>
+							</p>
+						</div>
+						<div class="col-md-2 col-sm-2 col-xs-3 table-heading">
+							<p ng-click="orderByReplies()">Replies
+								<span ng-show="rowFilter == 'comments.length'"><i class="fa fa-arrow-circle-down"></i></span>
+								<span ng-show="rowFilter == '-comments.length'"><i class="fa fa-arrow-circle-up"></i></span>
+							</p>
+						</div>
+						<div class="col-md-2 col-sm-2 hidden-xs table-heading">
+							<p ng-click="orderByView()">Views
+								<span ng-show="rowFilter == 'views'"><i class="fa fa-arrow-circle-down"></i></span>
+								<span ng-show="rowFilter == '-views'"><i class="fa fa-arrow-circle-up"></i></span>
+							</p>
+						</div>
+						<div class="col-md-2 col-sm-2 col-xs-3 table-heading">
+							<p ng-click="orderByVotes()">&nbsp;
+								<span ng-show="rowFilter == '-upvotes'"><i class="fa fa-arrow-circle-down"></i></span>
+								<span ng-show="rowFilter == 'upvotes'"><i class="fa fa-arrow-circle-up"></i></span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!-- DISPLAY CATEGORIES -->
+        <div class="container">
+            <div class="table-wrap">
+                <div class="row post-row" ng-repeat="comment in user.comments | orderBy: rowFilter">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <p><a href="/view-post/{{comment.post}}">{{comment.body | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p> 
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-3">
+                        <p>{{comment.created | date }}</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 hidden-xs">
+                        <p>{{post.views}}</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-3">
+                        <p class="upvote-display"><span class="upvote-count">+{{post.upvotes}}</span>&nbsp;<span class="downvote-count">-{{post.downvotes}}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    </div><!-- end posts-display -->

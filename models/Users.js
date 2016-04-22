@@ -9,7 +9,14 @@ var UserSchema = new mongoose.Schema({
     verified: {type: Boolean, default: true},
     numcomments: {type: Number, default: 0},
     numposts: {type: Number, default: 0},
+    accountcreated: {type: Date, default: Date.now()},
+    recentactivity: {type: Date, default: Date.now()},
+    location: {type: String, default: 'Unknown'},
+    age: {type: Number},
+    occupation: {type: String},
     userrole: {type: String, default: 'User'},
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
     hash: String,
     salt: String
 });

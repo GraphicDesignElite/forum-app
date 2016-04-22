@@ -1,6 +1,7 @@
 app.controller('AuthCtrl', ['$scope', '$state', 'auth','userMessages', function($scope, $state, auth, userMessages){
     $scope.user = {};
-  
+    
+    
     // HOLD OUR SERVER ERRORS FOR USER REGISTRATION
     $scope.serversideError = '';
     
@@ -38,7 +39,10 @@ app.controller('AuthCtrl', ['$scope', '$state', 'auth','userMessages', function(
         }
         
         }).then(function(){
-        $state.go('categoryList',{},{ reload: true });
+          // return user to previous action
+            
+            $state.go('categoryList',{},{ reload: true });
+            
         });
     }; 
 }]);

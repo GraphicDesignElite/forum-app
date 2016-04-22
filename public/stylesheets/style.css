@@ -77,8 +77,6 @@ p.category-description{font-size:12px; color:#666; padding-top:3px;}
 .user-message.warning{background: #FCD6D6; border: 1px solid #F26E6E;}
 .user-message.note{background: #CBF1FC; border: 1px solid #9FD6E3;}
 .user-message.standard{background: #efefef; border: 1px solid #dddddd;}
-
-
 .user-message p{padding:0px; margin:0px;}
 .error-container{margin-top:5px;}
 .error-container p{display:inline-block; padding:4px; background: #F0F0B0;}
@@ -107,6 +105,9 @@ p.category-description{font-size:12px; color:#666; padding-top:3px;}
 .user-menu ul li a{padding:5px 10px; display:inline-block; border-left:1px solid #ddd; color:#333; text-decoration: none; transition:all .3s;}
 .user-menu ul li a:hover{background:#fff; cursor:pointer;}
 .user-menu ul li.active a{background:#fff; cursor:pointer;}
+
+/*User Profile*/
+.user-profile-image img{max-width:100%;}
 
 @media (min-width: 768px){
     #mainmenu .navbar-nav>li.active>a{background:#fff; color:#000;}

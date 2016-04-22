@@ -200,7 +200,12 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
         user: ['$stateParams', 'users', function($stateParams, users) {
             return users.getOne($stateParams.username);
         }]
-        }
+        },
+        onEnter: ['$state', 'auth', function($state, auth){
+            if(!auth.isLoggedIn()){
+                $state.go('login');
+            }
+        }]
     });
 
     // Log in State
@@ -208,19 +213,6 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
         url: '/login',
         templateUrl: 'angularTemplates/login.html',
         controller: 'AuthCtrl',
-        resolve: { // get the previous state incase we require a log in to take action
-            PreviousState: [
-                "$state",
-                    function ($state) {
-                        var currentStateData = {
-                            Name: $state.current.name,
-                            Params: $state.params,
-                            URL: $state.href($state.current.name, $state.params)
-                        };
-                    return currentStateData;
-                    }
-              ]
-        },
         onEnter: ['$state', 'auth', function($state, auth){
             if(auth.isLoggedIn()){
                 $state.go('categoryList');

@@ -194,11 +194,6 @@ router.get('/', function(req, res, next) {
         comment.post = req.post;
         if(req.post.active && comment.body.length > 1){
             
-            // increment user comment count
-            User.findOne({ 'username': comment.author }, function (err, user) {
-                if (err) return handleError(err);
-                    user.addcomment(user);
-            });
             // save the new comment
             comment.save(function(err, comment){
                 if(err){ return next(err); }
@@ -206,8 +201,16 @@ router.get('/', function(req, res, next) {
                 req.post.comments.push(comment);
                 req.post.save(function(err, post) {
                 if(err){ return next(err); }
+                
                 res.json(comment);
                 });
+            });
+            // increment user comment count
+            User.findOne({ 'username': comment.author }, function (err, user) {
+                if (err) return handleError(err);
+                    // user gets 1 comment tally and comment reference
+                    user.addcomment(user);
+                    user.comments.push(comment);
             });
         }
         else{
@@ -345,7 +348,14 @@ router.get('/', function(req, res, next) {
         user.email = req.user.email;
         user.numcomments = req.user.numcomments;
         user.numposts = req.user.numposts;
-        res.json(user);
+        user.accountcreated = req.user.accountcreated;
+        user.recentactivity = req.user.recentactivity;
+        
+        
+        req.user.populate('comments', function(err, user) {
+            if (err) { return next(err); }
+            res.json(user);
+        });
     });
     
     // Register New User
