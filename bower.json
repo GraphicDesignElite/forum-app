@@ -19,6 +19,7 @@
     "angular-messages": "~1.4.8",
     "angular-ui-router": "~0.2.15",
     "angular-confirm-modal": "~1.2.2",
-    "angular-bootstrap": "~0.14.3"
+    "angular-bootstrap": "~0.14.3",
+    "angular-timeago": "~0.2.6"
   }
 }

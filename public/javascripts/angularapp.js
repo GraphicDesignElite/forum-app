@@ -1,4 +1,4 @@
-var app = angular.module('forum-app', ['slugifier','ngMessages', 'ui.router', 'ui.bootstrap']);
+var app = angular.module('forum-app', ['ngMessages', 'ui.router', 'ui.bootstrap', 'yaru22.angular-timeago','slugifier',]);
 
 app.config([
 '$stateProvider',
@@ -14,7 +14,7 @@ function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
     // Control mobile menu
     function NavBarCtrl($scope) {
         $scope.isCollapsed = true;
-    }  
+    }
     
     //All Categories
     $stateProvider.state('categoryList', {

@@ -88,9 +88,11 @@ router.get('/', function(req, res, next) {
         User.findOne({ 'username': req.body.author }, function (err, user) {
             if (err) return handleError(err);
                 user.addpost(user);
+                user.posts.push(post);
         });
+        
         post.category = req.category;
- 
+        
         post.save(function(err, post){
         if(err) return next(err);
         // attempt to add post into category posts
@@ -100,6 +102,7 @@ router.get('/', function(req, res, next) {
             res.json(post);
             });
         });
+        
     });
     // Get a single Post
     router.get('/api/posts/:post', function(req, res, next) {
@@ -350,12 +353,15 @@ router.get('/', function(req, res, next) {
         user.numposts = req.user.numposts;
         user.accountcreated = req.user.accountcreated;
         user.recentactivity = req.user.recentactivity;
-        
-        
-        req.user.populate('comments', function(err, user) {
+        req.user.populate('posts', function(err, user) {
             if (err) { return next(err); }
-            res.json(user);
+                req.user.populate('comments', function(err, user) {
+                if (err) { return next(err); }
+                res.json(user);
+            });
         });
+        
+       
     });
     
     // Register New User

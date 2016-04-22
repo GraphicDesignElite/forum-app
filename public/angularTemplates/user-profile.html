@@ -17,8 +17,8 @@
             </div>
             <div class="col-md-9 col-sm-9 user-profile-data">
                 <h1>Username: {{user.username}}</h1>
-                <p><strong>Account Created:</strong> {{user.accountcreated | date}}</p>
-                <p><strong>Last Active:</strong> {{user.recentactivity | date}}</p>
+                <p><strong>Account Created:</strong> {{user.accountcreated | timeAgo}}</p>
+                <p><strong>Last Active:</strong> {{user.recentactivity | timeAgo}}</p>
                 <p><strong>Discussions Posted:</strong> {{user.numposts}}</p>
                 <p><strong>Replies:</strong> {{user.numcomments}}</p>
             </div>
@@ -31,56 +31,55 @@
             </div>        
         </div>
     </div>
-    <div ng-if="user.comments.length != 0">
-			<div class="container">
-				<div class="row">
-					<div class="table-wrap">
-                        <h5>Comments</h5>
-						<div class="col-md-6 col-sm-6 col-xs-6 table-heading">
-							<p ng-click="orderByTitle()">Comment
-								<span ng-show="rowFilter == 'title'"><i class="fa fa-arrow-circle-down"></i></span>
-								<span ng-show="rowFilter == '-title'"><i class="fa fa-arrow-circle-up"></i></span>
-							</p>
-						</div>
-						<div class="col-md-2 col-sm-2 col-xs-3 table-heading">
-							<p ng-click="orderByReplies()">Replies
-								<span ng-show="rowFilter == 'comments.length'"><i class="fa fa-arrow-circle-down"></i></span>
-								<span ng-show="rowFilter == '-comments.length'"><i class="fa fa-arrow-circle-up"></i></span>
-							</p>
-						</div>
-						<div class="col-md-2 col-sm-2 hidden-xs table-heading">
-							<p ng-click="orderByView()">Views
-								<span ng-show="rowFilter == 'views'"><i class="fa fa-arrow-circle-down"></i></span>
-								<span ng-show="rowFilter == '-views'"><i class="fa fa-arrow-circle-up"></i></span>
-							</p>
-						</div>
-						<div class="col-md-2 col-sm-2 col-xs-3 table-heading">
-							<p ng-click="orderByVotes()">&nbsp;
-								<span ng-show="rowFilter == '-upvotes'"><i class="fa fa-arrow-circle-down"></i></span>
-								<span ng-show="rowFilter == 'upvotes'"><i class="fa fa-arrow-circle-up"></i></span>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-        <!-- DISPLAY CATEGORIES -->
-        <div class="container">
-            <div class="table-wrap">
-                <div class="row post-row" ng-repeat="comment in user.comments | orderBy: rowFilter">
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <p><a href="/view-post/{{comment.post}}">{{comment.body | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p> 
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-3">
-                        <p>{{comment.created | date }}</p>
-                    </div>
-                    <div class="col-md-2 col-sm-2 hidden-xs">
-                        <p>{{post.views}}</p>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-xs-3">
-                        <p class="upvote-display"><span class="upvote-count">+{{post.upvotes}}</span>&nbsp;<span class="downvote-count">-{{post.downvotes}}</span></p>
-                    </div>
+    <div class="container" ng-if="user.posts.length == 0 && user.comments.length == 0">
+	    <div class="row">
+            <div class="col-md-12">
+                <div class="user-message standard">
+                    <p>No Activity</p>
+                 </div>
+            </div>        
+        </div>
+    </div>
+    <div class="container" ng-if="user.posts.length != 0">
+	    <div class="row">
+            <div class="col-md-12">
+                <h5>Posts ({{user.posts.length}})</h5>
+            </div>        
+        </div>
+    </div>
+        <!-- DISPLAY POSTS -->
+    <div class="container" ng-if="user.posts.length != 0">
+        <div class="table-wrap">
+            <div class="row post-row" ng-repeat="post in user.posts | orderBy: rowFilter">
+                <div class="col-md-10 col-sm-10 col-xs-10">
+                    <p><span class="upvote-count">+{{post.upvotes}}</span>&nbsp;<span class="downvote-count">-{{post.downvotes}}</span>
+                    <a href="/view-post/{{post._id}}/">{{post.title | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p> 
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <p>{{post.created | timeAgo }}</p>
                 </div>
             </div>
-        </div>     
-    </div><!-- end posts-display -->
+        </div>
+    </div> 
+    
+    <div class="container" ng-if="user.comments.length != 0">
+	    <div class="row">
+            <div class="col-md-12">
+                <h5>Comments ({{user.comments.length}})</h5>
+            </div>        
+        </div>
+    </div>
+    <!-- DISPLAY COMMENTS -->
+    <div class="container" ng-if="user.comments.length != 0">
+        <div class="table-wrap">
+            <div class="row post-row" ng-repeat="comment in user.comments | orderBy: rowFilter">
+                <div class="col-md-10 col-sm-10 col-xs-10">
+                    <p><span class="upvote-count">+{{comment.upvotes}}</span>&nbsp;<span class="downvote-count">-{{comment.downvotes}}</span>
+                    <a href="/view-post/{{comment.post}}/#{{comment._id}}">{{comment.body | cut:true:60: ' ...'}}</a><span ng-if="post.active == false" class="tag-post">Closed</span></p> 
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <p>{{comment.created | timeAgo }}</p>
+                </div>
+            </div>
+        </div>
+    </div>     

@@ -31,15 +31,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h1 class="page-title">{{post.title}}</h1>
-                            <p class="post-created-date">Created by: <a ng-href="/user-profile/{{post.author}}">{{post.author }}</a> on {{post.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
+                            <p class="post-created-date">Created by: <a ng-href="/user-profile/{{post.author}}">{{post.author }}</a> <span title="{{post.created | date:'MM-dd-yy @ h:mm a'}}">{{post.created | timeAgo}}</span></p>
                             <div class="view-post-content">{{post.postcontent}}</div>
                             <div class="info-line">
-                                {{post.upvotes}}&nbsp;Likes |&nbsp;{{post.downvotes}}&nbsp;Dislikes |&nbsp;{{post.comments.length}}&nbsp;Comments |&nbsp;{{post.views}}&nbsp;Views
+                                {{post.upvotes}}&nbsp;Upvotes |&nbsp;{{post.downvotes}}&nbsp;Downvotes |&nbsp;{{post.comments.length}}&nbsp;Comments |&nbsp;{{post.views}}&nbsp;Views
                             </div>
                             <div class="row" ng-show="isLoggedIn">
                                 <div class="col-md-3">
-                                    <span class="upvote-button" ng-click="upvotePost(post)"><i class="fa fa-thumbs-up"></i></span>
-                                    <span class="downvote-button" ng-click="downvotePost(post)"><i class="fa fa-thumbs-down"></i></span>
+                                    <span class="upvote-button" ng-click="upvotePost(post)"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
+                                    <span class="downvote-button" ng-click="downvotePost(post)"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -72,12 +72,15 @@
                             <div class="comment-block" ng-repeat="comment in post.comments | orderBy : -comment.created">
                                 <p class="post-created-date">Commented by <a ng-href="/user-profile/{{comment.author}}">{{comment.author}}</a> at {{comment.created | date:'MM-dd-yy @ HH:mm:ss'}}</p>
                                 <p class="comment-body">{{comment.body}}</p>
+                                <a id="{{comment._id}}" name="{{comment._id}}"></a>
+                                
                                 <div class="info-line">
-                                {{comment.upvotes}}&nbsp;Likes, {{comment.downvotes}}&nbsp;Dislikes
+                                {{comment.upvotes}} Upvotes | {{comment.downvotes}} Downvotes
                                 </div>
+                                
                                 <div ng-show="isLoggedIn">
-                                    <span class="upvote-button" ng-click="upvoteComment(comment)"><i class="fa fa-thumbs-up"></i></span>
-                                    <span class="downvote-button" ng-click="downvoteComment(comment)"><i class="fa fa-thumbs-down"></i></span>
+                                    <span class="upvote-button" ng-click="upvoteComment(comment)"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
+                                    <span class="downvote-button" ng-click="downvoteComment(comment)"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                                 </div>
                             </div>
                         </div>

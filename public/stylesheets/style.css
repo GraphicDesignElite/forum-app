@@ -29,7 +29,7 @@ h1.page-title a{color:#000;}
 
 /* View Table Styles */
 .table-heading{background:#D8EDF6; border:1px solid #BDDDEB; border-right:0px;}
-.table-heading:last-child{border-right:1px solid #BDDDEB;}
+.table-heading:last-child{border-right:1px solid #BDDDEB; text-align: right;}
 .table-heading p{ margin:0px; padding-top: 10px; padding-bottom: 10px; cursor: pointer;}
 .table-heading .fa{color:#8DCBE6;}
 .table-heading span{float:right;}
@@ -37,11 +37,15 @@ h1.page-title a{color:#000;}
 
 .post-row{background: #F6F6F6; padding-top:10px; padding-bottom:10px; text-transform: capitalize;}
 .post-row:nth-child(even){background:#fff;}
+.post-row div:last-child{text-align: right;}
 .post-row:nth-child(odd){}
 .post-row p{ padding:0px; margin:0px; }
 
 /*vote display*/
 .upvote-display{text-align: right;}
+.upvote-button, .downvote-button{display:inline-block; padding:5px; border:1px solid #dddddd; cursor: pointer;}
+.upvote-button:hover, .downvote-button:hover{background:#efefef;}
+
 
 /*View Single Post Styles*/
 .post-created-date{color:#bbb; font-size:11px;}
