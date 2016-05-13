@@ -6,6 +6,7 @@ app.controller('ViewPostsCtrl', ['$scope', 'posts', 'post', 'userMessages', 'aut
     // GET THE CURRENT USER, ONLY USERS CAN COMMENT
     $scope.currentUser = auth.currentUser();
     $scope.isLoggedIn = auth.isLoggedIn();
+    $scope.ownsPost = (auth.currentUser() == post.author);
     
     //HANDLE USER MESSAGES
     $scope.userMessage = userMessages.getMessage();

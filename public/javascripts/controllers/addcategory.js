@@ -6,7 +6,6 @@ app.controller('AddCategoryCtrl', ['$state', '$scope', '$location' ,'categories'
     $scope.maxTitleSize = 80;
     $scope.maxPostContentSize = 400;
     
-    
     // HOLD OUR SERVER ERRORS FOR USER REGISTRATION
     $scope.serverError = '';
     
