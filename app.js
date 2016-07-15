@@ -20,6 +20,7 @@ require('./models/Posts');
 require('./models/Comments');
 require('./models/Categories');
 require('./models/Users');
+require('./models/Config');
 
 require('./config/passport');
 

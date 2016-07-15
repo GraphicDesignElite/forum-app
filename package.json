@@ -13,6 +13,7 @@
     "ejs": "~2.3.3",
     "env2": "^2.0.4",
     "express": "~4.13.1",
+    "express-jwt": "^3.4.0",
     "jsonwebtoken": "^5.5.4",
     "mongoose": "^4.3.4",
     "morgan": "~1.6.1",

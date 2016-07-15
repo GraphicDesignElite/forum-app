@@ -10,7 +10,7 @@ var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
 var Category = mongoose.model('Category');
 var User = mongoose.model('User');
-
+var Config = mongoose.model('Config');
 
 var auth = jwt({secret: '2455645364365676gdfsggfdsgs', userProperty: 'payload'});
 //process.env.DB_SECRET
@@ -374,11 +374,34 @@ router.get('/', function(req, res, next) {
         user.setPassword(req.body.password);
         user.email =  req.body.email;
         
-        user.save(function(err){
-            if(err){return next(err)}
-            
-            return res.json({token: user.generateJWT()});
-        })
+        Config.findOne( {systemRecordsID : '1'}, function (err, result) {
+            if (err) {return next(err)};
+            if (!result) {
+                console.log('The first user created in the system is designated as an admin. Creating admin now.');
+                user.userrole = 'Admin';
+
+                user.save(function(err){
+                    if(err){return next(err)}
+                    
+                    return res.json({token: user.generateJWT()});
+                });
+                var config = new Config();
+                config.registeredUsers = 1;
+                config.save(function(err){
+                    if(err){return next(err)}
+                });
+
+            }
+            else{
+                console.log('A new user has been created.');
+                user.save(function(err){
+                    if(err){return next(err)}
+                    
+                    return res.json({token: user.generateJWT()});
+                });
+            }
+        });
+
     });
     //Log In User
     router.post('/api/login', function(req, res, next){
